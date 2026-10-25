@@ -1,0 +1,17 @@
+# command-line build output (tools/build.*) and Eclipse's own build folder
+build/
+bin/
+*.class
+*.war
+
+# Eclipse metadata of THIS project is kept (.project, .classpath, .settings/)
+# so the project can be re-imported; only local/temp files are ignored
+.metadata/
+*.tmp
+*.log
+*~
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

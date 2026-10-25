@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    AspirantOS - deployment descriptor (web.xml)
+    JSP only project (CHANGE 005): no servlet classes are declared here.
+    Notes use javax.servlet (Tomcat 9); Tomcat 11 requires jakarta.servlet -
+    same API, new package name. That is why the schema below is Jakarta EE.
+-->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>AspirantOS</display-name>
+
+    <!-- Application-wide values: read in any JSP with application.getInitParameter("...") -->
+    <context-param>
+        <param-name>appName</param-name>
+        <param-value>AspirantOS</param-value>
+    </context-param>
+    <context-param>
+        <param-name>appTagline</param-name>
+        <param-value>One profile. Every exam. Know exactly how many chances you have left.</param-value>
+    </context-param>
+    <context-param>
+        <param-name>examsPageSize</param-name>
+        <param-value>12</param-value>
+    </context-param>
+
+    <!--
+        A JSP mapped like a servlet (same as the "welcome.jsp" example in the JSP notes).
+        about.jsp lives inside WEB-INF so it can only be opened through /about,
+        and it reads its own init-params with config.getInitParameter("...").
+    -->
+    <servlet>
+        <servlet-name>aboutPage</servlet-name>
+        <jsp-file>/WEB-INF/about.jsp</jsp-file>
+        <init-param>
+            <param-name>appVersion</param-name>
+            <param-value>1.0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>supportEmail</param-name>
+            <param-value>admin@aspirantos.in</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>aboutPage</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- error.jsp has isErrorPage="true" and uses the exception implicit object -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+</web-app>
