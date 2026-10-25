@@ -16,6 +16,7 @@ ER diagram: [`diagrams/er-diagram.svg`](diagrams/er-diagram.svg) — 26 tables, 
 | `05_seed_helpers.sql` | Helper procedures used only by the seed files (`sp_seed_exam`, `sp_seed_age`, `sp_seed_relax_*`, `sp_seed_attempt`, `sp_seed_qual`, `sp_seed_other`, `sp_seed_tet`, `sp_seed_set`, `sp_seed_body`) |
 | `10_seed_master.sql` | States/UTs, exam categories, conducting bodies, app settings |
 | `11_…` – `24_…` | Exam catalogue: 267 exams in 25 categories, one file per exam group, each exam with an ACTIVE rule version 1 |
+| `29_verified_sources.sql` | Marks the flagship exams checked against their official notice as VERIFIED (date + URL) |
 | `30_seed_doc_specs.sql`, `31_seed_exam_events.sql` | Photo/signature specs, exam calendar |
 | `40_seed_admin.sql` | The ONE seeded account: `admin@aspirantos.in` (no demo students) |
 | `99_reset_all.sql` | Drops every AspirantOS object (fresh start) |

@@ -31,7 +31,7 @@ CALL sp_seed_exam('CLAT_UG', 'Common Law Admission Test (UG)', 'CLAT UG', 'JUDIC
 CALL sp_seed_exam_info('Rs 4000 (Rs 3500 for SC, ST, BPL, PwBD)', 'No attempt limit.');
 CALL sp_seed_age(NULL, NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No upper age limit');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
-CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, 45, 40, 'SC,ST', TRUE, NULL, NULL, 'Class 12 with 45% (40% SC/ST); appearing students may apply');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, 45, 40, 'SC,ST,PWBD', TRUE, NULL, NULL, 'Class 12 with 45% (40% SC/ST/PwD); students appearing in March/April may apply');
 
 CALL sp_seed_exam('CLAT_PG', 'Common Law Admission Test (PG)', 'CLAT PG', 'JUDICIARY_LAW', 'CONSORTIUM_NLU',
      'NATIONAL', NULL, 'AUTONOMOUS', 'ADMISSION', 1.0, 7, 12,
@@ -89,7 +89,7 @@ CALL sp_seed_exam('UP_PCS_J', 'UP Judicial Services Civil Judge (Junior Division
      'Preliminary → Main → Interview', 'Civil Judge (Junior Division) in Uttar Pradesh', 'https://uppsc.up.nic.in',
      'Judicial service entry of Uttar Pradesh conducted by UPPSC.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 125 (Rs 65 for SC/ST of UP)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 22, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 22-35 on the cut-off date');
+CALL sp_seed_age(NULL, 22, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 22-35 on the cut-off date');
 CALL sp_seed_relax_state(5, 5, 0, 15, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);
@@ -100,7 +100,7 @@ CALL sp_seed_exam('DELHI_JS', 'Delhi Judicial Service Examination', 'Delhi Judic
      'Preliminary → Main → Viva-voce', 'Civil Judge in Delhi', 'https://delhihighcourt.nic.in',
      'Judicial service entry of Delhi conducted by the Delhi High Court.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (Rs 100 for SC/ST/PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 32, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Not more than 32 years on 1 January');
+CALL sp_seed_age(NULL, NULL, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Not more than 32 years on 1 January');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('PWBD', NULL, 10, 'ADD', NULL, FALSE, NULL);
@@ -112,7 +112,7 @@ CALL sp_seed_exam('RAJASTHAN_JS', 'Rajasthan Judicial Service (Civil Judge) - RJ
      'Preliminary → Main → Interview', 'Civil Judge in Rajasthan', 'https://hcraj.nic.in',
      'Judicial service entry of Rajasthan conducted by the Rajasthan High Court.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (lower for reserved categories of Rajasthan)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-40 on 1 January');
+CALL sp_seed_age(NULL, 21, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-40 on 1 January');
 CALL sp_seed_relax_state(5, 5, 5, 10, 0);
 CALL sp_seed_relax('WOMEN', NULL, 5, 'ADD', NULL, TRUE, 'Women of Rajasthan: +5');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -124,7 +124,7 @@ CALL sp_seed_exam('MP_CIVIL_JUDGE', 'MP Civil Judge (Junior Division) Entry Leve
      'Preliminary → Main → Interview', 'Civil Judge Class II in Madhya Pradesh', 'https://mphc.gov.in',
      'Judicial service entry of Madhya Pradesh conducted by the MP High Court.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1028 (lower for reserved categories of MP)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-35');
+CALL sp_seed_age(NULL, 21, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-35');
 CALL sp_seed_relax_state(3, 3, 0, 0, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);
@@ -135,7 +135,7 @@ CALL sp_seed_exam('BIHAR_JS', 'Bihar Judicial Services (Civil Judge) Competitive
      'Preliminary → Main → Interview', 'Civil Judge (Junior Division) in Bihar', 'https://bpsc.bihar.gov.in',
      'Judicial service entry of Bihar conducted by BPSC.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 600 (Rs 150 for SC/ST/PwBD of Bihar)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 22, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Unreserved: 22-35');
+CALL sp_seed_age(NULL, 22, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Unreserved: 22-35');
 CALL sp_seed_relax_state(3, 5, 0, 10, 0);
 CALL sp_seed_relax('WOMEN', NULL, 3, 'ADD', NULL, TRUE, 'Women of Bihar: +3');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -147,7 +147,7 @@ CALL sp_seed_exam('HARYANA_JS', 'Haryana Civil Service (Judicial Branch)', 'Hary
      'Preliminary → Main → Viva-voce', 'Civil Judge (Junior Division) in Haryana', 'https://hpsc.gov.in',
      'Judicial service entry of Haryana (HCS Judicial).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1000 (Rs 250 for reserved / women of Haryana)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 42, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-42');
+CALL sp_seed_age(NULL, 21, 42, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-42');
 CALL sp_seed_relax_state(5, 5, 0, 10, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);
@@ -158,7 +158,7 @@ CALL sp_seed_exam('PUNJAB_JS', 'Punjab Civil Service (Judicial Branch)', 'Punjab
      'Preliminary → Main → Viva-voce', 'Civil Judge (Junior Division) in Punjab', 'https://ppsc.gov.in',
      'Judicial service entry of Punjab (PCS Judicial).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (Rs 750 for SC/BC of Punjab)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 37, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-37');
+CALL sp_seed_age(NULL, 21, 37, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-37');
 CALL sp_seed_relax_state(5, 5, 0, 10, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);
@@ -169,7 +169,7 @@ CALL sp_seed_exam('MAHARASHTRA_JS', 'Maharashtra Civil Judge (Junior Division) &
      'Preliminary → Main → Viva-voce', 'Civil Judge (Junior Division) and JMFC in Maharashtra', 'https://mpsc.gov.in',
      'Judicial service entry of Maharashtra conducted by MPSC.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 394 (lower for backward classes of Maharashtra)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Practising advocates: up to 35 (fresh graduates had a lower limit before 2025)');
+CALL sp_seed_age(NULL, 21, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Practising advocates: up to 35 (fresh graduates had a lower limit before 2025)');
 CALL sp_seed_relax_state(3, 5, 0, 0, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);
@@ -180,7 +180,7 @@ CALL sp_seed_exam('OTHER_STATE_JS', 'Other State Judicial Services - Civil Judge
      'Preliminary → Main → Interview (varies by state)', 'Civil Judge (Junior Division) in other states', NULL,
      'Generic entry for the remaining states. Age limits and procedures vary - always read that state''s notification.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Varies by state', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 21-35 (varies by state)');
+CALL sp_seed_age(NULL, 21, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 21-35 (varies by state)');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'LLB', NULL, NULL, NULL, NULL, FALSE, NULL, 3.0, @jud);

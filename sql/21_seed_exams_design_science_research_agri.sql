@@ -45,7 +45,7 @@ CALL sp_seed_exam('NIFT_ENTRANCE', 'NIFT Entrance Examination', 'NIFT Entrance',
      'GAT + CAT (creative ability) → Situation test / interview', 'B.Des, B.FTech, M.Des, M.F.M and M.FTech at 19 NIFT campuses', 'https://nift.ac.in',
      'Fashion and design entrance. UG programmes have an upper age limit of 24.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 3000 (Rs 1500 for SC, ST, PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('UG (B.Des / B.FTech)', NULL, 24, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'UG: below 24 years on 1 August (5 years relaxation for SC/ST/PwBD)');
+CALL sp_seed_age('UG (B.Des / B.FTech)', NULL, 24, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'UG: below 24 years on 1 August (5 years relaxation for SC/ST/PwBD)');
 CALL sp_seed_age('PG (M.Des / M.F.M / M.FTech)', NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'PG: no age limit');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, '5 years relaxation (UG)');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'REPLACE_WITH_MAX', NULL, FALSE, '5 years relaxation (UG)');
@@ -89,7 +89,7 @@ CALL sp_seed_exam('FDDI_AIST', 'FDDI All India Selection Test', 'FDDI AIST', 'DE
      'Computer-based test → Counselling', 'B.Des and M.Des in footwear, fashion, leather goods and retail at 12 FDDI campuses', 'https://fddiindia.com',
      'Entrance of the Footwear Design and Development Institute.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 600 (Rs 300 for SC/ST)', 'One attempt per year.');
-CALL sp_seed_age('UG (B.Des)', NULL, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'UG: up to 25 years on 1 July');
+CALL sp_seed_age('UG (B.Des)', NULL, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'UG: up to 25 years on 1 July');
 CALL sp_seed_age('PG (M.Des)', NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'PG: no age limit');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual('UG (B.Des)', 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Class 12 in any stream');
@@ -111,7 +111,7 @@ CALL sp_seed_exam('ICMR_JRF', 'ICMR Junior Research Fellowship Examination', 'IC
      'Computer-based test (Life Sciences / Social Sciences)', 'Junior Research Fellowship for PhD in biomedical sciences', 'https://www.icmr.gov.in',
      'Fellowship test of the Indian Council of Medical Research; upper age 28.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1500 (Rs 1200 for SC/ST/PwBD/women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Up to 28 years on the closing date');
+CALL sp_seed_age(NULL, NULL, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Up to 28 years on the closing date');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'REPLACE_WITH_MAX', NULL, FALSE, 'OBC: 3 years');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: 5 years');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: 5 years');
@@ -125,7 +125,7 @@ CALL sp_seed_exam('DBT_BET', 'DBT Biotechnology Eligibility Test (JRF)', 'DBT BE
      'Computer-based test (Part A + Part B)', 'DBT-JRF for PhD in biotechnology and life sciences', 'https://dbtindia.gov.in',
      'Fellowship test of the Department of Biotechnology.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1300 (Rs 650 for SC/ST/PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Up to 28 years on the closing date');
+CALL sp_seed_age(NULL, NULL, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Up to 28 years on the closing date');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'REPLACE_WITH_MAX', NULL, FALSE, 'OBC: 3 years');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: 5 years');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: 5 years');
@@ -189,7 +189,7 @@ CALL sp_seed_exam('ICAR_AIEEA_PG', 'ICAR AIEEA PG (Masters Admission)', 'ICAR AI
      'Computer-based test', 'Masters in agriculture and allied subjects with ICAR PG scholarship', 'https://icar.nta.nic.in',
      'PG entrance for agricultural universities. Minimum age 19 on 31 August.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1875 (Rs 975 for SC/ST/PwBD)', 'No attempt limit.');
-CALL sp_seed_age(NULL, 19, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 31, 'At least 19 years on 31 August; no upper age limit');
+CALL sp_seed_age(NULL, 19, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 31, 'At least 19 years on 31 August; no upper age limit');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.Sc,B.Tech,B.V.Sc,B.F.Sc', 'AGRICULTURE|HORTICULTURE|FORESTRY|VETERINARY|FISHERIES|DAIRY|AGRICULTURAL ENGINEERING|HOME SCIENCE', 60, 50, 'SC,ST,PWBD', TRUE, NULL, NULL, 'Bachelor''s in agriculture or an allied subject with OGPA 6.0/10 or 60% (5.0 / 50% for SC/ST/PwBD)');
 
@@ -198,7 +198,7 @@ CALL sp_seed_exam('ASRB_NET_ARS', 'ASRB NET / ARS / STO Examination', 'ASRB NET 
      'NET (eligibility) / ARS Prelims → Mains → Interview', 'National Eligibility Test (lecturer in agri universities), Agricultural Research Service scientists, Senior Technical Officer', 'https://www.asrb.org.in',
      'Agricultural Scientists Recruitment Board exams: NET has no age limit; ARS scientists 21-32.', 'LIKELY', @src);
 CALL sp_seed_exam_info('NET Rs 1000; ARS Rs 1000 (reduced for SC/ST/PwBD/women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('ARS Scientist', 21, 32, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 5, 1, 'ARS: 21-32 on the closing date');
+CALL sp_seed_age('ARS Scientist', 21, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 5, 1, 'ARS: 21-32 on the closing date');
 CALL sp_seed_age('NET', NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'NET: no age limit');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -209,7 +209,7 @@ CALL sp_seed_exam('STATE_AGRI_UG', 'State Agricultural University Entrance (UG) 
      'State entrance (often through the state CET or CUET-ICAR)', 'B.Sc (Hons) Agriculture, Horticulture, B.V.Sc and other UG courses at state agricultural universities', NULL,
      'Generic entry: most states admit through their own CET; 20% seats in state universities go through ICAR (CUET UG).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Varies by state', 'One attempt per year.');
-CALL sp_seed_age(NULL, 16, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'Typical: at least 16-17 years on 31 December');
+CALL sp_seed_age(NULL, 16, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'Typical: at least 16-17 years on 31 December');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,BIOLOGY|MATHS|AGRICULTURE', 50, 40, 'SC,ST,OBC_NCL', TRUE, NULL, NULL, 'Class 12 with Physics, Chemistry and Biology / Maths / Agriculture, about 50% (lower for reserved)');
 

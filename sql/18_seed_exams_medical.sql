@@ -23,12 +23,10 @@ CALL sp_seed_exam('NEET_UG', 'National Eligibility cum Entrance Test (UG)', 'NEE
      'MBBS, BDS, BAMS, BUMS, BSMS, BHMS, B.V.Sc & AH and B.Sc Nursing (some institutes)', 'https://neet.nta.nic.in',
      'The only entrance for MBBS / BDS in India. Minimum age 17 by 31 December of the admission year; no upper age and no attempt limit.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1700 (General), Rs 1600 (EWS / OBC-NCL), Rs 1000 (SC / ST / PwBD / transgender)', 'No limit on the number of attempts.');
-CALL sp_seed_age(NULL, 17, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the admission year; no upper age limit');
+CALL sp_seed_age(NULL, 17, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the admission year; no upper age limit');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
-CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,BIOLOGY|BIOTECHNOLOGY,ENGLISH', 50, 40, 'SC,ST,OBC_NCL', TRUE, NULL, NULL,
-     'Class 12 with Physics, Chemistry, Biology/Biotechnology and English; 50% in PCB (40% SC/ST/OBC); appearing students may apply');
-CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,BIOLOGY|BIOTECHNOLOGY,ENGLISH', 50, 45, 'PWBD', TRUE, NULL, NULL,
-     'General-PwBD: 45% in PCB');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,BIOLOGY|BIOTECHNOLOGY,ENGLISH', NULL, NULL, NULL, TRUE, NULL, NULL,
+     'Class 12 with Physics, Chemistry, Biology/Biotechnology and English (also as additional subjects); appearing students may apply. No minimum Class 12 percentage to appear; to qualify NEET you need the 50th percentile (40th SC/ST/OBC, 45th General-PwBD)');
 
 CALL sp_seed_exam('NEET_PG', 'NEET Postgraduate', 'NEET PG', 'MEDICAL', 'NBEMS',
      'NATIONAL', NULL, 'GOVERNMENT', 'ADMISSION', 1.0, 4, 8,
@@ -91,7 +89,7 @@ CALL sp_seed_exam('ESIC_IMO', 'ESIC Insurance Medical Officer Grade II', 'ESIC I
      'Shortlisting through UPSC CMS rank (recent) or written exam → Interview', 'Insurance Medical Officer Grade II (Allopathy) in ESIC hospitals', 'https://www.esic.gov.in',
      'Recruitment of MBBS doctors for ESIC hospitals and dispensaries (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 500 (exempt for SC, ST, PwBD, women, ex-servicemen)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 35 years on the closing date');
+CALL sp_seed_age(NULL, NULL, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 35 years on the closing date');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'MBBS', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'MBBS with completed internship');
@@ -103,7 +101,7 @@ CALL sp_seed_exam('AIIMS_BSC_NURSING', 'AIIMS B.Sc Nursing (Hons) Entrance', 'AI
      'Computer-based test → Counselling', 'B.Sc Nursing (Hons) at AIIMS institutes', 'https://www.aiimsexams.ac.in',
      'Nursing degree admission at AIIMS. Several AIIMS admit only women for this course.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 2000 (General / OBC), Rs 1600 (SC / ST / EWS)', 'One attempt per year.');
-CALL sp_seed_age(NULL, 17, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the admission year');
+CALL sp_seed_age(NULL, 17, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the admission year');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,BIOLOGY,ENGLISH', 55, 50, 'SC,ST', TRUE, NULL, NULL, 'Class 12 with Physics, Chemistry, Biology and English; 55% aggregate (50% SC/ST)');
 CALL sp_seed_other(NULL, 'GENDER', 'FEMALE', FALSE, 'Many AIIMS admit only female candidates to B.Sc Nursing (Hons) - check the bulletin for each AIIMS');
@@ -113,7 +111,7 @@ CALL sp_seed_exam('AIIMS_NORCET', 'AIIMS Nursing Officer Recruitment Common Elig
      'Preliminary (CBT) → Main (CBT)', 'Nursing Officer (Group B) at AIIMS institutes', 'https://www.aiimsexams.ac.in',
      'Common recruitment of nursing officers for all AIIMS, held about twice a year.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 3000 (General / OBC), Rs 2400 (SC / ST / EWS), exempt for PwBD', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-30 on the closing date');
+CALL sp_seed_age(NULL, 18, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-30 on the closing date');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_relax('GOVT_EMPLOYEE', NULL, 5, 'ADD', NULL, FALSE, 'Central government employees (as per rules)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -125,7 +123,7 @@ CALL sp_seed_exam('ESIC_STAFF_NURSE', 'ESIC Nursing Officer / Staff Nurse', 'ESI
      'Computer-based test (often through UPSC / AIIMS NORCET in recent years)', 'Nursing Officer / Staff Nurse in ESIC hospitals', 'https://www.esic.gov.in',
      'Nursing recruitment for ESIC hospitals (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 500 (exempt for SC, ST, PwBD, women, ex-servicemen)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 27, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Age 18-27 (some notifications up to 30 or 35)');
+CALL sp_seed_age(NULL, 18, 27, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Age 18-27 (some notifications up to 30 or 35)');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.Sc Nursing', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'B.Sc Nursing, or GNM diploma, registered with a nursing council');
@@ -136,7 +134,7 @@ CALL sp_seed_exam('PGIMER_NURSING_OFFICER', 'PGIMER Chandigarh Nursing Officer',
      'Computer-based test', 'Nursing Officer (Group B) at PGIMER Chandigarh', 'https://pgimer.edu.in',
      'Nursing officer recruitment of PGIMER (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (Rs 800 for SC/ST; exempt PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Age 21-35 (varies by notice)');
+CALL sp_seed_age(NULL, 21, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Age 21-35 (varies by notice)');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.Sc Nursing', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'B.Sc Nursing, or GNM + 2 years experience, registered as Nurse & Midwife');
@@ -179,7 +177,7 @@ CALL sp_seed_exam('DRUG_INSPECTOR', 'Drug Inspector (State PSC / UPSC) - generic
      'Written test → Interview (varies by state)', 'Drug Inspector / Drug Control Officer', NULL,
      'Generic entry: state PSCs and UPSC recruit drug inspectors irregularly. Age limits vary widely by state.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Varies by commission', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 21-35 (varies by state)');
+CALL sp_seed_age(NULL, 21, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 21-35 (varies by state)');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.Pharm,B.Sc', 'PHARMACY|PHARMACEUTICAL CHEMISTRY|CLINICAL PHARMACOLOGY|MICROBIOLOGY', NULL, NULL, NULL, FALSE, NULL, NULL, 'Degree in Pharmacy / Pharmaceutical Chemistry, or Medicine with clinical pharmacology / microbiology (Drugs & Cosmetics Rules)');

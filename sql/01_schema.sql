@@ -276,6 +276,8 @@ DEALLOCATE PREPARE stmt_fk;
 -- Age limits. One row per post group when an exam has post-wise limits (SSC CGL, CDS).
 --   max_age_semantics NOT_ATTAINED  : "must not have attained 32" -> completed age <= 31
 --   max_age_semantics NOT_MORE_THAN : "18-32 years"               -> completed age <= 32
+--   cutoff_type FIXED_DATE_IN_NEXT_YEAR : the date falls in the year AFTER the exam year
+--                                     (SSC CHSL 2025: exam from Nov 2025, age on 1 Jan 2026)
 --   cutoff_type DOB_WINDOW          : born between (cycle_year + from_offset)-from_month-from_day
 --                                     and (cycle_year + to_offset)-to_month-to_day (NDA, JEE Advanced)
 CREATE TABLE IF NOT EXISTS age_rule (
@@ -285,7 +287,7 @@ CREATE TABLE IF NOT EXISTS age_rule (
     min_age                 TINYINT UNSIGNED NULL,
     max_age                 TINYINT UNSIGNED NULL,      -- NULL = no upper age limit
     max_age_semantics       ENUM('NOT_ATTAINED','NOT_MORE_THAN') NOT NULL DEFAULT 'NOT_MORE_THAN',
-    cutoff_type             ENUM('FIXED_DATE_IN_CYCLE_YEAR','FIXED_DATE_IN_PREVIOUS_YEAR','DOB_WINDOW','NONE') NOT NULL,
+    cutoff_type             ENUM('FIXED_DATE_IN_CYCLE_YEAR','FIXED_DATE_IN_PREVIOUS_YEAR','FIXED_DATE_IN_NEXT_YEAR','DOB_WINDOW','NONE') NOT NULL,
     cutoff_month            TINYINT NULL,
     cutoff_day              TINYINT NULL,
     dob_from_offset_years   SMALLINT NULL,              -- e.g. -25 for "born on or after 1 Oct (year-25)"
@@ -301,12 +303,28 @@ CREATE TABLE IF NOT EXISTS age_rule (
     CONSTRAINT chk_age_rule_range  CHECK (max_age IS NULL OR min_age IS NULL OR max_age >= min_age),
     CONSTRAINT chk_age_rule_month  CHECK (cutoff_month IS NULL OR cutoff_month BETWEEN 1 AND 12),
     CONSTRAINT chk_age_rule_day    CHECK (cutoff_day IS NULL OR cutoff_day BETWEEN 1 AND 31),
-    CONSTRAINT chk_age_rule_fixed  CHECK (cutoff_type NOT IN ('FIXED_DATE_IN_CYCLE_YEAR','FIXED_DATE_IN_PREVIOUS_YEAR')
+    CONSTRAINT chk_age_rule_fixed  CHECK (cutoff_type NOT IN ('FIXED_DATE_IN_CYCLE_YEAR','FIXED_DATE_IN_PREVIOUS_YEAR','FIXED_DATE_IN_NEXT_YEAR')
                                           OR (cutoff_month IS NOT NULL AND cutoff_day IS NOT NULL)),
     CONSTRAINT chk_age_rule_window CHECK (cutoff_type <> 'DOB_WINDOW'
                                           OR (dob_from_offset_years IS NOT NULL AND dob_from_month IS NOT NULL AND dob_from_day IS NOT NULL)),
     INDEX idx_age_rule_version (rule_version_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Upgrade of an older database (P2.16 added FIXED_DATE_IN_NEXT_YEAR): only runs when the
+-- column still has the old ENUM, so this block is re-runnable.
+SET @old_enum = (SELECT COUNT(*) FROM information_schema.COLUMNS
+                 WHERE TABLE_SCHEMA = 'aspirantos' AND TABLE_NAME = 'age_rule' AND COLUMN_NAME = 'cutoff_type'
+                   AND COLUMN_TYPE NOT LIKE '%FIXED_DATE_IN_NEXT_YEAR%');
+SET @sql_m1 = IF(@old_enum = 1, 'ALTER TABLE age_rule DROP CHECK chk_age_rule_fixed', 'SELECT 1');
+PREPARE stmt_m1 FROM @sql_m1; EXECUTE stmt_m1; DEALLOCATE PREPARE stmt_m1;
+SET @sql_m2 = IF(@old_enum = 1,
+    'ALTER TABLE age_rule MODIFY cutoff_type ENUM(''FIXED_DATE_IN_CYCLE_YEAR'',''FIXED_DATE_IN_PREVIOUS_YEAR'',''FIXED_DATE_IN_NEXT_YEAR'',''DOB_WINDOW'',''NONE'') NOT NULL',
+    'SELECT 1');
+PREPARE stmt_m2 FROM @sql_m2; EXECUTE stmt_m2; DEALLOCATE PREPARE stmt_m2;
+SET @sql_m3 = IF(@old_enum = 1,
+    'ALTER TABLE age_rule ADD CONSTRAINT chk_age_rule_fixed CHECK (cutoff_type NOT IN (''FIXED_DATE_IN_CYCLE_YEAR'',''FIXED_DATE_IN_PREVIOUS_YEAR'',''FIXED_DATE_IN_NEXT_YEAR'') OR (cutoff_month IS NOT NULL AND cutoff_day IS NOT NULL))',
+    'SELECT 1');
+PREPARE stmt_m3 FROM @sql_m3; EXECUTE stmt_m3; DEALLOCATE PREPARE stmt_m3;
 
 -- Upper-age relaxations. CATEGORY rows name the category; PWBD rows may name one too
 -- when the PwBD relaxation differs by category.

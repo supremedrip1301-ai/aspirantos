@@ -119,7 +119,7 @@ CALL sp_seed_exam('WBJEE', 'West Bengal Joint Entrance Examination', 'WBJEE', 'E
      'OMR test (Maths, Physics + Chemistry) → Counselling', 'Engineering, Pharmacy and Architecture in West Bengal', 'https://wbjeeb.nic.in',
      'State engineering entrance of West Bengal. Minimum age 17 on 31 December.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 for SC/ST/OBC/PwBD)', 'One attempt per year.');
-CALL sp_seed_age(NULL, 17, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the year');
+CALL sp_seed_age(NULL, 17, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December of the year');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,MATHS,ENGLISH', 45, 40, 'SC,ST,OBC_NCL,PWBD', TRUE, NULL, NULL, 'Class 12 with Physics, Maths, English (+ Chemistry/other), 45% (40% reserved)');
 CALL sp_seed_other(NULL, 'DOMICILE', 'WB', FALSE, 'State seats are mainly for West Bengal domicile candidates');
@@ -139,7 +139,7 @@ CALL sp_seed_exam('AP_EAPCET', 'Andhra Pradesh Engineering, Agriculture and Phar
      'Computer-based test → Counselling', 'Engineering, Agriculture and Pharmacy in Andhra Pradesh', 'https://cets.apsche.ap.gov.in',
      'State entrance of Andhra Pradesh. Minimum age 16 on 31 December.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 600 (Rs 500 for BC, Rs 500 for SC/ST)', 'One attempt per year.');
-CALL sp_seed_age(NULL, 16, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 16 years on 31 December (17 for some agri courses)');
+CALL sp_seed_age(NULL, 16, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 16 years on 31 December (17 for some agri courses)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,MATHS', 45, 40, 'SC,ST,OBC_NCL', TRUE, NULL, NULL, 'Intermediate (Class 12) with Maths, Physics, Chemistry; 45% (40% reserved)');
 CALL sp_seed_other(NULL, 'DOMICILE', 'AP', FALSE, 'Local / non-local status decides the seat quota');
@@ -149,7 +149,7 @@ CALL sp_seed_exam('TS_EAPCET', 'Telangana Engineering, Agriculture and Pharmacy 
      'Computer-based test → Counselling', 'Engineering, Agriculture and Pharmacy in Telangana', 'https://eapcet.tgche.ac.in',
      'State entrance of Telangana. Minimum age 16 on 31 December.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 900 (Rs 500 for SC/ST/PwBD)', 'One attempt per year.');
-CALL sp_seed_age(NULL, 16, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 16 years on 31 December');
+CALL sp_seed_age(NULL, 16, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 16 years on 31 December');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,MATHS', 45, 40, 'SC,ST,OBC_NCL', TRUE, NULL, NULL, 'Intermediate with Maths, Physics, Chemistry; 45% (40% reserved)');
 CALL sp_seed_other(NULL, 'DOMICILE', 'TS', FALSE, 'Local / non-local status decides the seat quota');
@@ -159,7 +159,7 @@ CALL sp_seed_exam('KEAM', 'Kerala Engineering Architecture Medical Entrance', 'K
      'Computer-based test (Engineering, Pharmacy) → Rank list (with Class 12 marks)', 'Engineering, Pharmacy, Architecture and medical allied allotments in Kerala', 'https://cee.kerala.gov.in',
      'State entrance of Kerala; the rank list also uses Class 12 marks. Minimum age 17 on 31 December.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 875 (Rs 375 for SC)', 'One attempt per year.');
-CALL sp_seed_age(NULL, 17, NULL, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December');
+CALL sp_seed_age(NULL, 17, NULL, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 31, 'At least 17 years on 31 December');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS,CHEMISTRY,MATHS', 45, 40, 'SC,ST,OBC_NCL', TRUE, NULL, NULL, 'Class 12 with Physics, Chemistry, Maths; 45% in PCM (lower for reserved)');
 CALL sp_seed_other(NULL, 'DOMICILE', 'KL', FALSE, 'Keralite / non-Keralite status decides the quota');
@@ -217,7 +217,7 @@ CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', 'PHYSICS|CHEMISTRY|MATHS|BIOLOGY', 60
 CALL sp_seed_exam('GATE', 'Graduate Aptitude Test in Engineering', 'GATE', 'ENGINEERING_PG_PSU', 'IIT',
      'NATIONAL', NULL, 'GOVERNMENT', 'ADMISSION', 1.0, 8, 2,
      'Computer-based test (1 or 2 papers) → M.Tech / PhD counselling or PSU interviews',
-     'M.Tech / M.E. / direct PhD admission, scholarships and PSU recruitment (IOCL, NTPC, BHEL, PGCIL and others)', 'https://gate.iitr.ac.in',
+     'M.Tech / M.E. / direct PhD admission, scholarships and PSU recruitment (IOCL, NTPC, BHEL, PGCIL and others)', 'https://gate2027.iitm.ac.in',
      'No age limit. Students in the third year of a UG programme or later may appear. Score valid for 3 years.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 2000 per paper (Rs 1000 for women, SC, ST, PwBD) in the regular period', 'No attempt limit.');
 CALL sp_seed_age(NULL, NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No age limit');
@@ -229,7 +229,7 @@ CALL sp_seed_exam('ISRO_SCIENTIST', 'ISRO Scientist / Engineer ''SC'' (ICRB)', '
      'Written test → Interview', 'Scientist / Engineer SC (Electronics, Mechanical, Computer Science, Civil, Electrical)', 'https://www.isro.gov.in/Careers.html',
      'Recruitment of engineers by ISRO''s Centralised Recruitment Board (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 250 (refundable for those who appear)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 6, 1, 'Up to 28 years on the closing date');
+CALL sp_seed_age(NULL, NULL, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 6, 1, 'Up to 28 years on the closing date');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.E.,B.Tech', NULL, 65, NULL, NULL, TRUE, NULL, NULL, 'B.E./B.Tech with 65% average (CGPA 6.84/10) in the relevant branch');
@@ -239,7 +239,7 @@ CALL sp_seed_exam('BARC_OCES', 'BARC OCES / DGFS (Orientation Course for Enginee
      'Online exam or GATE score → Interview → 1-year training', 'Scientific Officer (C) in DAE units after OCES / DGFS', 'https://www.barconlineexam.in',
      'Training-cum-recruitment of the Department of Atomic Energy.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (exempt for women, SC, ST, PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 26, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'General: up to 26 years on 1 August');
+CALL sp_seed_age(NULL, NULL, 26, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'General: up to 26 years on 1 August');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.E.,B.Tech,B.Sc (Engg),5-year integrated M.Tech', NULL, 60, NULL, NULL, TRUE, NULL, NULL, 'OCES: engineering degree with 60%');
@@ -250,7 +250,7 @@ CALL sp_seed_exam('DRDO_CEPTAM', 'DRDO CEPTAM (Senior Technical Assistant-B and 
      'Tier I (CBT) → Tier II (CBT / trade test)', 'Senior Technical Assistant-B (STA-B); Technician-A (Tech-A)', 'https://www.drdo.gov.in',
      'Technical support staff recruitment of DRDO (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 100; exempt for women, SC, ST, PwBD and ex-servicemen', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 6, 1, 'Age 18-28 on the closing date');
+CALL sp_seed_age(NULL, 18, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 6, 1, 'Age 18-28 on the closing date');
 CALL sp_seed_relax_ssc(TRUE, FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual('STA-B', 'UG', 'B.Sc', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'STA-B: B.Sc in the subject or a 3-year engineering diploma');
@@ -261,7 +261,7 @@ CALL sp_seed_exam('AAI_JE', 'AAI Junior Executive (ATC, Airport Operations, Tech
      'Online exam (or GATE score for engineering posts) → Document verification / voice test', 'Junior Executive (Air Traffic Control, Airport Operations, Electronics, Civil, Electrical, IT)', 'https://www.aai.aero',
      'Executive recruitment of the Airports Authority of India.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1000 (exempt for women, SC, ST, PwBD, AAI apprentices)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 27, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 27 years on the closing date');
+CALL sp_seed_age(NULL, NULL, 27, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 27 years on the closing date');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.Sc', 'CLASS_12:PHYSICS,MATHS', NULL, NULL, NULL, FALSE, NULL, NULL, 'ATC: 3-year B.Sc with Physics and Maths');
@@ -299,7 +299,7 @@ CALL sp_seed_exam('NIELIT_SCIENTIST_B', 'NIELIT Scientist B (for MeitY and assoc
      'Written test → Interview', 'Scientist B and Scientific / Technical Assistant in MeitY, NIC, STQC, CERT-In', 'https://www.nielit.gov.in',
      'Irregular recruitment of IT scientists for the Ministry of Electronics and IT.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 800 (exempt for women, SC, ST, PwBD)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 35 years (Scientist B, recent notices)');
+CALL sp_seed_age(NULL, NULL, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Up to 35 years (Scientist B, recent notices)');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.E.,B.Tech', 'COMPUTER SCIENCE|INFORMATION TECHNOLOGY|ELECTRONICS', NULL, NULL, NULL, FALSE, NULL, NULL, 'B.E./B.Tech in CS / IT / Electronics, or M.Sc / MCA / M.E. in those fields');
@@ -309,7 +309,7 @@ CALL sp_seed_exam('CIL_MT', 'Coal India Management Trainee', 'CIL MT', 'ENGINEER
      'GATE score (engineering) or CBT (non-engineering) → Document verification', 'Management Trainee in Mining, Electrical, Mechanical, Civil, Finance, HR, System and other disciplines', 'https://www.coalindia.in',
      'Executive recruitment of Coal India; engineering disciplines are selected through GATE.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1180 (exempt for SC, ST, PwBD, ex-servicemen and CIL employees)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 31, 'Up to 30 years on the cut-off date');
+CALL sp_seed_age(NULL, NULL, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 31, 'Up to 30 years on the cut-off date');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.E.,B.Tech,B.Sc (Engg)', NULL, 60, NULL, NULL, FALSE, NULL, NULL, 'Engineering disciplines: B.E./B.Tech with 60% and a valid GATE score');
@@ -321,7 +321,7 @@ CALL sp_seed_exam('FCI_MANAGER', 'FCI Manager (General, Depot, Movement, Account
      'Phase I → Phase II → Interview', 'Manager (Category II) in different disciplines', 'https://fci.gov.in',
      'Officer recruitment of the Food Corporation of India (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 800 (exempt for SC, ST, PwBD, women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, NULL, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Manager (General / Depot / Movement / Accounts / Technical / Civil / Electrical): up to 28; Hindi up to 35');
+CALL sp_seed_age(NULL, NULL, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Manager (General / Depot / Movement / Accounts / Technical / Civil / Electrical): up to 28; Hindi up to 35');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, 60, 55, 'SC,ST,PWBD', FALSE, NULL, NULL, 'Manager (General / Depot / Movement): graduation with 60% (55% SC/ST/PwBD) or CA/CS/CMA');
@@ -331,7 +331,7 @@ CALL sp_seed_exam('FCI_AG3', 'FCI Assistant Grade III (General, Accounts, Techni
      'Phase I → Phase II (+ typing for Hindi)', 'Assistant Grade III (zone-wise)', 'https://fci.gov.in',
      'Staff recruitment of the Food Corporation of India (irregular, zone-wise).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 500 (exempt for SC, ST, PwBD, women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 27, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-27 (AG-III Hindi up to 28)');
+CALL sp_seed_age(NULL, 18, 27, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-27 (AG-III Hindi up to 28)');
 CALL sp_seed_relax_ssc(TRUE, FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation (B.Com for Accounts, B.Sc Agriculture / Botany etc. for Technical)');

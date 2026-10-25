@@ -47,3 +47,32 @@ Official notices are served by the SSC portal API under `https://ssc.gov.in/api/
 - **NABARD Grade A**, **LIC AAO** — the 2026-27 notices were not published by 25-Oct-2026 (LIC's last was the 32nd batch, Aug 2025).
 - **RRB NTPC (CEN 06/2026 graduate, CEN 07/2026 under-graduate)** and **RRB Group D** — notices are on <https://rrb.indianrailways.gov.in>, but the site's firewall rejects scripted downloads. Secondary sources: graduate 18-33 and under-graduate 18-30 as on 01-01-2027.
 - **AFCAT** — AFCAT 01/2027 is due in November 2026; the previous notice is no longer on afcat.cdac.in.
+
+## Entrance tests
+
+| Exam | Notice (official URL) | Rules confirmed | Changed in seed |
+|---|---|---|---|
+| JEE Main | NTA Information Bulletin JEE (Main) **2027**, 24-Oct-2026 — <https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2026/10/202610241890224107.pdf> | No age limit; Class 12 passed in 2025 or 2026 or appearing in 2027 (3 consecutive years); Session 1 January 2027, Session 2 April 2027 | — (seed already matched) |
+| JEE Advanced | Information Brochure 2026 — <https://jeeadv.ac.in/documents/IBEnglish_2026.pdf> | Born on or after 1 Oct 2001 (SC/ST/PwD 1 Oct 1996); maximum two attempts in two consecutive years; Class 12 first appeared in 2025 or 2026; top 2,50,000 of JEE Main Paper 1 | — |
+| NEET UG | NTA Information Bulletin NEET (UG) 2026 — <https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602231394640855.pdf> | At least 17 on 31-Dec-2026 (born on or before 31-12-2009); **no upper age limit** (NMC); Class 12 with Physics, Chemistry, Biology/Biotechnology and English (also as additional subjects); qualifying percentile 50 (40 SC/ST/OBC, 45 General-PwBD) | **Removed the Class-12 percentage condition** (the bulletin sets none for appearing) |
+| GATE | GATE 2027 eligibility page, IIT Madras — <https://gate2027.iitm.ac.in/eligibility_criteria> | 3rd or higher year of any UG degree, or completed degree in Engg/Tech/Arch/Science/Commerce/Arts/Humanities; no age limit | Official URL updated to the 2027 organising institute |
+| CAT | CAT 2026 eligibility, 26-Jul-2026 — <https://cdn.digialm.com/per/g06/pub/32842/EForms/image/CAT2026/CAT_2026_Eligibility_26-07-26.pdf> | Bachelor's with 50% (45% SC/ST/PwBD); final year allowed; or CA / CS / ICWA (CMA) / FIAI with the same percentage | Added the professional-degree alternative |
+| CLAT UG | CLAT 2027 UG eligibility — <https://consortiumofnlus.ac.in/clat-2027/ug-eligibility.html> | No upper age limit; Class 12 with 45% (40% SC/ST/PwD); appearing in March/April 2027 allowed | PwD added to the 40% relaxation |
+| CUET UG | NTA Information Bulletin CUET (UG) 2026 — <https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf> | No age limit; Class 12 passed or appearing in 2026 | — |
+| IPMAT Indore | IIM Indore Admission Procedure IPM 2026-31 (domestic) — <https://iimidr.ac.in/wp-content/uploads/2026/01/AdmissionProcedure_IPM-2026-31_-Domestic-Applicants.pdf> | Born on or after 1 Aug 2006 (SC/ST/PwD 1 Aug 2001); Class 12 passed in 2024, 2025 or appearing in 2026; Class 10 passed | **Removed the 60% / 55% condition** (not in the 2026-31 procedure) |
+
+## Teaching
+
+| Exam | Notice (official URL) | Rules confirmed | Changed in seed |
+|---|---|---|---|
+| UGC NET | NTA Information Bulletin UGC-NET December 2026 — <https://cdnbbsr.s3waas.gov.in/s301eee509ee2f68dc6014898c309e86bf/uploads/2026/10/202610161905649093.pdf> | JRF: not more than 30 on the 1st day of the month in which the exam ends; up to 5 years relaxation (not cumulative) for OBC-NCL/SC/ST/PwD/third gender/women; Assistant Professor and PhD admission: no upper age; Master's 55% (50% reserved), final year allowed; 4-year UG with 75% for JRF/PhD | JRF cut-off changed to 1 December (December cycle) |
+| CSIR NET | NTA Information Bulletin Joint CSIR-UGC NET December 2026 — <https://cdnbbsr.s3waas.gov.in/s3efdf562ce2fb0ad460fd8e9d33e57f57/uploads/2026/10/202610071407707951.pdf> | JRF not more than 30 as on 1 Dec 2026; total relaxation never more than 5 years; Assistant Professor no upper age; M.Sc or equivalent 55% (50% OBC-NCL/SC/ST/PwD/third gender) | JRF cut-off changed to 1 December |
+| CTET | CTET September 2026 Information Bulletin — <https://cdnbbsr.s3waas.gov.in/s3443dec3062d0286986e21dc0631734c9/uploads/2026/05/202605111250310617.pdf> | Qualifications as notified by NCTE; 5% relaxation in qualifying marks for SC/ST/OBC/differently-abled; no age limit; Paper I (Classes I-V) and Paper II (VI-VIII) | Notification May, exam September |
+
+**Also not verified this time (stay `LIKELY`):** **NEET PG** (natboard.edu.in blocks scripted access), **XAT 2027** (the bulletin PDF has no machine-readable eligibility text), **UPPSC PCS 2026**, **BPSC 72nd CCE** (secondary sources agree with the seed: 37 / 40 / 42 on 1-Aug-2026), **RPSC RAS**, **MPSC Rajyaseva** (official advertisements could not be fetched automatically).
+
+## Summary
+
+- **28 of the 40 flagship exams are VERIFIED** (UPSC 6, SSC 5, banking 6, entrance 8, teaching 3).
+- **12 stay LIKELY**: RBI Grade B, NABARD Grade A, LIC AAO, RRB NTPC, RRB Group D, AFCAT, NEET PG, XAT, UPPSC PCS, BPSC CCE, RPSC RAS, MPSC Rajyaseva. They can be verified later from the admin "Check for updates" page (Phase 8), or by downloading the PDF by hand and updating the rules as a new version.
+- Corrections that affect many exams (decisions D35-D38): the upper age limit is "not attained" (the official birth-date ranges show it); J&K 1980-89 relaxation removed from UPSC and bank exams; SSC caps for govt employees / widows no longer have a separate OBC value; bank clerical exams use 35/38/40 widow caps and an ESM maximum of 50.

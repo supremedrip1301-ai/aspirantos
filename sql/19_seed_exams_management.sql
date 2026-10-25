@@ -30,6 +30,7 @@ CALL sp_seed_exam_info('Rs 2600 (Rs 1300 for SC, ST, PwBD)', 'No attempt limit.'
 CALL sp_seed_age(NULL, NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No age limit');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, 50, 45, 'SC,ST,PWBD', TRUE, NULL, NULL, 'Bachelor''s degree with 50% (45% SC/ST/PwBD) or equivalent CGPA; final-year students may apply');
+CALL sp_seed_qual(NULL, 'PROFESSIONAL', 'CA,CS,CMA,FIAI', NULL, 50, 45, 'SC,ST,PWBD', FALSE, NULL, NULL, 'Or a completed professional degree (CA / CS / ICWA-CMA / FIAI) with the same percentage');
 
 CALL sp_seed_exam('XAT', 'Xavier Aptitude Test', 'XAT', 'MANAGEMENT', 'XLRI',
      'NATIONAL', NULL, 'PRIVATE', 'ADMISSION', 1.0, 7, 1,
@@ -114,7 +115,7 @@ CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, '5 year
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'REPLACE_WITH_MAX', NULL, FALSE, '5 years relaxation');
 CALL sp_seed_relax('PWBD', NULL, 5, 'REPLACE_WITH_MAX', NULL, FALSE, '5 years relaxation');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'CONSECUTIVE_YEARS_FROM_QUALIFYING_EXAM', 3, NULL, 'Class 12 year and the next two years');
-CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, 60, 55, 'SC,ST,PWBD', TRUE, 2, NULL, 'Class 12 / equivalent with 60% (55% SC/ST/PwBD), passed in the last two years or appearing');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, TRUE, 2, NULL, 'Class 12 / HSC passed in the last two years or appearing this year; Class 10 passed (IPM 2026-31: no minimum percentage stated)');
 
 CALL sp_seed_exam('IPMAT_ROHTAK', 'IPMAT - IIM Rohtak', 'IPMAT Rohtak', 'MANAGEMENT', 'IIM_ROHTAK',
      'NATIONAL', NULL, 'GOVERNMENT', 'ADMISSION', 1.0, 3, 5,
@@ -142,7 +143,7 @@ CALL sp_seed_exam('NPAT', 'NMIMS Programs After Twelfth', 'NPAT', 'MANAGEMENT', 
      'Computer-based test (up to 2 attempts) → Merit list', 'BBA, B.Com (Hons), B.Sc Finance and other UG programmes at NMIMS', 'https://www.npat.in',
      'UG entrance of NMIMS for business and economics programmes.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1800', 'Up to two attempts; the better score is used.');
-CALL sp_seed_age(NULL, NULL, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Up to 25 years on 1 July');
+CALL sp_seed_age(NULL, NULL, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Up to 25 years on 1 July');
 CALL sp_seed_attempt(NULL, NULL, 2, 'PER_ROLLING_12_MONTHS', NULL, NULL, 'Up to 2 attempts per cycle');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, 50, NULL, NULL, TRUE, NULL, NULL, 'Class 12 with 50% aggregate');
 

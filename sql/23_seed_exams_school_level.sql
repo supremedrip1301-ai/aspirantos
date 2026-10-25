@@ -46,8 +46,8 @@ CALL sp_seed_exam('AISSEE', 'All India Sainik Schools Entrance Examination', 'AI
      'Pen-and-paper test → Medical → Counselling', 'Class VI and Class IX admission in Sainik Schools (girls in Class VI)', 'https://exams.nta.ac.in/AISSEE',
      'Admission to Sainik Schools that prepare students for NDA. Age is counted on 31 March of the admission year.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 800 (Rs 650 for SC/ST)', 'One attempt per year within the age range.');
-CALL sp_seed_age('Class VI', 10, 12, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class VI: 10-12 years on 31 March of the admission year (boys and girls)');
-CALL sp_seed_age('Class IX', 13, 15, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class IX: 13-15 years on 31 March');
+CALL sp_seed_age('Class VI', 10, 12, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class VI: 10-12 years on 31 March of the admission year (boys and girls)');
+CALL sp_seed_age('Class IX', 13, 15, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class IX: 13-15 years on 31 March');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'One sitting per year');
 CALL sp_seed_qual('Class VI', 'NONE', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Class VI: no exam-pass requirement (studying in Class V)');
 CALL sp_seed_qual('Class IX', 'NONE', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Class IX: passing Class VIII from a recognised school');
@@ -57,8 +57,8 @@ CALL sp_seed_exam('RMS_CET', 'Rashtriya Military Schools Common Entrance Test', 
      'Written test → Interview → Medical', 'Class VI and Class IX admission in the 5 Rashtriya Military Schools', 'https://www.rashtriyamilitaryschools.edu.in',
      'Military boarding schools (CBSE). 70% seats for wards of defence personnel.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 350 for SC/ST)', 'One attempt per year within the age range.');
-CALL sp_seed_age('Class VI', 10, 12, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class VI: 10-12 years on 31 March of the admission year');
-CALL sp_seed_age('Class IX', 13, 15, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class IX: 13-15 years on 31 March');
+CALL sp_seed_age('Class VI', 10, 12, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class VI: 10-12 years on 31 March of the admission year');
+CALL sp_seed_age('Class IX', 13, 15, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Class IX: 13-15 years on 31 March');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'One sitting per year');
 CALL sp_seed_qual('Class VI', 'NONE', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Class VI: studying in / passed Class V');
 CALL sp_seed_qual('Class IX', 'NONE', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Class IX: studying in / passed Class VIII');
@@ -140,7 +140,7 @@ CALL sp_seed_exam('IIMC_ENTRANCE', 'IIMC PG Diploma Admission', 'IIMC Admission'
      'CUET PG score → Group discussion / interview', 'PG Diploma in Journalism, Advertising & PR, Radio & TV Journalism, Digital Media', 'https://iimc.gov.in',
      'Media school of the Government of India; admissions now use the CUET PG score.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Through CUET PG', 'One attempt per year.');
-CALL sp_seed_age(NULL, NULL, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Up to 25 years on 1 August (relaxation for reserved categories)');
+CALL sp_seed_age(NULL, NULL, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Up to 25 years on 1 August (relaxation for reserved categories)');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Graduation in any discipline (final-year allowed)');
@@ -153,7 +153,7 @@ CALL sp_seed_exam('NCHM_JEE', 'NCHM Joint Entrance Examination', 'NCHM JEE', 'HO
      'Computer-based test → Counselling', 'B.Sc Hospitality & Hotel Administration at IHMs (central, state, private)', 'https://nchmjee.nta.nic.in',
      'Hotel management entrance for Institutes of Hotel Management. Upper age 25 (28 for SC/ST/PwBD).', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1000 (General / OBC), Rs 700 (EWS), Rs 450 (SC / ST / PwBD)', 'One attempt per year within the age limit.');
-CALL sp_seed_age(NULL, NULL, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'General / OBC: up to 25 years on 1 July');
+CALL sp_seed_age(NULL, NULL, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'General / OBC: up to 25 years on 1 July');
 CALL sp_seed_relax('CATEGORY', 'SC', 3, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: up to 28');
 CALL sp_seed_relax('CATEGORY', 'ST', 3, 'REPLACE_WITH_MAX', NULL, FALSE, 'SC/ST: up to 28');
 CALL sp_seed_relax('PWBD', NULL, 3, 'REPLACE_WITH_MAX', NULL, FALSE, 'PwBD: up to 28');

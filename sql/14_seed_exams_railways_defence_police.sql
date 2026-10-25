@@ -31,7 +31,7 @@ CALL sp_seed_exam('RRB_NTPC_GRAD', 'RRB Non-Technical Popular Categories (Gradua
      'Graduate-level non-technical posts in Indian Railways through the Railway Recruitment Boards.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded after CBT 1); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
+CALL sp_seed_age(NULL, 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation in any discipline (typing proficiency for typist posts)');
@@ -45,7 +45,7 @@ CALL sp_seed_exam('RRB_NTPC_UG', 'RRB Non-Technical Popular Categories (Undergra
      'Class 12 level non-technical posts in Indian Railways.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded after CBT 1); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-30 on 1 January of the CEN year');
+CALL sp_seed_age(NULL, 18, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-30 on 1 January of the CEN year');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, 50, 0, 'SC,ST,PWBD', FALSE, NULL, NULL, 'Class 12 with 50% marks (not needed for SC/ST/PwBD/ex-servicemen)');
@@ -59,7 +59,7 @@ CALL sp_seed_exam('RRB_GROUP_D', 'RRB Level 1 (Group D) Posts', 'RRB Group D', '
      'The largest railway recruitment at Class 10 / ITI level.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded after CBT); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
+CALL sp_seed_age(NULL, 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'CLASS_10', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 10 pass or ITI (or National Apprenticeship Certificate)');
@@ -73,7 +73,7 @@ CALL sp_seed_exam('RRB_ALP', 'RRB Assistant Loco Pilot', 'RRB ALP', 'RAILWAYS', 
      'Technical recruitment of assistant loco pilots; needs ITI or an engineering diploma/degree and strict eyesight standards.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded after CBT 1); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-30 on the date in the CEN (approximated as 1 July)');
+CALL sp_seed_age(NULL, 18, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-30 on the date in the CEN (approximated as 1 July)');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'CLASS_10', 'ANY', 'ITI', NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 10 + ITI in a listed trade (Fitter, Electrician, Mechanic and others)');
@@ -89,7 +89,7 @@ CALL sp_seed_exam('RRB_JE', 'RRB Junior Engineer, Depot Material Superintendent 
      'Technical supervisor posts for diploma and degree engineers.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded after CBT 1); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
+CALL sp_seed_age(NULL, 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-33 on 1 January of the CEN year');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'DIPLOMA', 'ANY', 'CIVIL|MECHANICAL|ELECTRICAL|ELECTRONICS|COMPUTER SCIENCE|INFORMATION TECHNOLOGY', NULL, NULL, NULL, FALSE, NULL, NULL,
@@ -103,8 +103,8 @@ CALL sp_seed_exam('RRB_TECHNICIAN', 'RRB Technician Grade I (Signal) and Grade I
      'Technician posts in railway workshops and signal departments.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('Technician Grade I Signal', 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-33 on the date in the CEN');
-CALL sp_seed_age('Technician Grade III', 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-30 on the date in the CEN');
+CALL sp_seed_age('Technician Grade I Signal', 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-33 on the date in the CEN');
+CALL sp_seed_age('Technician Grade III', 18, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-30 on the date in the CEN');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual('Technician Grade I Signal', 'UG', 'B.Sc,B.E.,B.Tech', 'PHYSICS|ELECTRONICS|COMPUTER SCIENCE|INFORMATION TECHNOLOGY|INSTRUMENTATION', NULL, NULL, NULL, FALSE, NULL, NULL, 'B.Sc in Physics / Electronics / CS / IT / Instrumentation, or a diploma/degree in those engineering branches');
@@ -119,8 +119,8 @@ CALL sp_seed_exam('RRB_PARAMEDICAL', 'RRB Paramedical Categories', 'RRB Paramedi
      'Medical and paramedical staff for railway hospitals. Age and qualification differ by post.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('Nursing Superintendent', 20, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 20-40');
-CALL sp_seed_age('Pharmacist / Radiographer / Lab and other posts', 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-33 (varies by post)');
+CALL sp_seed_age('Nursing Superintendent', 20, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 20-40');
+CALL sp_seed_age('Pharmacist / Radiographer / Lab and other posts', 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-33 (varies by post)');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual('Nursing Superintendent', 'UG', 'B.Sc Nursing,GNM', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Registered Nurse & Midwife with GNM or B.Sc Nursing');
@@ -135,8 +135,8 @@ CALL sp_seed_exam('RRB_MINISTERIAL', 'RRB Ministerial and Isolated Categories', 
      'Many small specialised posts; age limit and qualification differ by post.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded); Rs 250 for SC, ST, PwBD, women, ex-servicemen (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('Graduate / PG level posts (typical)', 18, 33, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-33 (some posts up to 48)');
-CALL sp_seed_age('Class 12 level posts (typical)', 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-30');
+CALL sp_seed_age('Graduate / PG level posts (typical)', 18, 33, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-33 (some posts up to 48)');
+CALL sp_seed_age('Class 12 level posts (typical)', 18, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical 18-30');
 CALL sp_seed_relax_ssc(FALSE, TRUE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual('Graduate / PG level posts (typical)', 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Degree / PG / B.Ed / LLB as per the post');
@@ -150,7 +150,7 @@ CALL sp_seed_exam('RPF_CONSTABLE', 'RPF / RPSF Constable (Executive)', 'RPF Cons
      'Police force of Indian Railways. 15% of the posts are reserved for women. Irregular recruitment.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded); Rs 250 for SC, ST, women, ex-servicemen, minorities, EBC (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-28 on the date in the CEN');
+CALL sp_seed_age(NULL, 18, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-28 on the date in the CEN');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
@@ -168,7 +168,7 @@ CALL sp_seed_exam('RPF_SI', 'RPF Sub-Inspector (Executive)', 'RPF SI', 'RAILWAYS
      'Graduate-level police officers of Indian Railways (irregular).',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500 (Rs 400 refunded); Rs 250 for SC, ST, women, ex-servicemen, minorities, EBC (refunded)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 20, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 20-28 on the date in the CEN');
+CALL sp_seed_age(NULL, 20, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 20-28 on the date in the CEN');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
@@ -255,7 +255,7 @@ CALL sp_seed_exam('ICG_NAVIK_YANTRIK', 'Indian Coast Guard Navik (GD / DB) and Y
      'Enrolled personnel of the Indian Coast Guard; two batches a year.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 300; no fee for SC and ST', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 22, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-22 (the notification gives an exact birth-date window per batch)');
+CALL sp_seed_age(NULL, 18, 22, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-22 (the notification gives an exact birth-date window per batch)');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
@@ -336,7 +336,7 @@ CALL sp_seed_exam('TERRITORIAL_ARMY', 'Territorial Army Officer (Non-Departmenta
      'For gainfully employed civilians who want to serve part-time as officers.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 500', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 42, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-42 on the closing date of the application');
+CALL sp_seed_age(NULL, 18, 42, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-42 on the closing date of the application');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduate from a recognised university');
 CALL sp_seed_other(NULL, 'OTHER', 'GAINFULLY_EMPLOYED', FALSE, 'Must be gainfully employed or self-employed (not for serving members of the regular forces)');
@@ -395,8 +395,8 @@ CALL sp_seed_exam('UP_POLICE_CONSTABLE', 'UP Police Constable (Civil Police)', '
      'Large state police recruitment of Uttar Pradesh. Age limit differs for men and women. Reserved-category relaxation only for UP domicile.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 400', 'No attempt limit within the age limit.');
-CALL sp_seed_age('Male candidates', 18, 22, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Men: 18-22 on 1 July of the year');
-CALL sp_seed_age('Female candidates', 18, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Women: 18-25 on 1 July of the year');
+CALL sp_seed_age('Male candidates', 18, 22, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Men: 18-22 on 1 July of the year');
+CALL sp_seed_age('Female candidates', 18, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Women: 18-25 on 1 July of the year');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'ADD', NULL, TRUE, 'UP domicile only');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'UP domicile only');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'UP domicile only');
@@ -414,7 +414,7 @@ CALL sp_seed_exam('UP_POLICE_SI', 'UP Police Sub-Inspector (Civil Police) and eq
      'Graduate-level police officers of Uttar Pradesh.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 400', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 21-28 on 1 July of the year');
+CALL sp_seed_age(NULL, 21, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 21-28 on 1 July of the year');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'ADD', NULL, TRUE, 'UP domicile only');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'UP domicile only');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'UP domicile only');
@@ -429,7 +429,7 @@ CALL sp_seed_exam('BIHAR_POLICE_CONSTABLE', 'Bihar Police Constable (CSBC)', 'Bi
      'State police constable recruitment of Bihar. Relaxations for BC/EBC, SC/ST and women apply only to Bihar domicile.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 675 (Rs 180 for SC, ST and Bihar women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 25, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'General: 18-25 on the date in the notification');
+CALL sp_seed_age(NULL, 18, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'General: 18-25 on the date in the notification');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 2, 'ADD', NULL, TRUE, 'BC / EBC of Bihar: up to 27 (women 28)');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'SC of Bihar: up to 30');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'ST of Bihar: up to 30');
@@ -444,8 +444,8 @@ CALL sp_seed_exam('RAJASTHAN_POLICE_CONSTABLE', 'Rajasthan Police Constable', 'R
      'State police constable recruitment of Rajasthan. Women and reserved categories of Rajasthan get higher age limits.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 600 (Rs 400 for reserved categories of Rajasthan)', 'No attempt limit within the age limit.');
-CALL sp_seed_age('Male candidates', 18, 23, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Men (General): 18-23 on 1 January of the next year');
-CALL sp_seed_age('Female candidates', 18, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Women (General): 18-28');
+CALL sp_seed_age('Male candidates', 18, 23, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Men (General): 18-23 on 1 January of the next year');
+CALL sp_seed_age('Female candidates', 18, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Women (General): 18-28');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'ADD', NULL, TRUE, 'Rajasthan domicile only');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'Rajasthan domicile only');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'Rajasthan domicile only');
@@ -461,7 +461,7 @@ CALL sp_seed_exam('MAHARASHTRA_POLICE_BHARTI', 'Maharashtra Police Bharti (Polic
      'District-wise constable recruitment of Maharashtra; physical test first, then written exam.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 450 (Rs 350 for reserved categories)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 28, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Open category: 18-28');
+CALL sp_seed_age(NULL, 18, 28, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 31, 'Open category: 18-28');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'ADD', NULL, TRUE, 'Backward classes of Maharashtra: up to 33');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'Maharashtra domicile only');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'Maharashtra domicile only');
@@ -477,7 +477,7 @@ CALL sp_seed_exam('CAPF_TRADESMAN', 'CAPF Constable (Tradesman) - BSF / CRPF / I
      'Generic entry for tradesman constables; each force publishes its own notification.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 100; no fee for women, SC, ST and ex-servicemen', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 23, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-23 (varies by force)');
+CALL sp_seed_age(NULL, 18, 23, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Age 18-23 (varies by force)');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
@@ -493,7 +493,7 @@ CALL sp_seed_exam('IB_ACIO', 'Intelligence Bureau Assistant Central Intelligence
      'Graduate-level intelligence officer recruitment of the Intelligence Bureau.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 650 (Rs 550 processing fee for SC, ST, women and ex-servicemen)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 27, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 10, 'Age 18-27 on the closing date of the application');
+CALL sp_seed_age(NULL, 18, 27, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 10, 'Age 18-27 on the closing date of the application');
 CALL sp_seed_relax_central(3, 'ADD_AFTER_SERVICE_DEDUCTION', FALSE);
 CALL sp_seed_relax('GOVT_EMPLOYEE', NULL, 5, 'ADD', NULL, FALSE, 'Departmental / central government employees with 3 years service: up to 40');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -506,7 +506,7 @@ CALL sp_seed_exam('IB_SECURITY_ASSISTANT', 'Intelligence Bureau Security Assista
      'Class 10 level recruitment of the Intelligence Bureau; applicants need the domicile of the state they apply for.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 650 (Rs 550 processing fee for SC, ST, women and ex-servicemen)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 27, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 17, 'Age 18-27 on the closing date of the application');
+CALL sp_seed_age(NULL, 18, 27, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 17, 'Age 18-27 on the closing date of the application');
 CALL sp_seed_relax_central(3, 'ADD_AFTER_SERVICE_DEDUCTION', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'CLASS_10', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 10 pass and knowledge of the local language of the state');

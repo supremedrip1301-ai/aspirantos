@@ -25,7 +25,7 @@ CALL sp_seed_exam_info('Rs 100; no fee for women, SC, ST and PwBD candidates',
      'Appearing in at least one paper of the Preliminary examination counts as an attempt. Only applying (or being absent) does not count.');
 CALL sp_seed_age(NULL, 21, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1,
      'Must have attained 21 and must not have attained 32 years on 1 August of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt('GEN',     FALSE, 6,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'General: 6 attempts');
 CALL sp_seed_attempt('EWS',     FALSE, 6,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'EWS: 6 attempts');
 CALL sp_seed_attempt('GEN',     TRUE,  9,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'General PwBD: 9 attempts');
@@ -50,7 +50,7 @@ CALL sp_seed_exam_info('Rs 100; no fee for women, SC, ST and PwBD candidates',
      'Same attempt limits and counting as CSE; appearing in Prelims counts as an attempt.');
 CALL sp_seed_age(NULL, 21, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1,
      'Must have attained 21 and must not have attained 32 years on 1 August of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt('GEN',     FALSE, 6,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, NULL);
 CALL sp_seed_attempt('EWS',     FALSE, 6,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, NULL);
 CALL sp_seed_attempt('GEN',     TRUE,  9,    'APPEARED_IN_FIRST_STAGE', NULL, NULL, NULL);
@@ -67,7 +67,7 @@ CALL sp_seed_other(NULL, 'PHYSICAL_STANDARD', NULL, FALSE, 'Physical standards a
 
 -- ---------- UPSC Engineering Services ----------
 CALL sp_seed_exam('UPSC_ESE', 'Engineering Services Examination', 'UPSC ESE', 'CIVIL_SERVICES', 'UPSC',
-     'NATIONAL', NULL, 'GOVERNMENT', 'RECRUITMENT', 1.0, 9, 2,
+     'NATIONAL', NULL, 'GOVERNMENT', 'RECRUITMENT', 1.0, 9, 1,
      'Preliminary (objective) → Main (conventional) → Personality Test',
      'Group A engineering services in Railways, CPWD, CWC, MES, Telecom and others (Civil, Mechanical, Electrical, E&T)',
      'https://upsc.gov.in/examinations/active-exams',
@@ -76,7 +76,7 @@ CALL sp_seed_exam('UPSC_ESE', 'Engineering Services Examination', 'UPSC ESE', 'C
 CALL sp_seed_exam_info('Rs 200; no fee for women, SC, ST and PwBD candidates', 'No attempt limit; eligibility ends with the age limit.');
 CALL sp_seed_age(NULL, 21, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1,
      'Must have attained 21 and must not have attained 30 years on 1 January of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_relax('GOVT_EMPLOYEE', NULL, 5, 'ADD', NULL, FALSE, 'Government servants of specified departments (up to 35 years)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'B.E.,B.Tech,AMIE', NULL, NULL, NULL, NULL, TRUE, NULL, NULL,
@@ -96,7 +96,7 @@ CALL sp_seed_exam('UPSC_CMS', 'Combined Medical Services Examination', 'UPSC CMS
 CALL sp_seed_exam_info('Rs 200; no fee for women, SC, ST and PwBD candidates', 'No attempt limit; eligibility ends with the age limit.');
 CALL sp_seed_age(NULL, NULL, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1,
      'Must be below 32 years of age on 1 August of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'MBBS', NULL, NULL, NULL, NULL, TRUE, NULL, NULL,
      'MBBS (written and practical parts of the final MBBS); final-year students may apply but must finish the internship before appointment');
@@ -116,8 +116,8 @@ CALL sp_seed_age(NULL, 20, 25, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1,
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, FALSE, NULL);
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, FALSE, NULL);
-CALL sp_seed_relax('GOVT_EMPLOYEE', NULL, 5, 'ADD', NULL, FALSE, 'Central government civilian employees (as per the notification)');
-CALL sp_seed_relax('EX_SERVICEMAN', NULL, 5, 'ADD', NULL, FALSE, 'Ex-servicemen as defined in the notification');
+CALL sp_seed_relax('GOVT_EMPLOYEE', NULL, 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'Civilian central government servants: up to 5 years (total for government service max 5)');
+CALL sp_seed_relax('EX_SERVICEMAN', NULL, 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'Ex-servicemen get the same 5-year relaxation (not added to the government-servant one)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Bachelor''s degree from a recognised university');
 CALL sp_seed_other(NULL, 'NATIONALITY', 'INDIAN', TRUE, 'Only citizens of India');
@@ -135,7 +135,7 @@ CALL sp_seed_exam('UPSC_IES_ISS', 'Indian Economic Service / Indian Statistical 
 CALL sp_seed_exam_info('Rs 200; no fee for women, SC, ST and PwBD candidates', 'No attempt limit; eligibility ends with the age limit.');
 CALL sp_seed_age(NULL, 21, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1,
      'Must have attained 21 and must not have attained 30 years on 1 August of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual('IES', 'PG', 'M.A.,M.Sc', 'ECONOMICS|APPLIED ECONOMICS|BUSINESS ECONOMICS|ECONOMETRICS',
      NULL, NULL, NULL, TRUE, NULL, NULL, 'IES: Post-graduate degree in Economics / Applied Economics / Business Economics / Econometrics');
@@ -156,7 +156,7 @@ CALL sp_seed_exam('UPSC_CGS', 'Combined Geo-Scientist Examination', 'UPSC Geo-Sc
 CALL sp_seed_exam_info('Rs 200; no fee for women, SC, ST and PwBD candidates', 'No attempt limit; eligibility ends with the age limit.');
 CALL sp_seed_age(NULL, 21, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1,
      'Must have attained 21 and must not have attained 32 years on 1 January of the exam year');
-CALL sp_seed_relax_central(5, 'ADD', TRUE);
+CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'PG', 'M.Sc,M.Tech,M.Sc (Tech)',
      'GEOLOGY|APPLIED GEOLOGY|GEOPHYSICS|APPLIED GEOPHYSICS|CHEMISTRY|HYDROGEOLOGY|MARINE GEOLOGY|GEOCHEMISTRY',
@@ -172,9 +172,9 @@ CALL sp_seed_exam('UPSC_EPFO', 'EPFO Enforcement Officer / Accounts Officer and 
      'Irregular recruitment for the Employees'' Provident Fund Organisation. Age is counted on the closing date of the online application.',
      'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 25; no fee for women, SC, ST and PwBD candidates', 'No attempt limit.');
-CALL sp_seed_age('EO/AO', NULL, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 1,
+CALL sp_seed_age('EO/AO', NULL, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 1,
      'Not more than 30 years on the closing date of the application (approximated as 1 March)');
-CALL sp_seed_age('APFC', NULL, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 1,
+CALL sp_seed_age('APFC', NULL, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 3, 1,
      'Not more than 35 years on the closing date of the application (approximated as 1 March)');
 CALL sp_seed_relax_central(5, 'ADD', FALSE);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -190,8 +190,8 @@ CALL sp_seed_exam('UPSC_NDA', 'National Defence Academy & Naval Academy Examinat
      'Held twice a year (NDA I in April, NDA II in September). Age is checked as a date-of-birth window; unmarried men and women can apply.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 100; no fee for SC, ST, sons of JCOs/NCOs/ORs and women', 'No attempt limit; you can try in every sitting while your date of birth is inside the window.');
-CALL sp_seed_age_window(NULL, 16, 19, -19, 1, 1, -16, 1, 1,
-     'NDA I: born not earlier than 1 Jan (year-19) and not later than 1 Jan (year-16). NDA II uses the same window shifted to 1 July.');
+CALL sp_seed_age_window(NULL, 16, 19, -19, 7, 1, -15, 1, 1,
+     'Union of both sittings: NDA I 2026 = born 1 Jul 2007 - 1 Jul 2010, NDA II 2026 = born 1 Jan 2008 - 1 Jan 2011. You fit at least one sitting of the year if born between 1 Jul (year-19) and 1 Jan (year-15).');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit; two sittings every year');
 CALL sp_seed_qual('Army Wing', 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL,
      'Army Wing: Class 12 pass (any stream); students appearing in Class 12 may apply');
@@ -210,13 +210,14 @@ CALL sp_seed_exam('UPSC_CDS', 'Combined Defence Services Examination', 'UPSC CDS
      'Graduate entry for officers, held twice a year. Each academy has its own date-of-birth window and degree requirement.',
      'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 200; no fee for women, SC, ST and sons of JCOs/NCOs/ORs', 'No attempt limit; two sittings every year.');
-CALL sp_seed_age_window('IMA', 19, 24, -23, 1, 2, -18, 1, 1, 'IMA: born not earlier than 2 Jan (year-23) and not later than 1 Jan (year-18)');
-CALL sp_seed_age_window('INA', 19, 24, -23, 1, 2, -18, 1, 1, 'INA: born not earlier than 2 Jan (year-23) and not later than 1 Jan (year-18)');
-CALL sp_seed_age_window('AFA', 20, 24, -23, 1, 2, -19, 1, 1, 'AFA: born not earlier than 2 Jan (year-23) and not later than 1 Jan (year-19); up to 26 for DGCA commercial pilot licence holders');
-CALL sp_seed_age_window('OTA', 19, 25, -24, 1, 2, -18, 1, 1, 'OTA (men and women): born not earlier than 2 Jan (year-24) and not later than 1 Jan (year-18)');
+CALL sp_seed_age_window('IMA', 19, 24, -23, 1, 2, -18, 7, 1, 'IMA (union of CDS I and II): CDS I 2026 = born 2 Jan 2003 - 1 Jan 2008, CDS II 2026 = 1 Jul 2003 - 1 Jul 2008');
+CALL sp_seed_age_window('INA', 19, 24, -23, 1, 2, -18, 7, 1, 'INA (union of CDS I and II): same windows as IMA');
+CALL sp_seed_age_window('AFA', 20, 24, -23, 1, 2, -19, 7, 1, 'AFA (union of CDS I and II): CDS I 2026 = born 2 Jan 2003 - 1 Jan 2007, CDS II 2026 = 1 Jul 2003 - 1 Jul 2007; up to 26 for DGCA CPL holders');
+CALL sp_seed_age_window('OTA', 19, 25, -24, 1, 2, -18, 7, 1, 'OTA men and women (union of CDS I and II): CDS I 2026 = born 2 Jan 2002 - 1 Jan 2008, CDS II 2026 = 1 Jul 2002 - 1 Jul 2008');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit; two sittings every year');
 CALL sp_seed_qual('IMA', 'UG', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'IMA: degree from a recognised university');
 CALL sp_seed_qual('INA', 'UG', 'B.E.,B.Tech', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'INA: degree in Engineering');
+CALL sp_seed_qual('INA', 'UG', 'B.Sc', 'PHYSICS', NULL, NULL, NULL, TRUE, NULL, NULL, 'INA: or B.Sc with Physics as a core / elective subject (with Physics and Maths at 10+2)');
 CALL sp_seed_qual('AFA', 'UG', 'ANY', 'CLASS_12:PHYSICS,MATHS', NULL, NULL, NULL, TRUE, NULL, NULL,
      'AFA: degree with Physics and Mathematics at Class 12, or a degree in Engineering');
 CALL sp_seed_qual('AFA', 'UG', 'B.E.,B.Tech', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'AFA: or a degree in Engineering');

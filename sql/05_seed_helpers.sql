@@ -35,6 +35,8 @@ DROP PROCEDURE IF EXISTS sp_seed_relax_ssc;
 DROP PROCEDURE IF EXISTS sp_seed_relax_state;
 DROP PROCEDURE IF EXISTS sp_seed_tet;
 DROP PROCEDURE IF EXISTS sp_seed_set;
+DROP PROCEDURE IF EXISTS sp_seed_relax_bank_clerk;
+DROP PROCEDURE IF EXISTS sp_mark_verified;
 DROP PROCEDURE IF EXISTS sp_seed_attempt;
 DROP PROCEDURE IF EXISTS sp_seed_qual;
 DROP PROCEDURE IF EXISTS sp_seed_other;
@@ -89,7 +91,10 @@ BEGIN
         cycles_per_year = new.cycles_per_year, typical_notification_month = new.typical_notification_month,
         typical_exam_month = new.typical_exam_month, stages_summary = new.stages_summary,
         posts_or_courses = new.posts_or_courses, official_url = new.official_url,
-        description = new.description, data_confidence = new.data_confidence, source_note = new.source_note;
+        description = new.description,
+        source_note     = IF(exam.data_confidence = 'VERIFIED', exam.source_note, new.source_note),
+        data_confidence = IF(exam.data_confidence = 'VERIFIED', exam.data_confidence, new.data_confidence);
+    -- an exam verified by 29_verified_sources.sql keeps VERIFIED and its source note on re-run
     -- watch_url and last_verified_on are not overwritten on re-run (the admin may have changed them)
 
     SET @seed_exam = (SELECT id FROM exam WHERE code = p_code);
@@ -188,8 +193,9 @@ END$$
 
 -- SSC-style relaxations: OBC-NCL +3, SC/ST +5, PwBD +10 (stacked), ex-servicemen +3 after
 -- deducting military service. Optional raised limits (REPLACE_WITH_MAX = the limit becomes the cap):
---   p_govt  : central government civilian employees (3 years service) up to 40 / 43 / 45
---   p_widow : widows / divorced women (not remarried) up to 35 / 38 / 40
+--   p_govt  : central government civilian employees (3 years service) up to 40 (SC/ST 45)
+--   p_widow : widows / divorced women (not remarried) up to 35 (SC/ST 40)
+-- (SSC notices 2025-26 give these two limits only for General and SC/ST; OBC uses the General one.)
 CREATE PROCEDURE sp_seed_relax_ssc(IN p_govt BOOLEAN, IN p_widow BOOLEAN)
 MODIFIES SQL DATA
 BEGIN
@@ -197,14 +203,14 @@ BEGIN
     IF p_govt THEN
         CALL sp_seed_relax('GOVT_EMPLOYEE', 'GEN',     0, 'REPLACE_WITH_MAX', 40, FALSE, 'Central govt civilian employees with 3 years continuous service: up to 40');
         CALL sp_seed_relax('GOVT_EMPLOYEE', 'EWS',     0, 'REPLACE_WITH_MAX', 40, FALSE, 'Central govt civilian employees with 3 years continuous service: up to 40');
-        CALL sp_seed_relax('GOVT_EMPLOYEE', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 43, FALSE, 'Central govt civilian employees (OBC): up to 43');
+        CALL sp_seed_relax('GOVT_EMPLOYEE', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 40, FALSE, 'Central govt civilian employees (OBC): the notice gives no separate OBC limit, so up to 40');
         CALL sp_seed_relax('GOVT_EMPLOYEE', 'SC',      0, 'REPLACE_WITH_MAX', 45, FALSE, 'Central govt civilian employees (SC): up to 45');
         CALL sp_seed_relax('GOVT_EMPLOYEE', 'ST',      0, 'REPLACE_WITH_MAX', 45, FALSE, 'Central govt civilian employees (ST): up to 45');
     END IF;
     IF p_widow THEN
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'GEN',     0, 'REPLACE_WITH_MAX', 35, FALSE, 'Widows / divorced women not remarried: up to 35');
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'EWS',     0, 'REPLACE_WITH_MAX', 35, FALSE, 'Widows / divorced women not remarried: up to 35');
-        CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 38, FALSE, 'Widows / divorced women not remarried (OBC): up to 38');
+        CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 35, FALSE, 'Widows / divorced women not remarried (OBC): the notice gives no separate OBC limit, so up to 35');
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'SC',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced women not remarried (SC): up to 40');
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'ST',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced women not remarried (ST): up to 40');
     END IF;
@@ -274,6 +280,37 @@ BEGIN
     CALL sp_seed_qual(NULL, 'PG', 'ANY', NULL, 55, 50, 'OBC_NCL,SC,ST,PWBD,TRANSGENDER', TRUE, NULL, NULL,
          'Master''s degree with 55% (50% for OBC-NCL/SC/ST/PwBD/transgender); final-year PG students may appear');
     CALL sp_seed_other(NULL, 'DOMICILE', p_state, FALSE, 'Anyone may appear, but the certificate is valid only in this state');
+END$$
+
+-- Bank clerical relaxations (IBPS Clerk / RRB Office Assistant / SBI Junior Associates 2026):
+-- OBC +3, SC/ST +5, PwBD +10 (stacked), ex-servicemen: actual service + 3 years (= 3 after
+-- deducting service) up to a maximum age of 50, widows / divorced women up to 35 / 38 (OBC) / 40 (SC/ST).
+CREATE PROCEDURE sp_seed_relax_bank_clerk()
+MODIFIES SQL DATA
+BEGIN
+    CALL sp_seed_relax_central(0, 'ADD', FALSE);
+    CALL sp_seed_relax('EX_SERVICEMAN', NULL, 3, 'ADD_AFTER_SERVICE_DEDUCTION', 50, FALSE, 'Actual period of service + 3 years, maximum age 50');
+    CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'GEN',     0, 'REPLACE_WITH_MAX', 35, FALSE, 'Widows / divorced / judicially separated women not remarried: up to 35');
+    CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'EWS',     0, 'REPLACE_WITH_MAX', 35, FALSE, 'Widows / divorced / judicially separated women not remarried: up to 35');
+    CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 38, FALSE, 'Widows / divorced / judicially separated women not remarried (OBC): up to 38');
+    CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'SC',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced / judicially separated women not remarried (SC): up to 40');
+    CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'ST',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced / judicially separated women not remarried (ST): up to 40');
+END$$
+
+-- Marks an exam as checked against its official notice (used by 29_verified_sources.sql).
+CREATE PROCEDURE sp_mark_verified(IN p_code VARCHAR(40), IN p_date DATE, IN p_url VARCHAR(500), IN p_note VARCHAR(500))
+MODIFIES SQL DATA
+BEGIN
+    DECLARE v_exam INT;
+    DECLARE v_msg VARCHAR(200);
+    SET v_exam = (SELECT id FROM exam WHERE code = p_code);
+    IF v_exam IS NULL THEN
+        SET v_msg = CONCAT('Unknown exam code: ', p_code);
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = v_msg;
+    END IF;
+    UPDATE exam SET data_confidence = 'VERIFIED', last_verified_on = p_date, source_note = p_note
+    WHERE id = v_exam;
+    UPDATE exam_rule_version SET source_url = p_url WHERE exam_id = v_exam AND version_no = 1;
 END$$
 
 CREATE PROCEDURE sp_seed_attempt(IN p_category VARCHAR(10), IN p_is_pwbd BOOLEAN, IN p_max TINYINT,

@@ -33,7 +33,7 @@ CALL sp_seed_body('LBS_KERALA', 'LBS Centre for Science & Technology, Kerala',  
 
 -- ---------- CTET ----------
 CALL sp_seed_exam('CTET', 'Central Teacher Eligibility Test', 'CTET', 'TEACHING', 'CBSE',
-     'NATIONAL', NULL, 'GOVERNMENT', 'CERTIFICATION', 2.0, 9, 12,
+     'NATIONAL', NULL, 'GOVERNMENT', 'CERTIFICATION', 2.0, 5, 9,
      'Paper 1 (Classes I-V) and / or Paper 2 (Classes VI-VIII)',
      'Eligibility for teacher posts in KVS, NVS, central government and many state / private schools', 'https://ctet.nic.in',
      'Teacher eligibility test conducted by CBSE, usually twice a year. The certificate is valid for life.', 'LIKELY', @src);
@@ -51,7 +51,7 @@ CALL sp_seed_exam('UGC_NET', 'UGC National Eligibility Test', 'UGC NET', 'TEACHI
      'Junior Research Fellowship (JRF) and Assistant Professor; admission to PhD', 'https://ugcnet.nta.ac.in',
      'Held in June and December. JRF has an upper age limit; Assistant Professor and PhD admission have none.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1150 (General), Rs 600 (EWS/OBC-NCL), Rs 325 (SC/ST/PwBD/transgender)', 'No attempt limit.');
-CALL sp_seed_age('JRF', NULL, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 6, 1, 'JRF: not more than 30 years on the first day of the exam month (June cycle shown)');
+CALL sp_seed_age('JRF', NULL, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 1, 'JRF: not more than 30 years on the 1st day of the month in which the exam ends (December 2026 cycle: 1 Dec)');
 CALL sp_seed_age('Assistant Professor / PhD admission', NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No upper age limit');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'JRF: up to 5 years (not added to other relaxations)');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'JRF: up to 5 years');
@@ -71,7 +71,7 @@ CALL sp_seed_exam('CSIR_NET', 'Joint CSIR-UGC NET for JRF and Assistant Professo
      'JRF and Assistant Professor in Chemical, Earth, Life, Mathematical and Physical Sciences', 'https://csirnet.nta.ac.in',
      'Science NET held twice a year. JRF has an upper age limit.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 1150 (General), Rs 600 (EWS/OBC-NCL), Rs 325 (SC/ST/PwBD/transgender)', 'No attempt limit.');
-CALL sp_seed_age('JRF', NULL, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'JRF: not more than 30 years on the cut-off date');
+CALL sp_seed_age('JRF', NULL, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 12, 1, 'JRF: not more than 30 years on the 1st day of the month in which the exam ends (December 2026 cycle: 1 Dec)');
 CALL sp_seed_age('Assistant Professor / PhD admission', NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No upper age limit');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'JRF: up to 5 years');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'REPLACE_WITH_MAX', NULL, FALSE, 'JRF: up to 5 years');
@@ -109,9 +109,9 @@ CALL sp_seed_exam('KVS_TEACHERS', 'KVS Teacher Recruitment (PRT, TGT, PGT)', 'KV
      'Written test (CBT) → Interview / skill test (post-wise)', 'Primary Teacher (PRT), Trained Graduate Teacher (TGT), Post Graduate Teacher (PGT)', 'https://kvsangathan.nic.in',
      'Teacher recruitment for Kendriya Vidyalayas (irregular; recent recruitments use a combined exam with NVS).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (PGT/TGT/PRT); no fee for SC, ST, PwBD and ex-servicemen', 'No attempt limit within the age limit.');
-CALL sp_seed_age('PGT', NULL, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 40 years on the closing date');
-CALL sp_seed_age('TGT', NULL, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 35 years');
-CALL sp_seed_age('PRT', NULL, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PRT: up to 30 years');
+CALL sp_seed_age('PGT', NULL, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 40 years on the closing date');
+CALL sp_seed_age('TGT', NULL, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 35 years');
+CALL sp_seed_age('PRT', NULL, 30, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PRT: up to 30 years');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_relax('WOMEN', NULL, 10, 'ADD', NULL, FALSE, 'Women: up to 10 years (as per KVS rules)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -128,8 +128,8 @@ CALL sp_seed_exam('NVS_TEACHERS', 'NVS Teacher Recruitment (TGT, PGT)', 'NVS TGT
      'Written test (CBT) → Interview', 'Trained Graduate Teacher (TGT), Post Graduate Teacher (PGT) for Jawahar Navodaya Vidyalayas', 'https://navodaya.gov.in',
      'Teacher recruitment for residential Navodaya schools (irregular).', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 1500 (PGT) / Rs 1500 (TGT); no fee for SC, ST and PwBD', 'No attempt limit within the age limit.');
-CALL sp_seed_age('PGT', NULL, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 40 years');
-CALL sp_seed_age('TGT', NULL, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 35 years');
+CALL sp_seed_age('PGT', NULL, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 40 years');
+CALL sp_seed_age('TGT', NULL, 35, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 35 years');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_relax('WOMEN', NULL, 10, 'ADD', NULL, FALSE, 'Women: up to 10 years (as per NVS rules)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -143,8 +143,8 @@ CALL sp_seed_exam('DSSSB_TEACHERS', 'DSSSB Teacher Recruitment (TGT, PGT) for De
      'One-tier / two-tier CBT', 'TGT and PGT in Directorate of Education, Delhi (and other Delhi departments)', 'https://dsssb.delhi.gov.in',
      'Delhi government teacher recruitment. Candidates from all states may apply; reservation follows Delhi rules.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 100; no fee for women, SC, ST, PwBD and ex-servicemen', 'No attempt limit within the age limit.');
-CALL sp_seed_age('PGT', NULL, 36, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 36 years');
-CALL sp_seed_age('TGT', NULL, 32, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 32 years');
+CALL sp_seed_age('PGT', NULL, 36, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'PGT: up to 36 years');
+CALL sp_seed_age('TGT', NULL, 32, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'TGT: up to 32 years');
 CALL sp_seed_relax_central(0, 'ADD', FALSE);
 CALL sp_seed_relax('WOMEN', NULL, 10, 'ADD', NULL, FALSE, 'Women: up to 10 years for teacher posts (Delhi govt rules)');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
@@ -158,8 +158,8 @@ CALL sp_seed_exam('AWES_OST', 'AWES Online Screening Test for Army Public School
      'Online Screening Test → Interview → Teaching skill evaluation (by the school)', 'PGT, TGT and PRT in 130+ Army Public Schools', 'https://www.awesindia.com',
      'Screening test for teachers of Army Public Schools. The score card is valid for 3 years.', 'LIKELY', @src);
 CALL sp_seed_exam_info('Rs 385', 'No attempt limit.');
-CALL sp_seed_age('Fresh candidates', NULL, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Fresh candidates: below 40 years on 1 April');
-CALL sp_seed_age('Experienced candidates (5+ years)', NULL, 57, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Experienced (5 years in the last 10): below 57 years');
+CALL sp_seed_age('Fresh candidates', NULL, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Fresh candidates: below 40 years on 1 April');
+CALL sp_seed_age('Experienced candidates (5+ years)', NULL, 57, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 4, 1, 'Experienced (5 years in the last 10): below 57 years');
 CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, 50, NULL, NULL, FALSE, NULL, NULL, 'Graduation (TGT/PRT) or PG (PGT) with 50% + B.Ed with 50%; CTET/TET for PRT and TGT');
 CALL sp_seed_qual('Experienced candidates (5+ years)', 'UG', 'ANY', NULL, 50, NULL, NULL, FALSE, NULL, 5.0, 'As above, plus 5 years of teaching experience in the last 10 years');
@@ -170,7 +170,7 @@ CALL sp_seed_exam('BPSC_TRE', 'BPSC School Teacher Recruitment Exam (TRE)', 'BPS
      'Single written exam', 'School teachers for Classes 1-5, 6-8, 9-10 and 11-12 in Bihar', 'https://bpsc.bihar.gov.in',
      'Large teacher recruitment of Bihar. Recent rounds reserve posts for Bihar domicile candidates.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 750 (Rs 200 for SC/ST/PwBD/Bihar women)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 18, 37, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Unreserved men: 18-37 (Classes 9-12: minimum 21)');
+CALL sp_seed_age(NULL, 18, 37, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Unreserved men: 18-37 (Classes 9-12: minimum 21)');
 CALL sp_seed_relax('CATEGORY', 'OBC_NCL', 3, 'ADD', NULL, TRUE, 'BC/EBC of Bihar: up to 40');
 CALL sp_seed_relax('CATEGORY', 'SC', 5, 'ADD', NULL, TRUE, 'SC/ST of Bihar: up to 42');
 CALL sp_seed_relax('CATEGORY', 'ST', 5, 'ADD', NULL, TRUE, 'SC/ST of Bihar: up to 42');
@@ -186,7 +186,7 @@ CALL sp_seed_exam('UP_SUPER_TET', 'UP Assistant Teacher Recruitment Examination 
      'Single written exam → Counselling', 'Assistant Teacher in UP Basic Education Council primary schools', 'https://upessc.up.gov.in',
      'Recruitment exam for primary teachers in Uttar Pradesh; a UPTET or CTET pass is required to apply.', 'NEEDS_VERIFICATION', @src);
 CALL sp_seed_exam_info('Rs 600 (Rs 400 for OBC, Rs 200 for SC/ST of UP)', 'No attempt limit within the age limit.');
-CALL sp_seed_age(NULL, 21, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 21-40 on 1 July');
+CALL sp_seed_age(NULL, 21, 40, 'NOT_ATTAINED', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 21-40 on 1 July');
 CALL sp_seed_relax_state(5, 5, 0, 15, 0);
 CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
 CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation + D.El.Ed / BTC (or as allowed) + UPTET / CTET Paper 1 pass');
