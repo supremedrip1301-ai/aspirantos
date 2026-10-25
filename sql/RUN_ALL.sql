@@ -37,4 +37,8 @@ SOURCE 22_seed_exams_professional_finance.sql;
 SOURCE 23_seed_exams_school_level.sql;
 SOURCE 24_seed_exams_international.sql;
 SOURCE 29_verified_sources.sql;
--- (still to come in Phase 2: 30_seed_doc_specs.sql, 31_seed_exam_events.sql, 40_seed_admin.sql)
+SOURCE 30_seed_doc_specs.sql;
+SOURCE 31_seed_exam_events.sql;
+SOURCE 40_seed_admin.sql;
+
+SELECT 'RUN_ALL finished' AS status;

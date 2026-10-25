@@ -19,6 +19,7 @@ ER diagram: [`diagrams/er-diagram.svg`](diagrams/er-diagram.svg) — 26 tables, 
 | `29_verified_sources.sql` | Marks the flagship exams checked against their official notice as VERIFIED (date + URL) |
 | `30_seed_doc_specs.sql`, `31_seed_exam_events.sql` | Photo/signature specs, exam calendar |
 | `40_seed_admin.sql` | The ONE seeded account: `admin@aspirantos.in` (no demo students) |
+| `98_integrity_checks.sql` | Read-only health check; every PROBLEM row must be 0 |
 | `99_reset_all.sql` | Drops every AspirantOS object (fresh start) |
 | `RUN_ALL.sql` | Runs everything in order with the mysql CLI (`SOURCE …`) |
 
