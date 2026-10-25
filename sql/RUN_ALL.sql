@@ -19,6 +19,9 @@ SOURCE 01_schema.sql;
 SOURCE 02_views.sql;
 SOURCE 03_functions_procedures.sql;
 SOURCE 04_triggers.sql;
+SOURCE 05_seed_helpers.sql;
 
--- Seed files (added in Phase 2):
--- SOURCE 10_seed_master.sql;  ... 11-24 exam seeds ... 30, 31, 40
+SOURCE 10_seed_master.sql;
+SOURCE 11_seed_exams_upsc.sql;
+SOURCE 12_seed_exams_ssc.sql;
+-- (more seed files are added here as Phase 2 continues: 13-24, 30, 31, 40)
