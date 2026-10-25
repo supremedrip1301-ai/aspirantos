@@ -32,6 +32,7 @@ DROP PROCEDURE IF EXISTS sp_seed_age_window;
 DROP PROCEDURE IF EXISTS sp_seed_relax;
 DROP PROCEDURE IF EXISTS sp_seed_relax_central;
 DROP PROCEDURE IF EXISTS sp_seed_relax_ssc;
+DROP PROCEDURE IF EXISTS sp_seed_relax_state;
 DROP PROCEDURE IF EXISTS sp_seed_attempt;
 DROP PROCEDURE IF EXISTS sp_seed_qual;
 DROP PROCEDURE IF EXISTS sp_seed_other;
@@ -204,6 +205,30 @@ BEGIN
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'OBC_NCL', 0, 'REPLACE_WITH_MAX', 38, FALSE, 'Widows / divorced women not remarried (OBC): up to 38');
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'SC',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced women not remarried (SC): up to 40');
         CALL sp_seed_relax('WIDOW_DIVORCED_WOMEN', 'ST',      0, 'REPLACE_WITH_MAX', 40, FALSE, 'Widows / divorced women not remarried (ST): up to 40');
+    END IF;
+END$$
+
+-- State-exam relaxations: every row needs the exam state's domicile (requires_state_domicile = TRUE),
+-- because state reservations are only for that state's domicile. A 0 means "no relaxation".
+CREATE PROCEDURE sp_seed_relax_state(IN p_obc TINYINT, IN p_scst TINYINT, IN p_ews TINYINT,
+                                     IN p_pwbd TINYINT, IN p_esm TINYINT)
+MODIFIES SQL DATA
+BEGIN
+    IF p_obc > 0 THEN
+        CALL sp_seed_relax('CATEGORY', 'OBC_NCL', p_obc, 'ADD', NULL, TRUE, 'State backward classes - state domicile only');
+    END IF;
+    IF p_scst > 0 THEN
+        CALL sp_seed_relax('CATEGORY', 'SC', p_scst, 'ADD', NULL, TRUE, 'State domicile only');
+        CALL sp_seed_relax('CATEGORY', 'ST', p_scst, 'ADD', NULL, TRUE, 'State domicile only');
+    END IF;
+    IF p_ews > 0 THEN
+        CALL sp_seed_relax('CATEGORY', 'EWS', p_ews, 'ADD', NULL, TRUE, 'State EWS - state domicile only');
+    END IF;
+    IF p_pwbd > 0 THEN
+        CALL sp_seed_relax('PWBD', NULL, p_pwbd, 'ADD', NULL, TRUE, 'Benchmark disability, state domicile');
+    END IF;
+    IF p_esm > 0 THEN
+        CALL sp_seed_relax('EX_SERVICEMAN', NULL, p_esm, 'ADD', NULL, TRUE, 'Ex-servicemen of the state');
     END IF;
 END$$
 
