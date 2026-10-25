@@ -33,6 +33,8 @@ DROP PROCEDURE IF EXISTS sp_seed_relax;
 DROP PROCEDURE IF EXISTS sp_seed_relax_central;
 DROP PROCEDURE IF EXISTS sp_seed_relax_ssc;
 DROP PROCEDURE IF EXISTS sp_seed_relax_state;
+DROP PROCEDURE IF EXISTS sp_seed_tet;
+DROP PROCEDURE IF EXISTS sp_seed_set;
 DROP PROCEDURE IF EXISTS sp_seed_attempt;
 DROP PROCEDURE IF EXISTS sp_seed_qual;
 DROP PROCEDURE IF EXISTS sp_seed_other;
@@ -230,6 +232,48 @@ BEGIN
     IF p_esm > 0 THEN
         CALL sp_seed_relax('EX_SERVICEMAN', NULL, p_esm, 'ADD', NULL, TRUE, 'Ex-servicemen of the state');
     END IF;
+END$$
+
+-- A state Teacher Eligibility Test: no age limit, Paper 1 (Class 12 + D.El.Ed) and
+-- Paper 2 (graduation + B.Ed), 50% (45% for reserved categories), appearing students allowed.
+CREATE PROCEDURE sp_seed_tet(IN p_code VARCHAR(40), IN p_name VARCHAR(200), IN p_short VARCHAR(60),
+                             IN p_body VARCHAR(40), IN p_state VARCHAR(3), IN p_notif TINYINT,
+                             IN p_exam TINYINT, IN p_url VARCHAR(500), IN p_src VARCHAR(500))
+MODIFIES SQL DATA
+BEGIN
+    CALL sp_seed_exam(p_code, p_name, p_short, 'TEACHING', p_body, 'STATE', p_state, 'GOVERNMENT', 'CERTIFICATION',
+         1.0, p_notif, p_exam, 'Paper 1 (Classes I-V) and / or Paper 2 (Classes VI-VIII)',
+         'Eligibility certificate for primary and upper-primary teacher recruitment in the state', p_url,
+         'State Teacher Eligibility Test. Passing it is required to apply for government school teacher posts in the state.',
+         'NEEDS_VERIFICATION', p_src);
+    CALL sp_seed_exam_info('Varies by state (about Rs 400-1000 per paper; lower for reserved categories)',
+         'No limit on the number of attempts; candidates may reappear to improve the score.');
+    CALL sp_seed_age(NULL, NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No age limit for the eligibility test (recruitment has its own age limits)');
+    CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
+    CALL sp_seed_qual('Paper 1 (Classes I-V)', 'CLASS_12', 'ANY', NULL, 50, 45, 'SC,ST,OBC_NCL,PWBD', TRUE, NULL, NULL,
+         'Paper 1: Class 12 with 50% (45% reserved) and a 2-year D.El.Ed / BTC (final-year trainees may appear)');
+    CALL sp_seed_qual('Paper 2 (Classes VI-VIII)', 'UG', 'ANY', NULL, 50, 45, 'SC,ST,OBC_NCL,PWBD', TRUE, NULL, NULL,
+         'Paper 2: graduation with 50% (45% reserved) and B.Ed (final-year B.Ed students may appear)');
+    CALL sp_seed_other(NULL, 'OTHER', 'TEACHER_TRAINING', FALSE, 'A teacher-training course (D.El.Ed / BTC / B.Ed) is required; the certificate is valid for life (NCTE 2021)');
+END$$
+
+-- A State Eligibility Test for Assistant Professor: no age limit, PG with 55% (50% reserved).
+CREATE PROCEDURE sp_seed_set(IN p_code VARCHAR(40), IN p_name VARCHAR(200), IN p_short VARCHAR(60),
+                             IN p_body VARCHAR(40), IN p_state VARCHAR(3), IN p_notif TINYINT,
+                             IN p_exam TINYINT, IN p_url VARCHAR(500), IN p_src VARCHAR(500))
+MODIFIES SQL DATA
+BEGIN
+    CALL sp_seed_exam(p_code, p_name, p_short, 'TEACHING', p_body, 'STATE', p_state, 'GOVERNMENT', 'CERTIFICATION',
+         1.0, p_notif, p_exam, 'Paper 1 (teaching aptitude) + Paper 2 (subject)',
+         'Eligibility for Assistant Professor in universities and colleges of the state', p_url,
+         'State Eligibility Test (UGC-accredited). Valid for Assistant Professor posts in that state only.',
+         'NEEDS_VERIFICATION', p_src);
+    CALL sp_seed_exam_info('Varies by state (about Rs 800-1200; lower for reserved categories)', 'No attempt limit.');
+    CALL sp_seed_age(NULL, NULL, NULL, 'NOT_MORE_THAN', 'NONE', NULL, NULL, 'No upper age limit');
+    CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
+    CALL sp_seed_qual(NULL, 'PG', 'ANY', NULL, 55, 50, 'OBC_NCL,SC,ST,PWBD,TRANSGENDER', TRUE, NULL, NULL,
+         'Master''s degree with 55% (50% for OBC-NCL/SC/ST/PwBD/transgender); final-year PG students may appear');
+    CALL sp_seed_other(NULL, 'DOMICILE', p_state, FALSE, 'Anyone may appear, but the certificate is valid only in this state');
 END$$
 
 CREATE PROCEDURE sp_seed_attempt(IN p_category VARCHAR(10), IN p_is_pwbd BOOLEAN, IN p_max TINYINT,

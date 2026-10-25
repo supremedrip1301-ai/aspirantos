@@ -27,4 +27,5 @@ SOURCE 12_seed_exams_ssc.sql;
 SOURCE 13_seed_exams_banking_insurance.sql;
 SOURCE 14_seed_exams_railways_defence_police.sql;
 SOURCE 15_seed_exams_state_psc.sql;
+SOURCE 16_seed_exams_teaching.sql;
 -- (more seed files are added here as Phase 2 continues: 13-24, 30, 31, 40)
