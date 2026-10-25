@@ -15,7 +15,15 @@ WAR="$ROOT/build/AspirantOS.war"
 
 # Windows java tools need ';' as classpath separator, Linux needs ':'
 SEP=":"
-case "$(uname -s)" in MINGW*|MSYS*|CYGWIN*) SEP=";" ;; esac
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*)
+    SEP=";"
+    # Windows javac does not understand /d/... paths: use D:/... instead
+    ROOT="$(cygpath -m "$ROOT")"; SRC="$ROOT/src/main/java"; WEB="$ROOT/src/main/webapp"
+    OUT="$ROOT/build/cli"; WAR="$ROOT/build/AspirantOS.war"
+    CATALINA_HOME="$(cygpath -m "$CATALINA_HOME")"
+    ;;
+esac
 
 rm -rf "$OUT" "$WAR"
 mkdir -p "$OUT/classes"
