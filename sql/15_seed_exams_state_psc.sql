@@ -1,6 +1,7 @@
 -- ============================================================
 -- AspirantOS - 15_seed_exams_state_psc.sql
--- State Public Service Commission civil services exams (24 exams).
+-- State Public Service Commission civil services exams (24 exams) and, at the end of the file,
+-- state subordinate selection boards (9 exams).
 -- Uses 05_seed_helpers.sql (sp_seed_relax_state = reservations for the state's domicile only).
 -- A reserved-category candidate from ANOTHER state is treated as General for the age limit;
 -- the engine explains this. State rules change often - most rows are NEEDS_VERIFICATION.
@@ -340,3 +341,124 @@ CALL sp_seed_other(NULL, 'DOMICILE', 'AS', FALSE, @dom);
 
 SELECT 'State PSC exams seeded' AS status,
        (SELECT COUNT(*) FROM exam e JOIN exam_category c ON c.id = e.category_id WHERE c.code = 'STATE_PSC') AS state_psc_exams;
+
+-- ============================================================
+-- State subordinate selection boards (STATE_SSB category, 9 exams) - added in P2.14.
+-- ============================================================
+
+CALL sp_seed_body('UPSSSC', 'Uttar Pradesh Subordinate Services Selection Commission', 'https://upsssc.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('RSMSSB', 'Rajasthan Staff Selection Board (RSMSSB)',              'https://rsmssb.rajasthan.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('HSSC',   'Haryana Staff Selection Commission',                    'https://hssc.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('BSSC',   'Bihar Staff Selection Commission',                      'https://bssc.bihar.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('OSSC',   'Odisha Staff Selection Commission',                     'https://www.ossc.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('GSSSB',  'Gujarat Subordinate Service Selection Board',           'https://gsssb.gujarat.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('PSSSB',  'Punjab Subordinate Services Selection Board',           'https://sssb.punjab.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('MPESB',  'Madhya Pradesh Employees Selection Board',              'https://esb.mp.gov.in', 'STATE_GOVT');
+CALL sp_seed_body('DSSSB',  'Delhi Subordinate Services Selection Board',            'https://dsssb.delhi.gov.in', 'STATE_GOVT');
+
+CALL sp_seed_exam('UPSSSC_PET', 'UPSSSC Preliminary Eligibility Test (PET)', 'UPSSSC PET', 'STATE_SSB', 'UPSSSC',
+     'STATE', 'UP', 'GOVERNMENT', 'CERTIFICATION', 1.0, 5, 9,
+     'Single objective test; score valid for 3 years', 'Mandatory screening test for UP Group C recruitments', 'https://upsssc.gov.in',
+     'A PET score is needed to apply for most UPSSSC Group C posts.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 185 (Rs 95 for SC/ST, Rs 25 for PwBD)', 'No attempt limit; the score is valid for 3 years.');
+CALL sp_seed_age(NULL, 18, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 7, 1, 'Age 18-40 on 1 July');
+CALL sp_seed_relax_state(5, 5, 0, 15, 3);
+CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
+CALL sp_seed_qual(NULL, 'CLASS_10', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 10 pass');
+CALL sp_seed_other(NULL, 'DOMICILE', 'UP', FALSE, @dom);
+
+CALL sp_seed_exam('RSMSSB_CET', 'Rajasthan Common Eligibility Test (Graduate and Senior Secondary level)', 'Rajasthan CET', 'STATE_SSB', 'RSMSSB',
+     'STATE', 'RJ', 'GOVERNMENT', 'CERTIFICATION', 1.0, 7, 9,
+     'Single objective test; score valid for 1 year', 'Screening for Rajasthan Patwari, Gram Sevak, LDC, Constable and other posts', 'https://rsmssb.rajasthan.gov.in',
+     'Two separate CETs (graduate and Class 12 level); the score is needed for many Rajasthan posts.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 600 (Rs 400 for reserved categories of Rajasthan)', 'No attempt limit.');
+CALL sp_seed_age(NULL, 18, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-40 on 1 January');
+CALL sp_seed_relax_state(5, 5, 5, 10, 0);
+CALL sp_seed_relax('WOMEN', NULL, 5, 'ADD', NULL, TRUE, 'Women of Rajasthan: +5');
+CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
+CALL sp_seed_qual('Graduate level CET', 'UG', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Graduate level: graduation');
+CALL sp_seed_qual('Senior Secondary level CET', 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, TRUE, NULL, NULL, 'Senior Secondary level: Class 12');
+CALL sp_seed_other(NULL, 'DOMICILE', 'RJ', FALSE, @dom);
+
+CALL sp_seed_exam('HSSC_CET', 'Haryana Common Eligibility Test (Group C and D)', 'HSSC CET', 'STATE_SSB', 'HSSC',
+     'STATE', 'HR', 'GOVERNMENT', 'CERTIFICATION', 0.5, 5, 7,
+     'Single objective test; score valid for 3 years', 'Screening for Haryana Group C and Group D government jobs', 'https://hssc.gov.in',
+     'A CET pass is needed for most Haryana Group C / D posts.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 500 (Rs 250 for reserved / women of Haryana)', 'No attempt limit.');
+CALL sp_seed_age(NULL, 18, 42, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 18-42');
+CALL sp_seed_relax_state(5, 5, 0, 10, 0);
+CALL sp_seed_attempt(NULL, NULL, NULL, 'PER_SITTING', NULL, NULL, 'No attempt limit');
+CALL sp_seed_qual(NULL, 'CLASS_10', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Group D: Class 10; Group C: Class 12 or graduation (by post)');
+CALL sp_seed_other(NULL, 'DOMICILE', 'HR', FALSE, @dom);
+
+CALL sp_seed_exam('BSSC_GRADUATE', 'BSSC Combined Graduate Level Examination', 'BSSC Graduate Level', 'STATE_SSB', 'BSSC',
+     'STATE', 'BR', 'GOVERNMENT', 'RECRUITMENT', 0.5, 4, 8,
+     'Preliminary → Main', 'Graduate-level Group C posts in Bihar government departments', 'https://bssc.bihar.gov.in',
+     'Graduate-level staff selection exam of Bihar (irregular).', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 540 (Rs 135 for SC/ST of Bihar)', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 21, 37, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 8, 1, 'Unreserved men: 21-37');
+CALL sp_seed_relax_state(3, 5, 0, 10, 0);
+CALL sp_seed_relax('WOMEN', NULL, 0, 'REPLACE_WITH_MAX', 40, TRUE, 'Women of Bihar: up to 40');
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation from a recognised university');
+CALL sp_seed_other(NULL, 'DOMICILE', 'BR', FALSE, @dom);
+
+CALL sp_seed_exam('DSSSB_GENERAL', 'DSSSB Recruitment (non-teaching posts, generic)', 'DSSSB (Non-teaching)', 'STATE_SSB', 'DSSSB',
+     'STATE', 'DL', 'GOVERNMENT', 'RECRUITMENT', 1.0, NULL, NULL,
+     'One-tier / two-tier CBT (post-wise)', 'LDC, Junior Assistant, Patwari, Accountant, Head Clerk, Stenographer and other Delhi government posts', 'https://dsssb.delhi.gov.in',
+     'Generic entry for Delhi government non-teaching posts; every post has its own age limit and qualification.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 100; exempt for women, SC, ST, PwBD and ex-servicemen', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 18, 30, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 18-27 / 18-30 / 18-32 by post');
+CALL sp_seed_relax_central(3, 'ADD_AFTER_SERVICE_DEDUCTION', FALSE);
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 12 or graduation (by post)');
+
+CALL sp_seed_exam('OSSC_CGL', 'OSSC Combined Graduate Level Examination', 'OSSC CGL', 'STATE_SSB', 'OSSC',
+     'STATE', 'OD', 'GOVERNMENT', 'RECRUITMENT', 1.0, 8, 11,
+     'Preliminary → Main → Skill test', 'Graduate-level Group B / C posts in Odisha departments', 'https://www.ossc.gov.in',
+     'Graduate-level staff selection exam of Odisha.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('No application fee (recent notices)', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 21, 38, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Age 21-38 on 1 January');
+CALL sp_seed_relax_state(5, 5, 0, 10, 5);
+CALL sp_seed_relax('WOMEN', NULL, 5, 'ADD', NULL, TRUE, 'Women of Odisha: +5');
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation; Odia language proficiency');
+CALL sp_seed_other(NULL, 'DOMICILE', 'OD', FALSE, @dom);
+
+CALL sp_seed_exam('GSSSB_CCE', 'GSSSB Combined Competitive Examination (Group A / B)', 'GSSSB CCE', 'STATE_SSB', 'GSSSB',
+     'STATE', 'GJ', 'GOVERNMENT', 'RECRUITMENT', 1.0, 1, 4,
+     'Preliminary → Main', 'Class III posts in Gujarat government departments', 'https://gsssb.gujarat.gov.in',
+     'Combined exam for Gujarat Class III posts.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 500 (exempt for reserved categories of Gujarat)', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 18, 35, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 18-33 / 18-35 by post');
+CALL sp_seed_relax_state(5, 5, 5, 10, 0);
+CALL sp_seed_relax('WOMEN', NULL, 5, 'ADD', NULL, TRUE, 'Women of Gujarat: +5 (cap 45)');
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 12 or graduation (by group)');
+CALL sp_seed_other(NULL, 'DOMICILE', 'GJ', FALSE, @dom);
+
+CALL sp_seed_exam('PSSSB_CLERK', 'PSSSB Clerk / Junior Assistant and other posts', 'Punjab SSSB', 'STATE_SSB', 'PSSSB',
+     'STATE', 'PB', 'GOVERNMENT', 'RECRUITMENT', 1.0, NULL, NULL,
+     'Written test → Typing test (post-wise)', 'Clerk, Junior Assistant, Patwari and other Group C posts in Punjab', 'https://sssb.punjab.gov.in',
+     'Staff selection board of Punjab; Punjabi up to matric is compulsory.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 1000 (Rs 250 for SC/BC of Punjab)', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 18, 37, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'General: 18-37');
+CALL sp_seed_relax_state(5, 5, 0, 10, 0);
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'UG', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Graduation + computer course (for clerk posts); Punjabi up to matric');
+CALL sp_seed_other(NULL, 'DOMICILE', 'PB', FALSE, @dom);
+
+CALL sp_seed_exam('MPESB_GROUP', 'MPESB Group Recruitment Tests (Group 2, 3, 4 and others)', 'MPESB', 'STATE_SSB', 'MPESB',
+     'STATE', 'MP', 'GOVERNMENT', 'RECRUITMENT', 2.0, NULL, NULL,
+     'Online CBT (group-wise)', 'Patwari, Constable, teachers, assistant grade-3 and many other MP government posts', 'https://esb.mp.gov.in',
+     'MP Employees Selection Board (earlier Vyapam) conducts most Group C recruitment of Madhya Pradesh.', 'NEEDS_VERIFICATION', @src);
+CALL sp_seed_exam_info('Rs 500 (Rs 250 for reserved categories of MP)', 'No attempt limit within the age limit.');
+CALL sp_seed_age(NULL, 18, 40, 'NOT_MORE_THAN', 'FIXED_DATE_IN_CYCLE_YEAR', 1, 1, 'Typical: 18-40 for MP domicile');
+CALL sp_seed_relax_state(5, 5, 5, 5, 5);
+CALL sp_seed_relax('WOMEN', NULL, 5, 'ADD', NULL, TRUE, 'Women of MP: +5');
+CALL sp_seed_attempt(NULL, NULL, NULL, 'APPEARED_IN_FIRST_STAGE', NULL, NULL, 'No attempt limit within the age limit');
+CALL sp_seed_qual(NULL, 'CLASS_12', 'ANY', NULL, NULL, NULL, NULL, FALSE, NULL, NULL, 'Class 10 / 12 / graduation by post');
+CALL sp_seed_other(NULL, 'DOMICILE', 'MP', FALSE, @dom);
+
+SELECT 'State selection board exams seeded' AS status,
+       (SELECT COUNT(*) FROM exam e JOIN exam_category c ON c.id = e.category_id WHERE c.code = 'STATE_SSB') AS state_ssb_exams;

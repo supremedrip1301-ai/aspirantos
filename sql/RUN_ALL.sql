@@ -34,4 +34,6 @@ SOURCE 19_seed_exams_management.sql;
 SOURCE 20_seed_exams_law_judiciary.sql;
 SOURCE 21_seed_exams_design_science_research_agri.sql;
 SOURCE 22_seed_exams_professional_finance.sql;
+SOURCE 23_seed_exams_school_level.sql;
+SOURCE 24_seed_exams_international.sql;
 -- (more seed files are added here as Phase 2 continues: 13-24, 30, 31, 40)

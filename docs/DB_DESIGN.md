@@ -13,8 +13,9 @@ ER diagram: [`diagrams/er-diagram.svg`](diagrams/er-diagram.svg) — 26 tables, 
 | `02_views.sql` | 6 views |
 | `03_functions_procedures.sql` | 3 stored functions, 4 stored procedures |
 | `04_triggers.sql` | 19 triggers + helper procedure `sp_log_rule_change` |
+| `05_seed_helpers.sql` | Helper procedures used only by the seed files (`sp_seed_exam`, `sp_seed_age`, `sp_seed_relax_*`, `sp_seed_attempt`, `sp_seed_qual`, `sp_seed_other`, `sp_seed_tet`, `sp_seed_set`, `sp_seed_body`) |
 | `10_seed_master.sql` | States/UTs, exam categories, conducting bodies, app settings |
-| `11_…` – `24_…` | Exam catalogue, one file per exam group, each exam with an ACTIVE rule version |
+| `11_…` – `24_…` | Exam catalogue: 267 exams in 25 categories, one file per exam group, each exam with an ACTIVE rule version 1 |
 | `30_seed_doc_specs.sql`, `31_seed_exam_events.sql` | Photo/signature specs, exam calendar |
 | `40_seed_admin.sql` | The ONE seeded account: `admin@aspirantos.in` (no demo students) |
 | `99_reset_all.sql` | Drops every AspirantOS object (fresh start) |
@@ -55,7 +56,7 @@ Computing eligibility for 180+ exams needs the profile, education, attempts and 
 - **`work_experience`** — jobs and legal practice, used by exams that require experience (judiciary, some teaching and PSU posts).
 
 ### Exams and versioned rules
-- **`exam`** — the catalogue (180+ rows): code, names, category, body, scope (national/state/international), sector, purpose, how many cycles per year, typical months, official URL, the page watched by the update checker, and an honest `data_confidence` (`VERIFIED` / `LIKELY` / `NEEDS_VERIFICATION`) with `last_verified_on`. `active_rule_version_id` points to the rules currently in force.
+- **`exam`** — the catalogue (267 rows): code, names, category, body, scope (national/state/international), sector, purpose, how many cycles per year, typical months, official URL, the page watched by the update checker, and an honest `data_confidence` (`VERIFIED` / `LIKELY` / `NEEDS_VERIFICATION`) with `last_verified_on`. `active_rule_version_id` points to the rules currently in force.
 - **`exam_rule_version`** — one complete rule set of an exam (`DRAFT` → `ACTIVE` → `ARCHIVED`), with a change summary and source URL.
 - **`age_rule`** — minimum and maximum age and how the age is counted: on a fixed cut-off date (e.g. 1 August of the exam year), or as a date-of-birth window (NDA, JEE Advanced). `max_age_semantics` separates "must not have attained 32" (`NOT_ATTAINED`, completed age ≤ 31) from "18–32 years" (`NOT_MORE_THAN`, completed age ≤ 32). Several rows with `post_or_course` model post-wise limits (SSC CGL, CDS academies).
 - **`relaxation_rule`** — upper-age relaxations by category, PwBD, ex-serviceman (with service deduction), J&K domicile, government employees, women etc. `stacking` says whether relaxations add up; `requires_state_domicile` gives reservation relaxations of state exams only to that state's domicile.
