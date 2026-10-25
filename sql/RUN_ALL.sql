@@ -24,4 +24,5 @@ SOURCE 05_seed_helpers.sql;
 SOURCE 10_seed_master.sql;
 SOURCE 11_seed_exams_upsc.sql;
 SOURCE 12_seed_exams_ssc.sql;
+SOURCE 13_seed_exams_banking_insurance.sql;
 -- (more seed files are added here as Phase 2 continues: 13-24, 30, 31, 40)
