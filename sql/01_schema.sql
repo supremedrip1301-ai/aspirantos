@@ -252,7 +252,8 @@ CREATE TABLE IF NOT EXISTS exam_rule_version (
     activated_at            DATETIME NULL,
     -- [EXTRA] generated column: holds exam_id only while ACTIVE, so the UNIQUE key below
     -- lets the database itself refuse a second ACTIVE version of the same exam.
-    active_exam_id          INT GENERATED ALWAYS AS (CASE WHEN status = 'ACTIVE' THEN exam_id END) STORED,
+    -- VIRTUAL (not STORED): MySQL forbids ON DELETE CASCADE on base columns of STORED generated columns.
+    active_exam_id          INT GENERATED ALWAYS AS (CASE WHEN status = 'ACTIVE' THEN exam_id END) VIRTUAL,
     CONSTRAINT uq_rule_version_no UNIQUE (exam_id, version_no),
     CONSTRAINT uq_rule_version_one_active UNIQUE (active_exam_id),
     CONSTRAINT fk_rule_version_exam FOREIGN KEY (exam_id) REFERENCES exam(id) ON DELETE CASCADE,
