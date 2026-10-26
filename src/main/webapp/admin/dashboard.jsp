@@ -38,8 +38,15 @@
     <a class="counter c-eligible" href="users.jsp"><span class="count"><%= aspirants %></span><span>Registered students</span></a>
     <a class="counter c-closing" href="exams.jsp"><span class="count"><%= confidence[0] %></span><span>Active exams</span></a>
     <a class="counter c-provisional" href="exams.jsp?confidence=VERIFIED"><span class="count"><%= verifiedPct %>%</span><span><%= confidence[1] %> verified from official notices</span></a>
-    <div class="counter c-not"><span class="count"><%= openReports %></span><span>Open "outdated info" reports</span></div>
+    <a class="counter c-not" href="reports.jsp"><span class="count"><%= openReports %></span><span>Open "outdated info" reports</span></a>
 </section>
+<nav class="card tool-links" aria-label="Admin tools">
+    <a href="update-check.jsp">Update checks</a>
+    <a href="rule-pack.jsp">Rule pack (CSV)</a>
+    <a href="reports.jsp">Reports from students</a>
+    <a href="db-explorer.jsp">DB Explorer</a>
+    <a href="audit.jsp">Audit log</a>
+</nav>
 <p class="muted small">Likely: <%= confidence[2] %> &middot; Needs verification: <%= confidence[3] %> &middot;
     Simulation date: <%= simDate == null ? "off (real date)" : DateUtil.format(simDate) %> - <a href="settings.jsp">change</a></p>
 

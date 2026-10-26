@@ -24,7 +24,7 @@ import com.aspirantos.util.DateUtil;
  */
 public class EligibilityEngine {
 
-    private static final String DASH = "—";   // the long dash used in the headlines
+    private static final String DASH = "\u2014";   // the long dash used in the headlines
 
     private static final String AGE_OK = "OK";
     private static final String AGE_YOUNG = "YOUNG";

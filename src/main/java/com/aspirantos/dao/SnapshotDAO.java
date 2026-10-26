@@ -149,6 +149,21 @@ public class SnapshotDAO {
     }
 
     /** Clears every cached result (admin changed the simulation date). */
+    /** Cached results of one exam for every student (e.g. after its calendar changed). */
+    public int deleteSnapshotsOfExam(int examId) {
+        String sql = "DELETE FROM eligibility_snapshot WHERE exam_id=?";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, examId);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public int deleteAllSnapshots() {
         String sql = "DELETE FROM eligibility_snapshot";
         try (

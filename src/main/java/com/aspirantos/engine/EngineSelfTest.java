@@ -26,7 +26,7 @@ public class EngineSelfTest {
 
     private static final LocalDate TODAY = LocalDate.of(2027, 1, 15);
     private static final int CYCLES = 15;
-    private static final String DASH = "—";
+    private static final String DASH = "\u2014";
 
     private static EligibilityEngine engine = new EligibilityEngine();
     private static int passed = 0;

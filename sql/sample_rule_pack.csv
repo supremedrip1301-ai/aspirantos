@@ -1,0 +1,23 @@
+# AspirantOS sample rule pack (format: docs/RULE_PACK_FORMAT.md)
+# The current active rules of UPSC CSE and CAT, exported from the app.
+# Change a value (for example max_age), import it on Admin > Rule pack, check the preview, apply.
+exam_code,rule_table,post_or_course,min_age,max_age,max_age_semantics,cutoff_type,cutoff_month,cutoff_day,dob_from_offset_years,dob_from_month,dob_from_day,dob_to_offset_years,dob_to_month,dob_to_day,relaxation_type,category,years,stacking,overall_max_age_cap,requires_state_domicile,is_pwbd,max_attempts,counting_rule,window_years,min_gap_days,required_level,accepted_degrees,required_subjects,min_percent_general,min_percent_relaxed,relaxed_for,final_year_allowed,max_years_since_passing,min_experience_years,rule_type,rule_value,is_blocking,notes
+UPSC_CSE,AGE,,21,32,NOT_ATTAINED,FIXED_DATE_IN_CYCLE_YEAR,8,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Must have attained 21 and must not have attained 32 years on 1 August of the exam year
+UPSC_CSE,RELAXATION,,,,,,,,,,,,,,CATEGORY,OBC_NCL,3,ADD,,0,,,,,,,,,,,,,,,,,,OBC non-creamy layer
+UPSC_CSE,RELAXATION,,,,,,,,,,,,,,CATEGORY,SC,5,ADD,,0,,,,,,,,,,,,,,,,,,
+UPSC_CSE,RELAXATION,,,,,,,,,,,,,,CATEGORY,ST,5,ADD,,0,,,,,,,,,,,,,,,,,,
+UPSC_CSE,RELAXATION,,,,,,,,,,,,,,PWBD,,10,ADD,,0,,,,,,,,,,,,,,,,,,Benchmark disability (40% or more); added to the category relaxation
+UPSC_CSE,RELAXATION,,,,,,,,,,,,,,EX_SERVICEMAN,,5,ADD,,0,,,,,,,,,,,,,,,,,,Subject to the service conditions in the notification
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,GEN,,,,,0,6,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,General: 6 attempts
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,GEN,,,,,1,9,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,General PwBD: 9 attempts
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,EWS,,,,,0,6,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,EWS: 6 attempts
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,EWS,,,,,1,9,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,EWS PwBD: 9 attempts
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,OBC_NCL,,,,,,9,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,OBC-NCL (with or without PwBD): 9 attempts
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,SC,,,,,,,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,SC: unlimited within the age limit
+UPSC_CSE,ATTEMPT,,,,,,,,,,,,,,,ST,,,,,,,APPEARED_IN_FIRST_STAGE,,,,,,,,,,,,,,,ST: unlimited within the age limit
+UPSC_CSE,QUALIFICATION,,,,,,,,,,,,,,,,,,,,,,,,,UG,ANY,,,,,1,,,,,,Graduation in any discipline from a recognised university; final-year students may write Prelims
+UPSC_CSE,OTHER,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NATIONALITY,"INDIAN,NEPAL,BHUTAN,TIBETAN_REFUGEE,PIO",1,"IAS, IPS and IFS need Indian citizenship; other services also accept subjects of Nepal or Bhutan, Tibetan refugees (settled before 1962) and PIO with an eligibility certificate"
+CAT,AGE,,,,NOT_MORE_THAN,NONE,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,No age limit
+CAT,ATTEMPT,,,,,,,,,,,,,,,,,,,,,,PER_SITTING,,,,,,,,,,,,,,,No attempt limit
+CAT,QUALIFICATION,,,,,,,,,,,,,,,,,,,,,,,,,UG,ANY,,50,45,"SC,ST,PWBD",1,,,,,,Bachelor's degree with 50% (45% SC/ST/PwBD) or equivalent CGPA; final-year students may apply
+CAT,QUALIFICATION,,,,,,,,,,,,,,,,,,,,,,,,,PROFESSIONAL,"CA,CS,CMA,FIAI",,50,45,"SC,ST,PWBD",0,,,,,,Or a completed professional degree (CA / CS / ICWA-CMA / FIAI) with the same percentage

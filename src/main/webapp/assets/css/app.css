@@ -326,3 +326,26 @@ ul.diff-list li.added { background: rgba(31, 122, 79, 0.10); }
 
 /* long values without spaces (URLs, code lists) wrap instead of widening the page */
 ul.rule-list li, ul.diff-list li, dd, .ticket-headline { overflow-wrap: anywhere; }
+
+/* ---------- Phase 8.4-8.7: update checks, rule pack, reports, DB Explorer ---------- */
+.tool-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: var(--space-3) 0; padding: var(--space-3) var(--space-4); font-weight: 600; }
+.head-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.check-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+p.snippet { background: var(--paper); border-left: 3px solid var(--amber); padding: var(--space-2) var(--space-3); margin: var(--space-2) 0; overflow-wrap: anywhere; }
+.progress-bar { height: 12px; border-radius: 6px; background: var(--hairline); overflow: hidden; }
+.progress-bar span { display: block; height: 100%; background: var(--green); transition: width .4s; }
+.format-box summary { cursor: pointer; font-weight: 700; }
+.format-box .mono { overflow-wrap: anywhere; }
+.pack-exam { border-top: 1px solid var(--hairline); padding: var(--space-2) 0; }
+.pack-exam summary { cursor: pointer; }
+.pack-exam h4 { margin: var(--space-2) 0 var(--space-1); font-size: 15px; }
+.pill-nav { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.pill-nav a { padding: 4px 14px; border-radius: 16px; border: 1px solid var(--hairline); background: var(--card); text-decoration: none; color: var(--ink); font-weight: 600; }
+.pill-nav a.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.report-card { margin-bottom: var(--space-3); }
+.report-card h2 { font-size: 20px; }
+.reply-form textarea { margin-bottom: var(--space-1); }
+ul.column-list { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px var(--space-3); }
+.db-pager { flex-wrap: wrap; margin: var(--space-3) 0; }
+.db-table td { white-space: nowrap; }
+.small-input { width: 160px; padding: 4px 8px; }

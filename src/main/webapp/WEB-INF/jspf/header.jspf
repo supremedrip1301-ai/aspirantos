@@ -46,8 +46,8 @@
         <a href="<%= ctx %>/admin/dashboard.jsp">Admin</a>
         <a href="<%= ctx %>/admin/exams.jsp">Exams</a>
         <a href="<%= ctx %>/admin/users.jsp">Users</a>
+        <a href="<%= ctx %>/admin/reports.jsp">Reports</a>
         <a href="<%= ctx %>/admin/settings.jsp">App settings</a>
-        <a href="<%= ctx %>/admin/audit.jsp">Audit log</a>
         <% } else { %>
         <a href="<%= ctx %>/aspirant/dashboard.jsp">Dashboard</a>
         <a href="<%= ctx %>/aspirant/exams.jsp">Explore exams</a>

@@ -83,6 +83,7 @@
         <td><%= x.isActive() ? "Active" : "Inactive" %></td>
         <td class="actions">
             <a href="exam-form.jsp?id=<%= x.getId() %>">Edit</a>
+            <a href="docs-events.jsp?exam=<%= x.getId() %>">Docs &amp; dates</a>
             <a href="../aspirant/exam-detail.jsp?id=<%= x.getId() %>">View</a>
             <form action="exam-action.jsp" method="post" class="inline">
                 <input type="hidden" name="action" value="<%= x.isActive() ? "deactivate" : "activate" %>">

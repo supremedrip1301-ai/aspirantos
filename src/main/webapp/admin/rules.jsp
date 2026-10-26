@@ -79,6 +79,8 @@
     ExamRuleSet viewedRules = viewed == null ? active : loadVersion(exam, viewed.getId());
 
     Map<String, List<List<String>>> diff = editing == null ? null : RuleDiff.diff(active, editing);
+    List<UpdateCheck> lastChecks = new UpdateCheckDAO().getChecksByExam(exam.getId(), 1);
+    UpdateCheck lastCheck = lastChecks.isEmpty() ? null : lastChecks.get(0);
     List<RuleChange> draftChanges = new ArrayList<>();
     if (draft != null) {
         for (RuleChange c : new UpdateCheckDAO().getChangesByExam(exam.getId(), 100)) {
@@ -122,7 +124,10 @@
 <p class="crumbs"><a href="exams.jsp">Exams</a> / <a href="exam-form.jsp?id=<%= exam.getId() %>"><%= HtmlUtil.escape(exam.getShortName()) %></a> / Rules</p>
 <div class="dash-head">
     <h1>Rules of <%= HtmlUtil.escape(exam.getShortName()) %></h1>
-    <a class="btn btn-small" href="../aspirant/exam-detail.jsp?id=<%= exam.getId() %>#rules">See the student page</a>
+    <span class="head-links">
+        <a class="btn btn-small" href="docs-events.jsp?exam=<%= exam.getId() %>">Documents and dates</a>
+        <a class="btn btn-small" href="../aspirant/exam-detail.jsp?id=<%= exam.getId() %>#rules">See the student page</a>
+    </span>
 </div>
 <%@ include file="/WEB-INF/jspf/flash.jspf" %>
 
@@ -155,6 +160,29 @@
         <input type="hidden" name="exam" value="<%= exam.getId() %>">
         <button type="submit" class="btn btn-primary"><%= versions.isEmpty() ? "Create version 1" : "Update rules (copy the active version into a draft)" %></button>
     </form>
+    <% } %>
+</section>
+
+<section class="card" id="updates">
+    <h2>Official page</h2>
+    <form action="update-check-action.jsp" method="post" class="check-row">
+        <input type="hidden" name="action" value="check">
+        <input type="hidden" name="exam" value="<%= exam.getId() %>">
+        <button type="submit" class="btn btn-primary">Check for updates</button>
+        <span class="small muted">
+            <% if (lastCheck == null) { %>Never checked.<% } else { %>Last checked <%= DateUtil.format(lastCheck.getCheckedAt()) %>
+            - <%= lastCheck.getErrorMessage() != null ? "could not reach the site" : (lastCheck.getChangedSinceLast() == null ? "first check" : (lastCheck.getChangedSinceLast() ? "the page had changed" : "no change")) %><% } %>
+            &middot; page: <%= HtmlUtil.escape(exam.getWatchUrl() != null ? exam.getWatchUrl() : HtmlUtil.orDash(exam.getOfficialUrl())) %>
+        </span>
+    </form>
+    <% if (lastCheck != null && lastCheck.getErrorMessage() != null) { %>
+    <p class="warn-text">Could not reach the official site: <%= HtmlUtil.escape(lastCheck.getErrorMessage()) %> You can still update the rules by hand.</p>
+    <% } else if (lastCheck != null && lastCheck.getKeywordHits() != null) { %>
+    <details <%= Boolean.TRUE.equals(lastCheck.getChangedSinceLast()) ? "open" : "" %>>
+        <summary>Lines around eligibility words on the page</summary>
+        <% for (String snip : lastCheck.getKeywordHits().split("\n\n")) { %><p class="snippet small"><%= HtmlUtil.escape(snip) %></p><% } %>
+        <% if (exam.getOfficialUrl() != null) { %><a class="small" href="<%= HtmlUtil.escape(exam.getWatchUrl() != null ? exam.getWatchUrl() : exam.getOfficialUrl()) %>" target="_blank" rel="noopener noreferrer">Open the official page</a><% } %>
+    </details>
     <% } %>
 </section>
 

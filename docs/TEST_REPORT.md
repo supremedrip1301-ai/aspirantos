@@ -194,3 +194,23 @@ Other checks:
 
 - **Layout:** every admin page (including the draft editor with all forms open) fits at 375 px and 1280 px.
 - **Database after the tests:** 1 admin, 267 exams, 267 rule versions, no draft, empty simulation date. All `98_integrity_checks.sql` problem counts are 0.
+
+## 7. Update checker, rule pack, editors, reports, DB Explorer (Phase 8.4-8.7)
+
+- **Script:** `tools/smoke-admin2.sh` (needs `MYSQL_PWD`). It creates its own exam `SMOKE2_<time>` and a temporary student, and removes both at the end, together with the update checks made during the run. The test exam's "official page" is a page of the app itself, so the update checker can be tested without the internet.
+- **Result (26-Oct-2026): 35 passed, 0 failed.** Afterwards the other smoke tests were run again: smoke-admin 35/35, smoke-exams 30/30, smoke-auth 35/35. EngineSelfTest: 61/61.
+
+| Area | Checks |
+|---|---|
+| Update checker | first check saves the page fingerprint; second check reports "no change"; a different page is reported as changed, with snippets; an unreachable site gives a message and no crash; update checks list |
+| Check all | progress JSON (403 without an admin login); job starts in the background and stops on request |
+| Rule pack | preview without problems; apply creates v1; export of one exam and of all exams (1994 lines); bad lines listed with line numbers and Apply disabled; an invalid pack cannot be applied; an edited export shows the diff and creates v2 (v1 archived); an exam with an open draft is blocked |
+| Editors | photo spec with max < min refused; spec saved; exam date saved and deleted |
+| Reports | a student's report reaches the inbox; it is resolved with a reply and the student gets a notification |
+| DB Explorer | secret columns hidden; Next / go to row 100 / Previous / Last pages of exam_event (1478 rows); an unknown table name falls back to app_setting; a view can be browsed; quick edit with a bad value refused; quick edit saved through an updatable ResultSet (and restored) |
+
+Other checks:
+
+- **Round trip:** exporting all 267 exams and parsing the file again gave 1990 rows, 0 problems and 0 differences from the active rules.
+- **Layout:** every new admin page fits at 375 px and 1280 px.
+- **Database after the tests:** 1 admin, 267 exams and versions, no draft, no update check, no report, empty simulation date, cycles = 15. All integrity checks are 0.
