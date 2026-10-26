@@ -3,7 +3,7 @@
         <%@ include file="/WEB-INF/jspf/admin-check.jspf" %>
     Same as auth-check.jspf, plus the role must be ADMIN; a student who types an admin URL
     is sent back to the student dashboard. After this fragment "currentUser" is the admin.
---%><%@ page import="com.aspirantos.model.User" %><%
+--%><%@ include file="/WEB-INF/jspf/remember-me.jspf" %><%@ page import="com.aspirantos.model.User" %><%
     User currentUser = (User) session.getAttribute("user");
     if (currentUser == null) {
         session.setAttribute("error", "Please log in to continue.");

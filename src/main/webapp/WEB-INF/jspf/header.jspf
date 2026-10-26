@@ -48,11 +48,12 @@
         <% } else { %>
         <a href="<%= ctx %>/aspirant/dashboard.jsp">Dashboard</a>
         <a href="<%= ctx %>/aspirant/exams.jsp">Explore exams</a>
+        <a href="<%= ctx %>/aspirant/profile-step1.jsp">My profile</a>
         <% } %>
         <a class="bell" href="<%= ctx %>/aspirant/notifications.jsp" aria-label="Notifications (<%= unreadCount %> unread)">
             Alerts<% if (unreadCount > 0) { %><span class="badge"><%= unreadCount %></span><% } %>
         </a>
-        <span class="who"><%= HtmlUtil.escape(headerUser.getFullName()) %></span>
+        <a class="who" href="<%= ctx %>/aspirant/settings.jsp" title="Settings"><%= HtmlUtil.escape(headerUser.getFullName()) %></a>
         <a href="<%= ctx %>/logout.jsp">Log out</a>
     </nav>
     <% } else { %>

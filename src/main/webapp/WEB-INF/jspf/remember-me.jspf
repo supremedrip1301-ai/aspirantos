@@ -1,0 +1,22 @@
+<%--
+    remember-me.jspf - [EXTRA] "Remember me" login (not in the lab): when the session has no
+    user but the browser sends the "remember" cookie, the user is logged in again.
+    The cookie holds a random token; the database keeps only its SHA-256 hash
+    (RememberTokenDAO), so a copy of the database cannot be used to log in.
+    Included by auth-check.jspf, admin-check.jspf and login.jsp.
+--%><%@ page import="com.aspirantos.model.User, com.aspirantos.dao.RememberTokenDAO, com.aspirantos.dao.UserDAO, com.aspirantos.util.PasswordUtil" %><%
+    if (session.getAttribute("user") == null && request.getCookies() != null) {
+        for (jakarta.servlet.http.Cookie rememberCookie : request.getCookies()) {
+            if ("remember".equals(rememberCookie.getName()) && rememberCookie.getValue() != null
+                    && rememberCookie.getValue().length() >= 20) {
+                int rememberedId = new RememberTokenDAO().getUserIdByToken(PasswordUtil.sha256Hex(rememberCookie.getValue()));
+                User rememberedUser = rememberedId > 0 ? new UserDAO().getUser(rememberedId) : null;
+                if (rememberedUser != null && "ACTIVE".equals(rememberedUser.getStatus())) {
+                    rememberedUser.setPasswordHash(null);   // the session never keeps password data
+                    rememberedUser.setPasswordSalt(null);
+                    session.setAttribute("user", rememberedUser);
+                }
+            }
+        }
+    }
+%>

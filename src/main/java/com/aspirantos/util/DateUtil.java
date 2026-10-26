@@ -67,6 +67,8 @@ public class DateUtil {
     /** "29 years 4 months 12 days" - the exact age shown on the eligibility page. */
     public static String describeAge(LocalDate dob, LocalDate on) {
         Period p = Period.between(dob, on);
-        return p.getYears() + " years " + p.getMonths() + " months " + p.getDays() + " days";
+        return p.getYears() + (p.getYears() == 1 ? " year " : " years ")
+                + p.getMonths() + (p.getMonths() == 1 ? " month " : " months ")
+                + p.getDays() + (p.getDays() == 1 ? " day" : " days");
     }
 }

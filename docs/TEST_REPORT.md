@@ -132,3 +132,23 @@ A temporary aspirant account was created through the DAOs and deleted at the end
 | Second call is served from the snapshot cache | PASS (15 ms) |
 | New attempt logged → trigger deletes the stale snapshot | PASS |
 | Recomputed snapshot → "You have 1 UPSC attempt left, valid until 2028." | PASS |
+
+## 4. Auth, profile wizard and settings (Phase 5)
+
+- **Script:** `tools/smoke-auth.sh` (bash + curl), run against the WAR deployed on Tomcat 11.0.27.
+- **Account:** a temporary student `smoke.<time>@test.local` is registered by the script and deleted by the script at the end. No student account remains in the database (CHANGE 001).
+- **Result (26-Oct-2026): 35 passed, 0 failed.**
+
+| Area | Checks |
+|---|---|
+| Register | validation errors keep the typed values; account created; logged in and sent to the wizard |
+| Wizard step 1 | unknown state refused; saved into the session bean; a posted `step2Done` cannot skip step 2 |
+| Wizard step 2 | PwBD without type / percentage refused; saved |
+| Step 3 (education / experience) | UG without degree refused; row added with ticked + typed subjects; second Class 12 refused; end-before-start refused; experience added and deleted |
+| Step 4 + save | 20 exams with attempt limits listed with the review; 99 attempts refused; profile saved; dashboard shows "You have 2 UPSC attempts left, valid until 2028." |
+| Login / logout | logout ends the session; protected page redirects to login; wrong password refused (e-mail kept); login goes to the dashboard |
+| Remember me | cookie set; a new browser session is logged in by the cookie; password change logs that device out |
+| Settings | theme cookie switches the page to dark; password change; delete needs the confirm box; account deleted and cannot log in again |
+| Admin | admin login goes to the admin dashboard (267 exams); admin is kept out of the student wizard |
+
+The same flow was also clicked through in the browser (light and dark theme) with one more temporary account, which was deleted afterwards. EngineSelfTest still passes 61/61.

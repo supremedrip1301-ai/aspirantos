@@ -1,0 +1,14 @@
+<%--
+    wizard-steps.jspf - progress bar of the 4-step profile wizard.
+    The page sets   int wizardStep = 1..4;   before including it.
+--%><%
+    String[] wizardNames = {"Personal", "Category & status", "Education", "Attempts & review"};
+%>
+<ol class="wizard-steps" aria-label="Profile steps">
+<% for (int ws = 1; ws <= wizardNames.length; ws++) { %>
+    <li class="<%= ws < wizardStep ? "done" : (ws == wizardStep ? "current" : "") %>"<%= ws == wizardStep ? " aria-current=\"step\"" : "" %>>
+        <span class="step-no"><%= ws %></span> <%= wizardNames[ws - 1] %>
+    </li>
+<% } %>
+</ol>
+<div class="wizard-bar" aria-hidden="true"><span style="width: <%= wizardStep * 25 %>%"></span></div>

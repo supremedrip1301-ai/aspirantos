@@ -29,6 +29,13 @@ public class ExamDAO {
         return list(SELECT + "WHERE e.is_active ORDER BY c.sort_order, e.name", null);
     }
 
+    /** Exams whose active rules limit the number of attempts (asked in step 4 of the profile wizard). */
+    public List<Exam> getExamsWithAttemptLimit() {
+        return list(SELECT + "WHERE e.is_active AND EXISTS (SELECT 1 FROM attempt_rule a "
+                + "WHERE a.rule_version_id = e.active_rule_version_id AND a.max_attempts IS NOT NULL) "
+                + "ORDER BY c.sort_order, e.name", null);
+    }
+
     public List<Exam> getExamsByCategory(int categoryId) {
         return list(SELECT + "WHERE e.is_active AND e.category_id=? ORDER BY e.name", categoryId);
     }

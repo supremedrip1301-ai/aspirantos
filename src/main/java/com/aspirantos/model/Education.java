@@ -9,6 +9,14 @@ import java.time.LocalDate;
  */
 public class Education {
 
+    /** Subjects offered as tick boxes on the education form; the eligibility rules use the same words. */
+    public static final String[] COMMON_SUBJECTS = {
+        "PHYSICS", "CHEMISTRY", "MATHS", "BIOLOGY", "BIOTECHNOLOGY", "ENGLISH", "HINDI",
+        "COMPUTER SCIENCE", "INFORMATION TECHNOLOGY", "ELECTRONICS", "STATISTICS", "ECONOMICS",
+        "ACCOUNTANCY", "BUSINESS STUDIES", "HISTORY", "GEOGRAPHY", "POLITICAL SCIENCE",
+        "BOTANY", "ZOOLOGY", "GEOLOGY", "AGRICULTURE"
+    };
+
     private int id;
     private int userId;
     private String level;   // CLASS_10 ... PROFESSIONAL

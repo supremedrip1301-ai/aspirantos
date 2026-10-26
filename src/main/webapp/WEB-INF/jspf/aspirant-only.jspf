@@ -1,0 +1,10 @@
+<%--
+    aspirant-only.jspf - included after auth-check.jspf on pages that only make sense for a
+    student (profile wizard, education, attempts). The administrator has no aspirant profile,
+    so an admin who opens such a page is sent to the admin dashboard.
+--%><%
+    if ("ADMIN".equals(currentUser.getRole())) {
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
+        return;
+    }
+%>
