@@ -3,7 +3,8 @@
    - data-strength-meter : password strength bar on register / settings
    - data-reveal         : show extra fields when a check box / radio is chosen (PwBD details ...)
    - data-validate       : client-side checks with alert(), like validateForm() in Experiment 5.
-                           The server checks everything again - this only saves a round trip. */
+                           The server checks everything again - this only saves a round trip.
+   - [EXTRA] toasts, the account menu in the header and data-print buttons (Phase 10). */
 (function () {
     "use strict";
 
@@ -184,9 +185,52 @@
         if (problem) {
             event.preventDefault();
             window.alert(problem[1]);
-            if (problem[0] && form.elements[problem[0]] && form.elements[problem[0]].focus) {
-                form.elements[problem[0]].focus();
+            var field = problem[0] ? form.elements[problem[0]] : null;
+            if (field && field.focus) {
+                if (field.setAttribute) { field.setAttribute("aria-invalid", "true"); }
+                field.focus();
             }
         }
+    });
+    // the red border of a wrong field goes away as soon as it is changed
+    document.addEventListener("input", function (event) {
+        if (event.target.getAttribute && event.target.getAttribute("aria-invalid") === "true") {
+            event.target.removeAttribute("aria-invalid");
+        }
+    });
+
+    // ------------------------------------------------------------ toasts (flash.jspf)
+    function closeToast(toast) {
+        toast.classList.add("leaving");
+        window.setTimeout(function () {
+            var region = toast.parentNode;
+            toast.remove();
+            if (region && !region.children.length) { region.remove(); }
+        }, 300);
+    }
+    document.querySelectorAll(".toast").forEach(function (toast) {
+        toast.querySelector(".toast-close").addEventListener("click", function () { closeToast(toast); });
+        if (toast.classList.contains("flash-success")) {      // errors stay until they are closed
+            window.setTimeout(function () { closeToast(toast); }, 6000);
+        }
+    });
+
+    // ------------------------------------------------------------ account menu in the header
+    var menu = document.querySelector(".user-menu");
+    if (menu) {
+        document.addEventListener("click", function (event) {
+            if (menu.open && !menu.contains(event.target)) { menu.open = false; }
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && menu.open) {
+                menu.open = false;
+                menu.querySelector("summary").focus();
+            }
+        });
+    }
+
+    // ------------------------------------------------------------ print buttons
+    document.addEventListener("click", function (event) {
+        if (event.target.closest("[data-print]")) { window.print(); }
     });
 })();

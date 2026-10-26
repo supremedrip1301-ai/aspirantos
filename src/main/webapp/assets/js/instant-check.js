@@ -7,9 +7,13 @@
     if (!form) { return; }
     var out = document.getElementById("ic-result");
 
+    var button = form.querySelector("button[type='submit']");
+
     function show(html, css) {
         out.className = "instant-result " + (css || "");
         out.innerHTML = html;
+        out.setAttribute("aria-busy", css === "is-loading" ? "true" : "false");
+        if (button) { button.disabled = css === "is-loading"; }
     }
     function esc(s) {
         return String(s).replace(/[&<>"']/g, function (c) {
@@ -25,7 +29,7 @@
             return;
         }
         var params = new URLSearchParams(new FormData(form));
-        show("Checking...", "");
+        show("Checking...", "is-loading");
         fetch(form.getAttribute("action") + "?" + params.toString(), { headers: { "Accept": "application/json" } })
             .then(function (r) { return r.json(); })
             .then(function (a) {

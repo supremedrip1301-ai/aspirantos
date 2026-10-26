@@ -11,6 +11,7 @@
     function show(p) {
         var pct = p.total > 0 ? Math.round(p.done * 100 / p.total) : 0;
         fill.style.width = pct + "%";
+        text.classList.toggle("is-loading", !!p.running);
         if (p.running) {
             text.textContent = "Checked " + p.done + " of " + p.total + " (" + pct + "%) - now: " + p.current
                 + " - changed: " + p.changed + ", could not check: " + p.failed;

@@ -2,6 +2,8 @@
     flash.jspf - shows the one-time "success" / "error" message that an action page stored
     in the session before sendRedirect (Post/Redirect/Get, as in employee-form.jsp of
     Experiment 5). The message is removed immediately, so it disappears on refresh.
+    The messages appear as toasts in the top right corner; app.js hides a success toast after
+    a few seconds, an error stays until it is closed.
 --%><%
     String flashSuccess = (String) session.getAttribute("success");
     String flashError = (String) session.getAttribute("error");
@@ -15,9 +17,13 @@
         flashError = (String) request.getAttribute("errorMessage");
     }
 %>
-<% if (flashSuccess != null) { %>
-<div class="flash flash-success" role="status"><%= com.aspirantos.util.HtmlUtil.escape(flashSuccess) %></div>
-<% } %>
-<% if (flashError != null) { %>
-<div class="flash flash-error" role="alert"><%= com.aspirantos.util.HtmlUtil.escape(flashError) %></div>
+<% if (flashSuccess != null || flashError != null) { %>
+<div class="toast-region">
+    <% if (flashSuccess != null) { %>
+    <div class="flash flash-success toast" role="status"><span class="toast-text"><%= com.aspirantos.util.HtmlUtil.escape(flashSuccess) %></span><button type="button" class="toast-close" aria-label="Close message">&times;</button></div>
+    <% } %>
+    <% if (flashError != null) { %>
+    <div class="flash flash-error toast" role="alert"><span class="toast-text"><%= com.aspirantos.util.HtmlUtil.escape(flashError) %></span><button type="button" class="toast-close" aria-label="Close message">&times;</button></div>
+    <% } %>
+</div>
 <% } %>

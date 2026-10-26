@@ -44,6 +44,7 @@
     String pageTitle = exam.getShortName();
 %>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
+<p class="print-only print-head"><%= HtmlUtil.escape(appName) %> &middot; Eligibility report<%= isStudent ? " for " + HtmlUtil.escape(currentUser.getFullName()) : "" %> &middot; worked out for <%= DateUtil.format(today) %></p>
 <p class="crumbs"><a href="exams.jsp">Explore exams</a> / <%= HtmlUtil.escape(exam.getCategoryName()) %></p>
 <div class="exam-head">
     <div>
@@ -58,6 +59,7 @@
             <button type="submit" class="btn <%= tracking == null ? "btn-primary" : "" %>"<%= tracking != null && tracking.getAttemptsUsedBeforeApp() > 0 ? " data-confirm=\"Untrack this exam? The attempts you entered before joining will be removed.\"" : "" %>><%= tracking == null ? "Track this exam" : "Tracking - untrack" %></button>
         </form>
         <a class="btn" href="journal.jsp?exam=<%= exam.getId() %>#log">Log an attempt</a>
+        <button type="button" class="btn" data-print>Print report</button>
     </div>
     <% } %>
 </div>

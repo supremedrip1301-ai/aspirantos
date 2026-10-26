@@ -25,9 +25,17 @@
         }
     }
     String ctx = request.getContextPath();
+    String themeValue = "light";
+    if (request.getCookies() != null) {
+        for (jakarta.servlet.http.Cookie c : request.getCookies()) {
+            if ("theme".equals(c.getName()) && "dark".equals(c.getValue())) {
+                themeValue = "dark";
+            }
+        }
+    }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<%= themeValue %>">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +43,7 @@
 <link rel="stylesheet" href="<%= ctx %>/assets/css/tokens.css">
 <link rel="stylesheet" href="<%= ctx %>/assets/css/app.css">
 </head>
-<body>
+<body class="signed-out">
 <header class="topbar"><a class="brand" href="<%= ctx %>/"><span class="brand-mark" aria-hidden="true">A</span>AspirantOS</a></header>
 <main id="main" class="page">
     <section class="card error-card">

@@ -2,20 +2,53 @@
    AspirantOS design tokens (MASTER_PROMPT PART 10).
    [EXTRA] CSS custom properties - one place for every colour, size and font so that the
    light and dark themes only swap values. Used by app.css and every page.
+   Text colours were checked against WCAG AA (4.5 : 1) on the page and card backgrounds
+   of both themes (docs/DECISIONS.md D78).
    ============================================================ */
+
+/* Fonts are bundled in assets/fonts (SIL Open Font License, licence files next to them), so the
+   app looks the same without internet. One variable font file per family covers every weight. */
+@font-face {
+    font-family: "Fraunces";
+    src: url("../fonts/fraunces-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Manrope";
+    src: url("../fonts/manrope-latin-wght-normal.woff2") format("woff2");
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+}
 
 :root {
     --ink: #0F1B33;          /* text, header */
     --paper: #F7F4EC;        /* page background */
     --card: #FFFFFF;
     --saffron: #E8792B;      /* primary buttons, highlights */
-    --saffron-dark: #B9581A;
+    --saffron-dark: #A9521A; /* saffron as text (links on hover, eyebrows) */
+    --on-accent: #0F1B33;    /* text on a saffron button (white on saffron is only 2.9 : 1) */
     --green: #1F7A4F;        /* ELIGIBLE */
-    --amber: #C98A0B;        /* PROVISIONAL / closing soon */
+    --amber: #C98A0B;        /* PROVISIONAL / closing soon (fills and borders) */
+    --amber-text: #8A5E00;   /* amber as text */
     --brick: #B93A2B;        /* NOT ELIGIBLE / EXHAUSTED */
     --slate: #5B6478;        /* secondary text */
     --hairline: #E3DED2;
     --focus: #2D5BA8;
+    --on-status: #FFFFFF;    /* text on green / blue / brick chips */
+    --tint: #EFEADD;         /* hover / selected background */
+    --header-strip: #0F1B33; /* ticket header strip */
+    --header-strip-text: #F7F4EC;
+    --speck: rgba(255, 255, 255, 0.55); /* "missing ink" dots of the rubber stamp */
 
     --font-display: "Fraunces", Georgia, "Times New Roman", serif;
     --font-ui: "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
@@ -30,6 +63,8 @@
     --radius: 12px;
     --radius-small: 8px;
     --shadow: 0 1px 2px rgba(15, 27, 51, 0.06);
+    --shadow-pop: 0 8px 24px rgba(15, 27, 51, 0.16);
+    --sidebar-width: 232px;
 }
 
 [data-theme="dark"] {
@@ -37,12 +72,20 @@
     --paper: #0C1222;
     --card: #141C2F;
     --saffron: #F0904A;
-    --saffron-dark: #E8792B;
+    --saffron-dark: #F3A267;
+    --on-accent: #0C1222;
     --green: #3FAE7A;
     --amber: #E0A93A;
+    --amber-text: #E0A93A;
     --brick: #E06A5B;
     --slate: #A3AABB;
     --hairline: #26304A;
     --focus: #7FA6F0;
+    --on-status: #0C1222;    /* light chips in the dark theme carry dark text */
+    --tint: #1B2540;
+    --header-strip: #0A0F1C;
+    --header-strip-text: #E9E6DD;
+    --speck: rgba(20, 28, 47, 0.6);
     --shadow: none;
+    --shadow-pop: 0 8px 24px rgba(0, 0, 0, 0.5);
 }

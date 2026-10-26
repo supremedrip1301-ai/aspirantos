@@ -19,10 +19,13 @@ Every item below is marked `[EXTRA] <reason>` in a comment where it is used.
 | 9 | `assets/css/app.css` (`.ticket`, `.stamp`) | CSS `mask` with radial gradients for the perforated ticket edge, CSS animation for the stamp | The signature "attempt ticket" look of the dashboard | "Two radial gradients cut half circles out of both sides; the stamp is a rotated bordered label with a short scale animation." |
 | 10 | `service/UpdateChecker.java` | `java.net.http.HttpClient` (timeouts, redirects), HTML to text, SHA-256 fingerprint | Detects that an official exam page has changed | "We download the official page, keep only its text and compare its fingerprint with the last check; the admin reads the highlighted lines and updates the rules." |
 | 11 | `service/UpdateCheckJob.java` | A background `Thread` started from a JSP, progress read as JSON every 2 s | "Check all exams" takes minutes, the page must not wait | "The job runs in its own thread; the page asks a small JSP for the progress numbers every two seconds." |
+| 12 | `assets/css/tokens.css`, `assets/fonts/` | `@font-face` with bundled variable woff2 fonts (SIL Open Font License) | The design fonts must work without internet in the lab | "The fonts are files inside the project; @font-face tells the browser where they are, so nothing is downloaded from Google." |
+| 13 | `assets/css/print.css` | A print stylesheet (`media="print"`, `@page`, `print-color-adjust`) | Print the eligibility report and the profile sheet | "When the user prints, the browser uses this extra stylesheet: menus and buttons disappear and every tab is printed." |
+| 14 | `assets/js/app.js` (toasts, account menu, print) | Small DOM scripts: timers to hide a toast, closing a `<details>` menu on outside click / Escape, `window.print()` | Messages after an action and the account menu | "Without JavaScript the page still works - the toast just stays and the menu closes on a second click." |
 
 ## Syllabus map — where each topic is used
 
-Line numbers were generated from the source on 26-Oct-2026 (P9.8); they move a little when the files change.
+Line numbers were generated from the source on 26-Oct-2026 (P9.8, refreshed after P10); they move a little when the files change.
 
 | Topic | Where | What to say in the viva |
 |---|---|---|
@@ -41,12 +44,12 @@ Line numbers were generated from the source on 26-Oct-2026 (P9.8); they move a l
 | Implicit object: request | `register-action.jsp:15` | Form parameters, headers (User-Agent), method and context path. |
 | Implicit object: response | `aspirant/calendar-ics.jsp:43` | Headers, status codes, redirects and cookies. |
 | Implicit object: session (HttpSession) | `aspirant/settings.jsp:62`, `logout.jsp:5` | Holds the logged-in user and flash messages; id, creation and last access time like Worksheet 2; invalidate on logout. |
-| Implicit object: application (ServletContext) | `WEB-INF/jspf/header.jspf:7`, `WEB-INF/about.jsp:22` | One object for the whole web app: context-params from web.xml and an app-wide visit counter. |
+| Implicit object: application (ServletContext) | `WEB-INF/jspf/header.jspf:8`, `WEB-INF/about.jsp:22` | One object for the whole web app: context-params from web.xml and an app-wide visit counter. |
 | Implicit object: config (ServletConfig) | `WEB-INF/about.jsp:25` | Init-params of this JSP's own <servlet> entry in web.xml (<jsp-file> mapping). |
 | Implicit object: pageContext | `home.jsp:14` | Page scope: an attribute that lives only while this page runs. |
 | Implicit object: page | `WEB-INF/about.jsp:24` | 'this' of the generated servlet - its class name shows the JSP was translated into a servlet. |
 | Implicit object: exception | `error.jsp:1`, `error.jsp:23` | Only in an error page; the admin sees the stack trace, students a friendly message. |
-| Cookies | `aspirant/settings-action.jsp:54`, `WEB-INF/jspf/header.jspf:19` | The theme is stored in the browser for one year (setMaxAge) and read on every page. |
+| Cookies | `aspirant/settings-action.jsp:54`, `WEB-INF/jspf/header.jspf:37` | The theme is stored in the browser for one year (setMaxAge) and read on every page. |
 | web.xml | `WEB-INF/web.xml` | context-param, <servlet> with <jsp-file> + <init-param>, servlet-mapping /about, welcome-file, error-page (404, 500, Throwable), session-timeout, request encoding. |
 | JDBC connection (Type 4 driver) | `util/DBConnection.java:9`, `util/DBConnection.java:10` | Load Connector/J, open a connection with URL, user and password - exactly as in Experiment 4. |
 | Statement | `dao/StateDAO.java:25` | Only for fixed SQL without user input (master lists). |

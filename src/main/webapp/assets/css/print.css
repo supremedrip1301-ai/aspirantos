@@ -1,0 +1,64 @@
+/* ============================================================
+   AspirantOS print stylesheet (loaded with media="print" by header.jspf).
+   [EXTRA] print media stylesheet - not covered in the lab.
+   Used for the eligibility report (exam page, "Print report") and the profile sheet
+   (profile step 4, "Print profile sheet"): black text on white paper, no navigation,
+   no buttons or forms, every tab of the exam page printed one after the other.
+   ============================================================ */
+
+@page { margin: 16mm 14mm; }
+
+:root, [data-theme="dark"] {
+    --ink: #000000;
+    --paper: #FFFFFF;
+    --card: #FFFFFF;
+    --slate: #444444;
+    --hairline: #BBBBBB;
+    --tint: #FFFFFF;
+    --on-status: #FFFFFF;
+    --header-strip: #000000;
+    --header-strip-text: #FFFFFF;
+    --shadow: none;
+    --shadow-pop: none;
+}
+
+html, body { background: #fff !important; color: #000; font-size: 11pt; }
+
+/* nothing to click on paper */
+.skip-link, .sim-banner, .topbar, .sidebar, .site-footer, .toast-region, .tab-list, .crumbs,
+.exam-actions, .wizard-steps, .wizard-bar, .wizard-nav, .form-actions, .btn, button,
+.report-box, .review-block h3 a, [data-print], .filters, .pager { display: none !important; }
+
+.print-only { display: block !important; }
+.print-head { border-bottom: 2px solid #000; padding-bottom: 4pt; margin: 0 0 10pt; font-weight: 700; font-size: 10pt; }
+
+.layout.has-sidebar { display: block; }
+.content { min-height: 0; padding: 0 !important; }
+.page { max-width: none; padding: 0; }
+.card { border: 0; padding: 0; box-shadow: none; margin-bottom: 12pt; }
+
+/* exam page: print every tab panel, each with its title */
+.tab-panel, .tab-panel[hidden] { display: block !important; break-inside: auto; }
+.tabs-ready .panel-title { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+.panel-title { display: block; font-size: 15pt; border-bottom: 1px solid #888; padding-bottom: 2pt; margin-top: 14pt; }
+#panel-history { display: none !important; }
+
+h1 { font-size: 20pt; }
+h2 { font-size: 15pt; }
+h3 { font-size: 12pt; }
+h2, h3 { break-after: avoid; }
+table, dl, .review-block, .ticket { break-inside: avoid; }
+a { color: #000; text-decoration: none; }
+.verify-line a::after, dd a::after { content: " (" attr(href) ")"; font-size: 9pt; word-break: break-all; }
+
+/* the stamp and the status chips keep their colour (browsers print it with the setting below) */
+.stamp, .status-chip, .check-result, .horizon .year.usable, .dot, .ticket-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.stamp { animation: none; }
+
+/* form fields of the profile sheet print as plain values */
+input, select, textarea { border: 0; padding: 0; background: none; appearance: none; -webkit-appearance: none; }
+input.num { max-width: none; font-weight: 700; }
+
+.table-wrap { border: 0; overflow: visible; }
+th, td { padding: 3pt 6pt; }
+tbody tr:hover td { background: none; }

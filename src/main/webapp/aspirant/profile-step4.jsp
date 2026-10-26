@@ -49,6 +49,7 @@
     int wizardStep = 4;
 %>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
+<p class="print-only print-head"><%= HtmlUtil.escape(appName) %> &middot; Profile sheet of <%= HtmlUtil.escape(currentUser.getFullName()) %> (<%= HtmlUtil.escape(currentUser.getEmail()) %>)</p>
 <section class="wizard card">
     <%@ include file="/WEB-INF/jspf/wizard-steps.jspf" %>
     <h1>Attempts already used</h1>
@@ -74,7 +75,10 @@
         </table>
         </div>
 
-        <h2 class="section-title">Review</h2>
+        <div class="section-head">
+            <h2 class="section-title">Review</h2>
+            <button type="button" class="btn btn-small" data-print>Print profile sheet</button>
+        </div>
         <div class="review-grid">
             <div class="review-block">
                 <h3>Personal <a class="small" href="profile-step1.jsp">Edit</a></h3>

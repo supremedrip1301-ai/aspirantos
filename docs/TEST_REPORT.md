@@ -233,3 +233,25 @@ Other checks:
 
 - **Layout:** landing, About, horizon, calendar, dashboard and the error page all fit at 375 px and 1280 px.
 - **Database after the tests:** 1 admin, 267 exams, no draft, empty simulation date.
+
+## 9. Design polish (Phase 10)
+
+- **Script:** `tools/smoke-design.sh`. A temporary student is registered and deleted at the end.
+- **Result (26-Oct-2026): 18 passed, 0 failed.** The other smoke tests were run again afterwards: smoke-auth 35/35, smoke-exams 30/30, smoke-features 21/21, smoke-admin 35/35, smoke-admin2 35/35. EngineSelfTest: 61/61.
+
+| Area | Checks |
+|---|---|
+| Fonts | the three woff2 files are served (woff2 signature), the three OFL licence files are there, tokens.css has the local @font-face rules |
+| No internet | no stylesheet contains an http(s) address or @import |
+| Layout | logged-in pages have the sidebar layout; exactly one link is marked as the current page (Dashboard, Explore on the exam page, Profile on the wizard); public pages have no sidebar |
+| Header | exam search form, bell with a screen-reader label, account menu with the initials |
+| Toasts | the message after saving the profile is a toast with a close button |
+| Print | print.css linked on every page; print buttons and print-only headings on the exam page and on profile step 4 |
+| Theme | the dark theme cookie switches every page, including the error page |
+
+Checks made in the browser with a script (every student page, every admin page, the public pages):
+
+- **Responsive:** no horizontal scrolling and no element wider than the screen at 360, 768 and 1280 px, in the light and the dark theme. One problem found and fixed: the check table of the exam page was too wide on phones (now shown as a list).
+- **Contrast:** every text checked against its real background - nothing below WCAG AA (4.5 : 1, or 3 : 1 for large text) in either theme. Fixed on the way: white text on saffron buttons, amber text, white text on the light chips of the dark theme, the year chips of the exam page, the 404 number.
+- **Forms:** every input, select and text area has a label; one h1 per page; no button without a name.
+- **Print preview:** the exam page printed with all tabs (except History) under a heading with the student name and the date; the stamp keeps its colour.
