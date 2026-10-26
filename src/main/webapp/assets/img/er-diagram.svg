@@ -1,0 +1,452 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 1192" width="1620" height="1192" font-family="Manrope, Segoe UI, Arial, sans-serif">
+<title>AspirantOS - ER diagram (MySQL database aspirantos)</title>
+<rect width="1620" height="1192" fill="#F7F4EC"/>
+<text x="30" y="40" font-size="22" font-weight="700" fill="#0F1B33" font-family="Fraunces, Georgia, serif">AspirantOS — Entity Relationship Diagram</text>
+<text x="560" y="40" font-size="13" fill="#5B6478">26 tables · 34 foreign keys · database aspirantos (MySQL 8.4, InnoDB)</text>
+<path d="M1300,317.5 C1260,317.5 1260,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,317.5 L1300,312.5 M1290,317.5 L1300,317.5 M1290,317.5 L1300,322.5" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M595,364.5 C627.5,364.5 627.5,850.5 660,850.5" fill="none" stroke="#8A8F9C" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M605,364.5 L595,359.5 M605,364.5 L595,364.5 M605,364.5 L595,369.5" stroke="#8A8F9C" stroke-width="1.4" fill="none"/>
+<path d="M653,845.5 L653,855.5" stroke="#8A8F9C" stroke-width="1.6"/>
+<path d="M345,364.5 C305,364.5 305,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M335,364.5 L345,359.5 M335,364.5 L345,364.5 M335,364.5 L345,369.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M910,306.0 C942.5,306.0 942.5,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,306.0 L910,301.0 M920,306.0 L910,306.0 M920,306.0 L910,311.0" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M660,306.0 C627.5,306.0 627.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M650,306.0 L660,301.0 M650,306.0 L660,306.0 M650,306.0 L660,311.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M1300,617.5 C1260,617.5 1260,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,617.5 L1300,612.5 M1290,617.5 L1300,617.5 M1290,617.5 L1300,622.5" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M280,276.0 C312.5,276.0 312.5,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M290,276.0 L280,271.0 M290,276.0 L280,276.0 M290,276.0 L280,281.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M975,686.0 C935,686.0 935,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,686.0 L975,681.0 M965,686.0 L975,686.0 M965,686.0 L975,691.0" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M345,586.0 C305,586.0 305,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M335,586.0 L345,581.0 M335,586.0 L345,586.0 M335,586.0 L345,591.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M910,504.5 C942.5,504.5 942.5,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,504.5 L910,499.5 M920,504.5 L910,504.5 M920,504.5 L910,509.5" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M660,504.5 C627.5,504.5 627.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M650,504.5 L660,499.5 M650,504.5 L660,504.5 M650,504.5 L660,509.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M910,504.5 C1105.0,504.5 1105.0,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,504.5 L910,499.5 M920,504.5 L910,504.5 M920,504.5 L910,509.5" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M1225,450.0 C1262.5,450.0 1262.5,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1235,450.0 L1225,445.0 M1235,450.0 L1225,450.0 M1235,450.0 L1225,455.0" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M975,450.0 C935,450.0 935,259.0 975,259.0" fill="none" stroke="#8A8F9C" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,450.0 L975,445.0 M965,450.0 L975,450.0 M965,450.0 L975,455.0" stroke="#8A8F9C" stroke-width="1.4" fill="none"/>
+<path d="M968,254.0 L968,264.0" stroke="#8A8F9C" stroke-width="1.6"/>
+<path d="M975,450.0 C935,450.0 935,119.0 975,119.0" fill="none" stroke="#8A8F9C" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,450.0 L975,445.0 M965,450.0 L975,450.0 M965,450.0 L975,455.0" stroke="#8A8F9C" stroke-width="1.4" fill="none"/>
+<path d="M968,114.0 L968,124.0" stroke="#8A8F9C" stroke-width="1.6"/>
+<path d="M975,450.0 C942.5,450.0 942.5,850.5 910,850.5" fill="none" stroke="#8A8F9C" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,450.0 L975,445.0 M965,450.0 L975,450.0 M965,450.0 L975,455.0" stroke="#8A8F9C" stroke-width="1.4" fill="none"/>
+<path d="M917,845.5 L917,855.5" stroke="#8A8F9C" stroke-width="1.6"/>
+<path d="M975,849.0 C935,849.0 935,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,849.0 L975,844.0 M965,849.0 L975,849.0 M965,849.0 L975,854.0" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M1300,136.0 C1262.5,136.0 1262.5,450.0 1225,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,136.0 L1300,131.0 M1290,136.0 L1300,136.0 M1290,136.0 L1300,141.0" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M1232,445.0 L1232,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M1300,136.0 C947.5,136.0 947.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,136.0 L1300,131.0 M1290,136.0 L1300,136.0 M1290,136.0 L1300,141.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M910,997.5 C942.5,997.5 942.5,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,997.5 L910,992.5 M920,997.5 L910,997.5 M920,997.5 L910,1002.5" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M660,997.5 C627.5,997.5 627.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M650,997.5 L660,992.5 M650,997.5 L660,997.5 M650,997.5 L660,1002.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M910,697.5 C942.5,697.5 942.5,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,697.5 L910,692.5 M920,697.5 L910,697.5 M920,697.5 L910,702.5" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M660,697.5 C627.5,697.5 627.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M650,697.5 L660,692.5 M650,697.5 L660,697.5 M650,697.5 L660,702.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M280,447.5 C312.5,447.5 312.5,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M290,447.5 L280,442.5 M290,447.5 L280,447.5 M290,447.5 L280,452.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M1300,929.0 C1260,929.0 1260,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,929.0 L1300,924.0 M1290,929.0 L1300,929.0 M1290,929.0 L1300,934.0" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M1300,777.5 C1260,777.5 1260,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,777.5 L1300,772.5 M1290,777.5 L1300,777.5 M1290,777.5 L1300,782.5" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M1300,469.0 C1260,469.0 1260,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1290,469.0 L1300,464.0 M1290,469.0 L1300,469.0 M1290,469.0 L1300,474.0" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M280,119.0 C312.5,119.0 312.5,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M290,119.0 L280,114.0 M290,119.0 L280,119.0 M290,119.0 L280,124.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M975,1006.0 C935,1006.0 935,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,1006.0 L975,1001.0 M965,1006.0 L975,1006.0 M965,1006.0 L975,1011.0" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M975,1006.0 C785.0,1006.0 785.0,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M965,1006.0 L975,1001.0 M965,1006.0 L975,1006.0 M965,1006.0 L975,1011.0" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M1225,1006.0 C1262.5,1006.0 1262.5,136.0 1300,136.0" fill="none" stroke="#5B4FA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M1235,1006.0 L1225,1001.0 M1235,1006.0 L1225,1006.0 M1235,1006.0 L1225,1011.0" stroke="#5B4FA8" stroke-width="1.4" fill="none"/>
+<path d="M1293,131.0 L1293,141.0" stroke="#5B4FA8" stroke-width="1.6"/>
+<path d="M910,127.5 C942.5,127.5 942.5,450.0 975,450.0" fill="none" stroke="#E8792B" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M920,127.5 L910,122.5 M920,127.5 L910,127.5 M920,127.5 L910,132.5" stroke="#E8792B" stroke-width="1.4" fill="none"/>
+<path d="M968,445.0 L968,455.0" stroke="#E8792B" stroke-width="1.6"/>
+<path d="M660,127.5 C627.5,127.5 627.5,144.5 595,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M650,127.5 L660,122.5 M650,127.5 L660,127.5 M650,127.5 L660,132.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M602,139.5 L602,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<path d="M345,777.5 C305,777.5 305,144.5 345,144.5" fill="none" stroke="#2D5BA8" stroke-width="1.4" stroke-opacity="0.55"/>
+<path d="M335,777.5 L345,772.5 M335,777.5 L345,777.5 M335,777.5 L345,782.5" stroke="#2D5BA8" stroke-width="1.4" fill="none"/>
+<path d="M338,139.5 L338,149.5" stroke="#2D5BA8" stroke-width="1.6"/>
+<g>
+<rect x="30" y="70" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M30,78 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#0F1B33"/>
+<text x="40" y="86.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">remember_token</text>
+<text x="40" y="108" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="62" y="108" font-size="11.5" fill="#0F1B33">id</text>
+<text x="40" y="125" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="62" y="125" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="40" y="142" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="62" y="142" font-size="11.5" fill="#0F1B33">token_hash</text>
+<text x="40" y="159" font-size="11.5" fill="#0F1B33">expires_at</text>
+</g>
+<g>
+<rect x="30" y="210" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M30,218 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B6478"/>
+<text x="40" y="226.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">audit_log</text>
+<text x="40" y="248" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="62" y="248" font-size="11.5" fill="#0F1B33">id</text>
+<text x="40" y="265" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="62" y="265" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="40" y="282" font-size="11.5" fill="#0F1B33">action</text>
+<text x="40" y="299" font-size="11.5" fill="#0F1B33">entity, entity_id</text>
+<text x="40" y="316" font-size="11.5" fill="#0F1B33">ip_address</text>
+<text x="40" y="333" font-size="11.5" fill="#0F1B33">created_at</text>
+</g>
+<g>
+<rect x="30" y="390" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M30,398 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B6478"/>
+<text x="40" y="406.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">notification</text>
+<text x="40" y="428" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="62" y="428" font-size="11.5" fill="#0F1B33">id</text>
+<text x="40" y="445" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="62" y="445" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="40" y="462" font-size="11.5" fill="#0F1B33">title, message</text>
+<text x="40" y="479" font-size="11.5" fill="#0F1B33">link_url</text>
+<text x="40" y="496" font-size="11.5" fill="#0F1B33">is_read</text>
+</g>
+<g>
+<rect x="30" y="560" width="250" height="81" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M30,568 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B6478"/>
+<text x="40" y="576.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">app_setting</text>
+<text x="40" y="598" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="62" y="598" font-size="11.5" fill="#0F1B33">setting_key</text>
+<text x="40" y="615" font-size="11.5" fill="#0F1B33">setting_value</text>
+<text x="40" y="632" font-size="11.5" fill="#0F1B33">description</text>
+</g>
+<g>
+<rect x="345" y="70" width="250" height="149" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M345,78 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#0F1B33"/>
+<text x="355" y="86.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">app_user</text>
+<text x="355" y="108" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="377" y="108" font-size="11.5" fill="#0F1B33">id</text>
+<text x="355" y="125" font-size="11.5" fill="#0F1B33">full_name</text>
+<text x="355" y="142" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="377" y="142" font-size="11.5" fill="#0F1B33">email</text>
+<text x="355" y="159" font-size="11.5" fill="#0F1B33">password_hash, salt</text>
+<text x="355" y="176" font-size="11.5" fill="#0F1B33">role (ASPIRANT/ADMIN)</text>
+<text x="355" y="193" font-size="11.5" fill="#0F1B33">status</text>
+<text x="355" y="210" font-size="11.5" fill="#0F1B33">last_login_at</text>
+</g>
+<g>
+<rect x="345" y="290" width="250" height="149" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M345,298 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#1F7A4F"/>
+<text x="355" y="306.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">aspirant_profile</text>
+<text x="355" y="328" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK FK</text>
+<text x="395" y="328" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="355" y="345" font-size="11.5" fill="#0F1B33">dob, gender</text>
+<text x="355" y="362" font-size="11.5" fill="#0F1B33">category</text>
+<text x="355" y="379" font-size="11.5" fill="#0F1B33">is_pwbd, pwbd_percent</text>
+<text x="355" y="396" font-size="11.5" fill="#0F1B33">is_ex_serviceman</text>
+<text x="355" y="413" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="377" y="413" font-size="11.5" fill="#0F1B33">domicile_state_code</text>
+<text x="355" y="430" font-size="11.5" fill="#0F1B33">marital_status, nationality</text>
+</g>
+<g>
+<rect x="345" y="520" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M345,528 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#1F7A4F"/>
+<text x="355" y="536.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">education</text>
+<text x="355" y="558" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="377" y="558" font-size="11.5" fill="#0F1B33">id</text>
+<text x="355" y="575" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="377" y="575" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="355" y="592" font-size="11.5" fill="#0F1B33">level, degree_name</text>
+<text x="355" y="609" font-size="11.5" fill="#0F1B33">subjects</text>
+<text x="355" y="626" font-size="11.5" fill="#0F1B33">percentage / cgpa</text>
+<text x="355" y="643" font-size="11.5" fill="#0F1B33">passing_year, status</text>
+</g>
+<g>
+<rect x="345" y="720" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M345,728 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#1F7A4F"/>
+<text x="355" y="736.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">work_experience</text>
+<text x="355" y="758" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="377" y="758" font-size="11.5" fill="#0F1B33">id</text>
+<text x="355" y="775" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="377" y="775" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="355" y="792" font-size="11.5" fill="#0F1B33">organisation</text>
+<text x="355" y="809" font-size="11.5" fill="#0F1B33">start_date, end_date</text>
+<text x="355" y="826" font-size="11.5" fill="#0F1B33">is_relevant_professional</text>
+</g>
+<g>
+<rect x="660" y="70" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,78 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#C98A0B"/>
+<text x="670" y="86.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">user_exam_tracking</text>
+<text x="670" y="108" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="108" font-size="11.5" fill="#0F1B33">id</text>
+<text x="670" y="125" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="125" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="670" y="142" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="142" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="670" y="159" font-size="11.5" fill="#0F1B33">attempts_used_before_app</text>
+<text x="670" y="176" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="692" y="176" font-size="11.5" fill="#0F1B33">(user_id, exam_id)</text>
+</g>
+<g>
+<rect x="660" y="240" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,248 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#C98A0B"/>
+<text x="670" y="256.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">attempt_log</text>
+<text x="670" y="278" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="278" font-size="11.5" fill="#0F1B33">id</text>
+<text x="670" y="295" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="295" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="670" y="312" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="312" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="670" y="329" font-size="11.5" fill="#0F1B33">cycle_year, sitting_no</text>
+<text x="670" y="346" font-size="11.5" fill="#0F1B33">stage_reached</text>
+<text x="670" y="363" font-size="11.5" fill="#0F1B33">counts_as_attempt (trigger)</text>
+</g>
+<g>
+<rect x="660" y="430" width="250" height="149" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,438 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#C98A0B"/>
+<text x="670" y="446.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">eligibility_snapshot</text>
+<text x="670" y="468" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="468" font-size="11.5" fill="#0F1B33">id</text>
+<text x="670" y="485" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="485" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="670" y="502" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="502" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="670" y="519" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="519" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="670" y="536" font-size="11.5" fill="#0F1B33">status, headline</text>
+<text x="670" y="553" font-size="11.5" fill="#0F1B33">attempts_remaining</text>
+<text x="670" y="570" font-size="11.5" fill="#0F1B33">last_eligible_year</text>
+</g>
+<g>
+<rect x="660" y="640" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,648 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#C98A0B"/>
+<text x="670" y="656.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">info_report</text>
+<text x="670" y="678" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="678" font-size="11.5" fill="#0F1B33">id</text>
+<text x="670" y="695" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="695" font-size="11.5" fill="#0F1B33">user_id</text>
+<text x="670" y="712" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="712" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="670" y="729" font-size="11.5" fill="#0F1B33">message, status</text>
+<text x="670" y="746" font-size="11.5" fill="#0F1B33">admin_reply</text>
+</g>
+<g>
+<rect x="660" y="810" width="250" height="81" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,818 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#1F7A4F"/>
+<text x="670" y="826.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">state_master</text>
+<text x="670" y="848" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="848" font-size="11.5" fill="#0F1B33">code</text>
+<text x="670" y="865" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="692" y="865" font-size="11.5" fill="#0F1B33">name</text>
+<text x="670" y="882" font-size="11.5" fill="#0F1B33">type (STATE/UT)</text>
+</g>
+<g>
+<rect x="975" y="70" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,78 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#E8792B"/>
+<text x="985" y="86.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">exam_category</text>
+<text x="985" y="108" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="108" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="125" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="1007" y="125" font-size="11.5" fill="#0F1B33">code</text>
+<text x="985" y="142" font-size="11.5" fill="#0F1B33">name</text>
+<text x="985" y="159" font-size="11.5" fill="#0F1B33">accent_color, sort_order</text>
+</g>
+<g>
+<rect x="975" y="210" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,218 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#E8792B"/>
+<text x="985" y="226.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">conducting_body</text>
+<text x="985" y="248" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="248" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="265" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="1007" y="265" font-size="11.5" fill="#0F1B33">short_name</text>
+<text x="985" y="282" font-size="11.5" fill="#0F1B33">full_name</text>
+<text x="985" y="299" font-size="11.5" fill="#0F1B33">body_type</text>
+</g>
+<g>
+<rect x="975" y="350" width="250" height="200" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,358 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#E8792B"/>
+<text x="985" y="366.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">exam</text>
+<text x="985" y="388" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="388" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="405" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="1007" y="405" font-size="11.5" fill="#0F1B33">code</text>
+<text x="985" y="422" font-size="11.5" fill="#0F1B33">name, short_name</text>
+<text x="985" y="439" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="439" font-size="11.5" fill="#0F1B33">category_id</text>
+<text x="985" y="456" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="456" font-size="11.5" fill="#0F1B33">body_id</text>
+<text x="985" y="473" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="473" font-size="11.5" fill="#0F1B33">state_code</text>
+<text x="985" y="490" font-size="11.5" fill="#0F1B33">scope, sector, purpose</text>
+<text x="985" y="507" font-size="11.5" fill="#0F1B33">cycles_per_year</text>
+<text x="985" y="524" font-size="11.5" fill="#0F1B33">data_confidence</text>
+<text x="985" y="541" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="541" font-size="11.5" fill="#0F1B33">active_rule_version_id</text>
+</g>
+<g>
+<rect x="975" y="620" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,628 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#E8792B"/>
+<text x="985" y="636.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">doc_spec</text>
+<text x="985" y="658" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="658" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="675" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="675" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="985" y="692" font-size="11.5" fill="#0F1B33">doc_type</text>
+<text x="985" y="709" font-size="11.5" fill="#0F1B33">width / height px</text>
+<text x="985" y="726" font-size="11.5" fill="#0F1B33">min_kb, max_kb</text>
+<text x="985" y="743" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="1007" y="743" font-size="11.5" fill="#0F1B33">(exam_id, doc_type)</text>
+</g>
+<g>
+<rect x="975" y="800" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,808 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#E8792B"/>
+<text x="985" y="816.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">exam_event</text>
+<text x="985" y="838" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="838" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="855" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="855" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="985" y="872" font-size="11.5" fill="#0F1B33">cycle_year, event_type</text>
+<text x="985" y="889" font-size="11.5" fill="#0F1B33">event_date</text>
+</g>
+<g>
+<rect x="660" y="940" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M660,948 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B6478"/>
+<text x="670" y="956.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">exam_update_check</text>
+<text x="670" y="978" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="692" y="978" font-size="11.5" fill="#0F1B33">id</text>
+<text x="670" y="995" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="995" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="670" y="1012" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="692" y="1012" font-size="11.5" fill="#0F1B33">checked_by</text>
+<text x="670" y="1029" font-size="11.5" fill="#0F1B33">content_sha256</text>
+<text x="670" y="1046" font-size="11.5" fill="#0F1B33">changed_since_last</text>
+</g>
+<g>
+<rect x="1300" y="70" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,78 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="86.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">exam_rule_version</text>
+<text x="1310" y="108" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="108" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="125" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="125" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="1310" y="142" font-size="11.5" fill="#0F1B33">version_no</text>
+<text x="1310" y="159" font-size="11.5" fill="#0F1B33">status (DRAFT/ACTIVE/ARCHIVED)</text>
+<text x="1310" y="176" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="176" font-size="11.5" fill="#0F1B33">created_by</text>
+<text x="1310" y="193" font-size="9.5" font-weight="700" fill="#1F7A4F" font-family="JetBrains Mono, Consolas, monospace">UK</text>
+<text x="1332" y="193" font-size="11.5" fill="#0F1B33">one ACTIVE per exam</text>
+</g>
+<g>
+<rect x="1300" y="260" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,268 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="276.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">age_rule</text>
+<text x="1310" y="298" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="298" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="315" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="315" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="1310" y="332" font-size="11.5" fill="#0F1B33">min_age, max_age</text>
+<text x="1310" y="349" font-size="11.5" fill="#0F1B33">max_age_semantics</text>
+<text x="1310" y="366" font-size="11.5" fill="#0F1B33">cutoff_type / DOB window</text>
+</g>
+<g>
+<rect x="1300" y="420" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,428 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="436.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">relaxation_rule</text>
+<text x="1310" y="458" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="458" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="475" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="475" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="1310" y="492" font-size="11.5" fill="#0F1B33">relaxation_type, category</text>
+<text x="1310" y="509" font-size="11.5" fill="#0F1B33">years, stacking</text>
+</g>
+<g>
+<rect x="1300" y="560" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,568 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="576.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">attempt_rule</text>
+<text x="1310" y="598" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="598" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="615" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="615" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="1310" y="632" font-size="11.5" fill="#0F1B33">category, is_pwbd</text>
+<text x="1310" y="649" font-size="11.5" fill="#0F1B33">max_attempts</text>
+<text x="1310" y="666" font-size="11.5" fill="#0F1B33">counting_rule</text>
+</g>
+<g>
+<rect x="1300" y="720" width="250" height="115" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,728 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="736.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">qualification_rule</text>
+<text x="1310" y="758" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="758" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="775" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="775" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="1310" y="792" font-size="11.5" fill="#0F1B33">required_level</text>
+<text x="1310" y="809" font-size="11.5" fill="#0F1B33">accepted_degrees, subjects</text>
+<text x="1310" y="826" font-size="11.5" fill="#0F1B33">min_percent</text>
+</g>
+<g>
+<rect x="1300" y="880" width="250" height="98" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M1300,888 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="1310" y="896.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">other_rule</text>
+<text x="1310" y="918" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1332" y="918" font-size="11.5" fill="#0F1B33">id</text>
+<text x="1310" y="935" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1332" y="935" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="1310" y="952" font-size="11.5" fill="#0F1B33">rule_type, rule_value</text>
+<text x="1310" y="969" font-size="11.5" fill="#0F1B33">is_blocking</text>
+</g>
+<g>
+<rect x="975" y="940" width="250" height="132" rx="8" fill="#FFFFFF" stroke="#E3DED2" stroke-width="1.2"/>
+<path d="M975,948 a8,8 0 0 1 8,-8 h234 a8,8 0 0 1 8,8 v16 h-250 z" fill="#5B4FA8"/>
+<text x="985" y="956.5" font-size="13" font-weight="700" fill="#FFFFFF" font-family="JetBrains Mono, Consolas, monospace">rule_change_log</text>
+<text x="985" y="978" font-size="9.5" font-weight="700" fill="#B93A2B" font-family="JetBrains Mono, Consolas, monospace">PK</text>
+<text x="1007" y="978" font-size="11.5" fill="#0F1B33">id</text>
+<text x="985" y="995" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="995" font-size="11.5" fill="#0F1B33">exam_id</text>
+<text x="985" y="1012" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="1012" font-size="11.5" fill="#0F1B33">rule_version_id</text>
+<text x="985" y="1029" font-size="9.5" font-weight="700" fill="#2D5BA8" font-family="JetBrains Mono, Consolas, monospace">FK</text>
+<text x="1007" y="1029" font-size="11.5" fill="#0F1B33">changed_by</text>
+<text x="985" y="1046" font-size="11.5" fill="#0F1B33">column_name</text>
+<text x="985" y="1063" font-size="11.5" fill="#0F1B33">old_value -&gt; new_value</text>
+</g>
+<rect x="30" y="1100" width="1560" height="58" rx="8" fill="#FFFFFF" stroke="#E3DED2"/>
+<rect x="46" y="1114" width="14" height="14" rx="3" fill="#0F1B33"/><text x="66" y="1126" font-size="12" fill="#0F1B33">Users</text>
+<rect x="196" y="1114" width="14" height="14" rx="3" fill="#1F7A4F"/><text x="216" y="1126" font-size="12" fill="#0F1B33">Aspirant data</text>
+<rect x="346" y="1114" width="14" height="14" rx="3" fill="#C98A0B"/><text x="366" y="1126" font-size="12" fill="#0F1B33">Tracking &amp; cache</text>
+<rect x="496" y="1114" width="14" height="14" rx="3" fill="#E8792B"/><text x="516" y="1126" font-size="12" fill="#0F1B33">Exam master</text>
+<rect x="646" y="1114" width="14" height="14" rx="3" fill="#5B4FA8"/><text x="666" y="1126" font-size="12" fill="#0F1B33">Versioned rules</text>
+<rect x="796" y="1114" width="14" height="14" rx="3" fill="#5B6478"/><text x="816" y="1126" font-size="12" fill="#0F1B33">Admin &amp; audit</text>
+<text x="956" y="1126" font-size="12" fill="#5B6478">PK = primary key · FK = foreign key · UK = unique key · bar = one, crow's foot = many</text>
+<text x="46" y="1148" font-size="12" fill="#5B6478">Line colour = parent table: blue → app_user, orange → exam, purple → exam_rule_version, grey → others. Views, procedures and triggers are listed in docs/DB_DESIGN.md.</text>
+</svg>

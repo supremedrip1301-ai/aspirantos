@@ -148,6 +148,7 @@ public class EligibilityEngine {
         r.setRelaxationBreakdown(relaxationText(age, relax));
         r.setDobWindow(dobWindowText(age, relax, years.get(0)));
         r.setDaysUntilAgeLimitCrossed(daysUntilCrossed(age, relax, p.getDob(), today));
+        r.setNextCutoffDate(AgeCalculator.cutoffDate(age, years.get(0)));   // null for birth-date windows / no age rule
 
         String name = headlineName(exam);
 

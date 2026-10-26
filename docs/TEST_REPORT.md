@@ -214,3 +214,22 @@ Other checks:
 - **Round trip:** exporting all 267 exams and parsing the file again gave 1990 rows, 0 problems and 0 differences from the active rules.
 - **Layout:** every new admin page fits at 375 px and 1280 px.
 - **Database after the tests:** 1 admin, 267 exams and versions, no draft, no update check, no report, empty simulation date, cycles = 15. All integrity checks are 0.
+
+## 8. Landing page, About, error page, horizon, calendar (Phase 9)
+
+- **Script:** `tools/smoke-features.sh`. A temporary student with the sample profile is registered and deleted at the end.
+- **Result (26-Oct-2026): 21 passed, 0 failed.** The other smoke tests were run again afterwards: smoke-auth 35/35, smoke-exams 30/30, smoke-admin 35/35, smoke-admin2 35/35. EngineSelfTest: 61/61.
+
+| Area | Checks |
+|---|---|
+| Landing page | `/` forwards (no redirect) to the landing page; instant check form; category tiles with icons |
+| Instant check (JSON) | sample profile gives "You have 2 UPSC attempts left, valid until 2028."; OBC + PwBD breakdown 32 + 3 + 10 = 45; a bad date gives a JSON error with status 400 |
+| About | opened through the web.xml mapping with its init params; the application-wide visit counter goes up; the JSP inside WEB-INF cannot be opened directly; ER diagram served |
+| Error page | friendly 404 without technical details |
+| Horizon | asks for a profile first; SVG with the tracked UPSC bar, 2 attempt dots and the today line; age clock shows the age on 01-Aug-2027 |
+| Calendar | May 2027 shows the UPSC prelims (23-May-2027); a bad month falls back to the current month; a single date downloads as text/calendar with CRLF lines; all tracked dates of the next 12 months; download links on the exam page; .ics needs a login |
+
+Other checks:
+
+- **Layout:** landing, About, horizon, calendar, dashboard and the error page all fit at 375 px and 1280 px.
+- **Database after the tests:** 1 admin, 267 exams, no draft, empty simulation date.

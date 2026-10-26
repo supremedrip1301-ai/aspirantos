@@ -32,6 +32,7 @@ public class EligibilityResult {
     private String relaxationBreakdown;     // "Base upper age 32 + OBC-NCL 3 + PwBD 10 = 45"
     private String postGroup;               // best post group, null when the exam has none
     private LocalDate nextRetestDate;       // rolling 12-month rules (GRE, GMAT)
+    private LocalDate nextCutoffDate;       // date the age is counted on for the next cycle (age clock)
     private boolean profileIncomplete;
     private List<Integer> usableYears = new ArrayList<>();   // cycle years the student can use (horizon chart)
     private List<CheckLine> checkLines = new ArrayList<>();
@@ -179,6 +180,14 @@ public class EligibilityResult {
 
     public void setNextRetestDate(LocalDate nextRetestDate) {
         this.nextRetestDate = nextRetestDate;
+    }
+
+    public LocalDate getNextCutoffDate() {
+        return nextCutoffDate;
+    }
+
+    public void setNextCutoffDate(LocalDate nextCutoffDate) {
+        this.nextCutoffDate = nextCutoffDate;
     }
 
     public boolean isProfileIncomplete() {

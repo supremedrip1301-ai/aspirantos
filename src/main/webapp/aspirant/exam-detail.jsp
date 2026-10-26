@@ -245,10 +245,12 @@
                 <span class="mono"><%= DateUtil.format(ev.getEventDate()) %></span>
                 <span><%= eventLabel(ev.getEventType()) %> (<%= ev.getCycleYear() %>)</span>
                 <% if (ev.isTentative()) { %><span class="tag">tentative</span><% } else { %><span class="tag tag-official">official</span><% } %>
+                <% if (!past) { %><a class="small" href="calendar-ics.jsp?id=<%= ev.getId() %>">Add to my calendar</a><% } %>
             </li>
             <% } %>
         </ul>
-        <p class="hint">Tentative dates are estimated from the usual month and change every year.</p>
+        <p class="hint">Tentative dates are estimated from the usual month and change every year.
+            <a href="calendar-ics.jsp?exam=<%= exam.getId() %>">Download all coming dates (.ics)</a></p>
         <% } %>
     </section>
 

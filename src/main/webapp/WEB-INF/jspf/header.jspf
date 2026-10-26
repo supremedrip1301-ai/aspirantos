@@ -51,6 +51,8 @@
         <% } else { %>
         <a href="<%= ctx %>/aspirant/dashboard.jsp">Dashboard</a>
         <a href="<%= ctx %>/aspirant/exams.jsp">Explore exams</a>
+        <a href="<%= ctx %>/aspirant/horizon.jsp">Horizon</a>
+        <a href="<%= ctx %>/aspirant/calendar.jsp">Calendar</a>
         <a href="<%= ctx %>/aspirant/journal.jsp">Journal</a>
         <a href="<%= ctx %>/aspirant/profile-step1.jsp">My profile</a>
         <% } %>
