@@ -60,4 +60,39 @@ public class HtmlUtil {
     public static String checked(boolean condition) {
         return condition ? "checked" : "";
     }
+
+    /** ELIGIBLE -> "Eligible", NOT_YET -> "Not yet" ... (status chips and stamps). */
+    public static String statusLabel(String status) {
+        if (status == null) {
+            return "Not checked";
+        }
+        switch (status) {
+            case "ELIGIBLE":
+                return "Eligible";
+            case "PROVISIONAL":
+                return "Provisional";
+            case "NOT_YET":
+                return "Not yet";
+            case "EXHAUSTED":
+                return "Exhausted";
+            default:
+                return "Not eligible";
+        }
+    }
+
+    /** CSS class of a status chip: status-eligible, status-not_yet ... */
+    public static String statusClass(String status) {
+        return status == null ? "status-unknown" : "status-" + status.toLowerCase();
+    }
+
+    /** Badge text for exam.data_confidence (never let an unverified rule look official). */
+    public static String confidenceLabel(String confidence) {
+        if ("VERIFIED".equals(confidence)) {
+            return "Verified";
+        }
+        if ("LIKELY".equals(confidence)) {
+            return "Likely - not verified";
+        }
+        return "Needs verification";
+    }
 }

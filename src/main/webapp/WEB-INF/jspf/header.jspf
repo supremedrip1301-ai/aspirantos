@@ -48,6 +48,7 @@
         <% } else { %>
         <a href="<%= ctx %>/aspirant/dashboard.jsp">Dashboard</a>
         <a href="<%= ctx %>/aspirant/exams.jsp">Explore exams</a>
+        <a href="<%= ctx %>/aspirant/journal.jsp">Journal</a>
         <a href="<%= ctx %>/aspirant/profile-step1.jsp">My profile</a>
         <% } %>
         <a class="bell" href="<%= ctx %>/aspirant/notifications.jsp" aria-label="Notifications (<%= unreadCount %> unread)">

@@ -91,7 +91,7 @@ public class SnapshotDAO {
 
     /** Clears every cached result of a student (e.g. when the simulation date changes). */
     /**
-     * Saves many snapshots with ONE connection and a JDBC batch (addBatch / executeBatch):
+     * [EXTRA] JDBC batch (addBatch / executeBatch): saves many snapshots with ONE connection;
      * the dashboard stores up to 267 results at once. Returns the number of snapshots sent.
      */
     public int saveSnapshots(List<EligibilitySnapshot> list) {

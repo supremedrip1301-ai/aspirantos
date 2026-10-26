@@ -152,3 +152,24 @@ A temporary aspirant account was created through the DAOs and deleted at the end
 | Admin | admin login goes to the admin dashboard (267 exams); admin is kept out of the student wizard |
 
 The same flow was also clicked through in the browser (light and dark theme) with one more temporary account, which was deleted afterwards. EngineSelfTest still passes 61/61.
+
+## 5. Exams, eligibility UI, journal and dashboard (Phase 6)
+
+- **Script:** `tools/smoke-exams.sh`. A temporary student is registered with the sample profile (General, 15-Sep-1996, B.A. 2018, 4 UPSC attempts) and deleted at the end.
+- **Result (26-Oct-2026): 30 passed, 0 failed.** `tools/smoke-auth.sh` was run again afterwards: 35/35.
+
+| Area | Checks |
+|---|---|
+| Explorer | 267 exams with pages; search "UPSC" with a status chip; category filter + sort; page 2; SQL text in the search box finds 0 exams; "only eligible" filter (114 exams) |
+| Exam detail | headline "You have 2 UPSC attempts left, valid until 2028." with tabs; rules in plain words ("21 to below 32 years on 1 August of the exam year", "OBC-NCL: +3 years"); rule history v1; verification line; an unknown id goes back to the explorer |
+| Tracking | track SSC CGL, pin it on the dashboard, untrack it |
+| Dashboard | counters from `sp_user_dashboard_summary`; UPSC ticket "2 attempts left / valid until 2028"; SSC CGL ticket |
+| Journal | a logged UPSC 2026 attempt counts (set by the trigger) and the ticket changes to "1 attempt left"; duplicate year + sitting refused; "applied only" does not count; future date refused; delete |
+| Reports, notifications | a too short report is refused, a report is saved; notifications page |
+| Admin | sees the explorer without status chips and the exam page without the eligibility part |
+
+Other checks:
+
+- **Bulk loading:** for all 267 exams, loading the rules in bulk and one exam at a time gave identical headlines and check lines (0 differences). The first full computation now takes 1.3 s instead of 5.4 s.
+- **Mobile layout:** at 375 px width, every student page has no horizontal scroll. A table that is wider than the screen scrolls inside its own box.
+- **Browser check:** dashboard tickets, stamps and counters; tab switching.

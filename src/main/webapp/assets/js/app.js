@@ -156,6 +156,19 @@
             if (f.elements.newPassword.value !== f.elements.confirmPassword.value) { return ["confirmPassword", "The two new passwords do not match."]; }
             return null;
         },
+        attempt: function (f) {
+            if (f.elements.examId && val(f, "examId") === "") { return ["examId", "Please choose the exam."]; }
+            var year = number(f, "cycleYear");
+            if (year === null || year < 1990 || year > new Date().getFullYear() + 1) { return ["cycleYear", "Please enter the exam year."]; }
+            var sitting = number(f, "sittingNo");
+            if (sitting !== null && (sitting < 1 || sitting > 12)) { return ["sittingNo", "Sitting must be a number from 1 to 12."]; }
+            return null;
+        },
+        report: function (f) {
+            var len = val(f, "message").length;
+            if (len < 10 || len > 1000) { return ["message", "Please describe the problem in 10 to 1000 characters."]; }
+            return null;
+        },
         "delete-account": function (f) {
             if (val(f, "password") === "") { return ["password", "Please enter your password."]; }
             if (!checked(f, "confirm")) { return ["confirm", "Please tick the box to confirm."]; }
