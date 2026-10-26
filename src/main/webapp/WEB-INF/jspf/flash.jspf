@@ -1,0 +1,23 @@
+<%--
+    flash.jspf - shows the one-time "success" / "error" message that an action page stored
+    in the session before sendRedirect (Post/Redirect/Get, as in employee-form.jsp of
+    Experiment 5). The message is removed immediately, so it disappears on refresh.
+--%><%
+    String flashSuccess = (String) session.getAttribute("success");
+    String flashError = (String) session.getAttribute("error");
+    if (flashSuccess != null) {
+        session.removeAttribute("success");
+    }
+    if (flashError != null) {
+        session.removeAttribute("error");
+    }
+    if (flashError == null) {
+        flashError = (String) request.getAttribute("errorMessage");
+    }
+%>
+<% if (flashSuccess != null) { %>
+<div class="flash flash-success" role="status"><%= com.aspirantos.util.HtmlUtil.escape(flashSuccess) %></div>
+<% } %>
+<% if (flashError != null) { %>
+<div class="flash flash-error" role="alert"><%= com.aspirantos.util.HtmlUtil.escape(flashError) %></div>
+<% } %>

@@ -1,0 +1,66 @@
+<%--
+    header.jspf - common top of every page (static include):
+        <% String pageTitle = "Dashboard"; %>
+        <%@ include file="/WEB-INF/jspf/header.jspf" %>
+    Reads the theme cookie (light / dark), prints <head> with the CSS files, the top bar and,
+    for a logged-in user, the navigation and the notification bell. The application name comes
+    from web.xml through application.getInitParameter("appName") (ServletContext).
+    Variables defined here (do not redeclare them in the page): headerUser, themeValue,
+    appName, ctx, unreadCount, simulationDate.
+--%><%@ page import="com.aspirantos.model.User, com.aspirantos.dao.NotificationDAO, com.aspirantos.dao.SettingDAO, com.aspirantos.util.HtmlUtil, com.aspirantos.util.DateUtil" %><%
+    String ctx = request.getContextPath();
+    String appName = application.getInitParameter("appName");
+    User headerUser = (User) session.getAttribute("user");
+
+    // theme cookie (set on the Settings page): "light" or "dark"
+    String themeValue = "light";
+    if (request.getCookies() != null) {
+        for (jakarta.servlet.http.Cookie c : request.getCookies()) {
+            if ("theme".equals(c.getName()) && "dark".equals(c.getValue())) {
+                themeValue = "dark";
+            }
+        }
+    }
+
+    int unreadCount = headerUser == null ? 0 : new NotificationDAO().countUnread(headerUser.getId());
+    java.time.LocalDate simulationDate = new SettingDAO().getSimulationDate();
+%><!DOCTYPE html>
+<html lang="en" data-theme="<%= themeValue %>">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= HtmlUtil.escape(pageTitle) %> - <%= HtmlUtil.escape(appName) %></title>
+<link rel="stylesheet" href="<%= ctx %>/assets/css/tokens.css">
+<link rel="stylesheet" href="<%= ctx %>/assets/css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<% if (simulationDate != null) { %>
+<div class="sim-banner" role="note">Simulation date: <%= DateUtil.format(simulationDate) %> &middot; all results use this date as today</div>
+<% } %>
+<header class="topbar">
+    <a class="brand" href="<%= ctx %>/index.jsp"><span class="brand-mark" aria-hidden="true">A</span><%= HtmlUtil.escape(appName) %></a>
+    <% if (headerUser != null) { %>
+    <nav class="topnav" aria-label="Main">
+        <% if ("ADMIN".equals(headerUser.getRole())) { %>
+        <a href="<%= ctx %>/admin/dashboard.jsp">Admin</a>
+        <a href="<%= ctx %>/admin/exams.jsp">Exams</a>
+        <% } else { %>
+        <a href="<%= ctx %>/aspirant/dashboard.jsp">Dashboard</a>
+        <a href="<%= ctx %>/aspirant/exams.jsp">Explore exams</a>
+        <% } %>
+        <a class="bell" href="<%= ctx %>/aspirant/notifications.jsp" aria-label="Notifications (<%= unreadCount %> unread)">
+            Alerts<% if (unreadCount > 0) { %><span class="badge"><%= unreadCount %></span><% } %>
+        </a>
+        <span class="who"><%= HtmlUtil.escape(headerUser.getFullName()) %></span>
+        <a href="<%= ctx %>/logout.jsp">Log out</a>
+    </nav>
+    <% } else { %>
+    <nav class="topnav" aria-label="Main">
+        <a href="<%= ctx %>/about">About</a>
+        <a href="<%= ctx %>/login.jsp">Log in</a>
+        <a class="btn btn-primary btn-small" href="<%= ctx %>/register.jsp">Create account</a>
+    </nav>
+    <% } %>
+</header>
+<main id="main" class="page">

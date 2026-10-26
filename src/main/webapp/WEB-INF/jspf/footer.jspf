@@ -1,0 +1,13 @@
+<%--
+    footer.jspf - common bottom of every page (static include):
+        <%@ include file="/WEB-INF/jspf/footer.jspf" %>
+    Closes <main>, prints the footer and loads the shared script.
+--%>
+</main>
+<footer class="site-footer">
+    <p><%= com.aspirantos.util.HtmlUtil.escape(application.getInitParameter("appName")) %> &middot;
+       Exam rules change every year - always confirm with the official notification before applying.</p>
+</footer>
+<script src="<%= request.getContextPath() %>/assets/js/app.js"></script>
+</body>
+</html>

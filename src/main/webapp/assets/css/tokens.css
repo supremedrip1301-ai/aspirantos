@@ -1,0 +1,48 @@
+/* ============================================================
+   AspirantOS design tokens (MASTER_PROMPT PART 10).
+   [EXTRA] CSS custom properties - one place for every colour, size and font so that the
+   light and dark themes only swap values. Used by app.css and every page.
+   ============================================================ */
+
+:root {
+    --ink: #0F1B33;          /* text, header */
+    --paper: #F7F4EC;        /* page background */
+    --card: #FFFFFF;
+    --saffron: #E8792B;      /* primary buttons, highlights */
+    --saffron-dark: #B9581A;
+    --green: #1F7A4F;        /* ELIGIBLE */
+    --amber: #C98A0B;        /* PROVISIONAL / closing soon */
+    --brick: #B93A2B;        /* NOT ELIGIBLE / EXHAUSTED */
+    --slate: #5B6478;        /* secondary text */
+    --hairline: #E3DED2;
+    --focus: #2D5BA8;
+
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-ui: "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --radius: 12px;
+    --radius-small: 8px;
+    --shadow: 0 1px 2px rgba(15, 27, 51, 0.06);
+}
+
+[data-theme="dark"] {
+    --ink: #E9E6DD;
+    --paper: #0C1222;
+    --card: #141C2F;
+    --saffron: #F0904A;
+    --saffron-dark: #E8792B;
+    --green: #3FAE7A;
+    --amber: #E0A93A;
+    --brick: #E06A5B;
+    --slate: #A3AABB;
+    --hairline: #26304A;
+    --focus: #7FA6F0;
+    --shadow: none;
+}

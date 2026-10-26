@@ -1,0 +1,15 @@
+<%--
+    auth-check.jspf - included at the top of every page that needs a logged-in user:
+        <%@ include file="/WEB-INF/jspf/auth-check.jspf" %>
+    (static include directive: this code is copied into the page before translation).
+    Login protection without a Filter (CHANGE 005): if the session has no "user",
+    the browser is redirected to the login page and the rest of the page is not run.
+    After this fragment the page can use the variable "currentUser".
+--%><%@ page import="com.aspirantos.model.User" %><%
+    User currentUser = (User) session.getAttribute("user");
+    if (currentUser == null) {
+        session.setAttribute("error", "Please log in to continue.");
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
+%>
