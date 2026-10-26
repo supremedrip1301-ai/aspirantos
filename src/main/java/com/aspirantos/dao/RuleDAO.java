@@ -37,23 +37,7 @@ public class RuleDAO {
             ps.setInt(1, versionId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new AgeRule(
-                            rs.getInt("id"),
-                            rs.getInt("rule_version_id"),
-                            rs.getString("post_or_course"),
-                            DaoUtil.getInteger(rs, "min_age"),
-                            DaoUtil.getInteger(rs, "max_age"),
-                            rs.getString("max_age_semantics"),
-                            rs.getString("cutoff_type"),
-                            DaoUtil.getInteger(rs, "cutoff_month"),
-                            DaoUtil.getInteger(rs, "cutoff_day"),
-                            DaoUtil.getInteger(rs, "dob_from_offset_years"),
-                            DaoUtil.getInteger(rs, "dob_from_month"),
-                            DaoUtil.getInteger(rs, "dob_from_day"),
-                            DaoUtil.getInteger(rs, "dob_to_offset_years"),
-                            DaoUtil.getInteger(rs, "dob_to_month"),
-                            DaoUtil.getInteger(rs, "dob_to_day"),
-                            rs.getString("notes")));
+                    list.add(mapAgeRule(rs));
                 }
             }
         } catch (Exception e) {
@@ -72,16 +56,7 @@ public class RuleDAO {
             ps.setInt(1, versionId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new RelaxationRule(
-                            rs.getInt("id"),
-                            rs.getInt("rule_version_id"),
-                            rs.getString("relaxation_type"),
-                            rs.getString("category"),
-                            rs.getInt("years"),
-                            rs.getString("stacking"),
-                            DaoUtil.getInteger(rs, "overall_max_age_cap"),
-                            rs.getBoolean("requires_state_domicile"),
-                            rs.getString("notes")));
+                    list.add(mapRelaxationRule(rs));
                 }
             }
         } catch (Exception e) {
@@ -100,16 +75,7 @@ public class RuleDAO {
             ps.setInt(1, versionId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new AttemptRule(
-                            rs.getInt("id"),
-                            rs.getInt("rule_version_id"),
-                            rs.getString("category"),
-                            DaoUtil.getBooleanOrNull(rs, "is_pwbd"),
-                            DaoUtil.getInteger(rs, "max_attempts"),
-                            rs.getString("counting_rule"),
-                            DaoUtil.getInteger(rs, "window_years"),
-                            DaoUtil.getInteger(rs, "min_gap_days"),
-                            rs.getString("notes")));
+                    list.add(mapAttemptRule(rs));
                 }
             }
         } catch (Exception e) {
@@ -128,20 +94,7 @@ public class RuleDAO {
             ps.setInt(1, versionId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new QualificationRule(
-                            rs.getInt("id"),
-                            rs.getInt("rule_version_id"),
-                            rs.getString("post_or_course"),
-                            rs.getString("required_level"),
-                            rs.getString("accepted_degrees"),
-                            rs.getString("required_subjects"),
-                            DaoUtil.getDouble(rs, "min_percent_general"),
-                            DaoUtil.getDouble(rs, "min_percent_relaxed"),
-                            rs.getString("relaxed_for"),
-                            rs.getBoolean("final_year_allowed"),
-                            DaoUtil.getInteger(rs, "max_years_since_passing"),
-                            DaoUtil.getDouble(rs, "min_experience_years"),
-                            rs.getString("text_summary")));
+                    list.add(mapQualificationRule(rs));
                 }
             }
         } catch (Exception e) {
@@ -160,15 +113,102 @@ public class RuleDAO {
             ps.setInt(1, versionId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(new OtherRule(
-                            rs.getInt("id"),
-                            rs.getInt("rule_version_id"),
-                            rs.getString("post_or_course"),
-                            rs.getString("rule_type"),
-                            rs.getString("rule_value"),
-                            rs.getBoolean("is_blocking"),
-                            rs.getString("text_summary")));
+                    list.add(mapOtherRule(rs));
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // ======================= READ ALL ACTIVE (bulk) =======================
+    // The dashboard checks every exam at once: one query per rule table for all ACTIVE
+    // versions instead of five queries per exam. EligibilityService groups the rows by version.
+
+    public List<AgeRule> getActiveAgeRules() {
+        List<AgeRule> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM age_rule r JOIN exam e ON e.active_rule_version_id = r.rule_version_id "
+                + "WHERE e.is_active ORDER BY r.rule_version_id, r.post_or_course IS NOT NULL, r.post_or_course, r.id";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                list.add(mapAgeRule(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<RelaxationRule> getActiveRelaxationRules() {
+        List<RelaxationRule> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM relaxation_rule r JOIN exam e ON e.active_rule_version_id = r.rule_version_id "
+                + "WHERE e.is_active ORDER BY r.rule_version_id, r.relaxation_type, r.category, r.id";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                list.add(mapRelaxationRule(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<AttemptRule> getActiveAttemptRules() {
+        List<AttemptRule> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM attempt_rule r JOIN exam e ON e.active_rule_version_id = r.rule_version_id "
+                + "WHERE e.is_active ORDER BY r.rule_version_id, r.category IS NULL, r.category, r.id";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                list.add(mapAttemptRule(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<QualificationRule> getActiveQualificationRules() {
+        List<QualificationRule> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM qualification_rule r JOIN exam e ON e.active_rule_version_id = r.rule_version_id "
+                + "WHERE e.is_active ORDER BY r.rule_version_id, r.post_or_course IS NOT NULL, r.post_or_course, r.id";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                list.add(mapQualificationRule(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<OtherRule> getActiveOtherRules() {
+        List<OtherRule> list = new ArrayList<>();
+        String sql = "SELECT r.* FROM other_rule r JOIN exam e ON e.active_rule_version_id = r.rule_version_id "
+                + "WHERE e.is_active ORDER BY r.rule_version_id, r.rule_type, r.id";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                list.add(mapOtherRule(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -439,6 +479,80 @@ public class RuleDAO {
     // ======================= helpers =======================
 
     /** True when the version exists and is a DRAFT (only drafts may be edited). */
+    private AgeRule mapAgeRule(ResultSet rs) throws SQLException {
+        return new AgeRule(
+                rs.getInt("id"),
+                rs.getInt("rule_version_id"),
+                rs.getString("post_or_course"),
+                DaoUtil.getInteger(rs, "min_age"),
+                DaoUtil.getInteger(rs, "max_age"),
+                rs.getString("max_age_semantics"),
+                rs.getString("cutoff_type"),
+                DaoUtil.getInteger(rs, "cutoff_month"),
+                DaoUtil.getInteger(rs, "cutoff_day"),
+                DaoUtil.getInteger(rs, "dob_from_offset_years"),
+                DaoUtil.getInteger(rs, "dob_from_month"),
+                DaoUtil.getInteger(rs, "dob_from_day"),
+                DaoUtil.getInteger(rs, "dob_to_offset_years"),
+                DaoUtil.getInteger(rs, "dob_to_month"),
+                DaoUtil.getInteger(rs, "dob_to_day"),
+                rs.getString("notes"));
+    }
+
+    private RelaxationRule mapRelaxationRule(ResultSet rs) throws SQLException {
+        return new RelaxationRule(
+                rs.getInt("id"),
+                rs.getInt("rule_version_id"),
+                rs.getString("relaxation_type"),
+                rs.getString("category"),
+                rs.getInt("years"),
+                rs.getString("stacking"),
+                DaoUtil.getInteger(rs, "overall_max_age_cap"),
+                rs.getBoolean("requires_state_domicile"),
+                rs.getString("notes"));
+    }
+
+    private AttemptRule mapAttemptRule(ResultSet rs) throws SQLException {
+        return new AttemptRule(
+                rs.getInt("id"),
+                rs.getInt("rule_version_id"),
+                rs.getString("category"),
+                DaoUtil.getBooleanOrNull(rs, "is_pwbd"),
+                DaoUtil.getInteger(rs, "max_attempts"),
+                rs.getString("counting_rule"),
+                DaoUtil.getInteger(rs, "window_years"),
+                DaoUtil.getInteger(rs, "min_gap_days"),
+                rs.getString("notes"));
+    }
+
+    private QualificationRule mapQualificationRule(ResultSet rs) throws SQLException {
+        return new QualificationRule(
+                rs.getInt("id"),
+                rs.getInt("rule_version_id"),
+                rs.getString("post_or_course"),
+                rs.getString("required_level"),
+                rs.getString("accepted_degrees"),
+                rs.getString("required_subjects"),
+                DaoUtil.getDouble(rs, "min_percent_general"),
+                DaoUtil.getDouble(rs, "min_percent_relaxed"),
+                rs.getString("relaxed_for"),
+                rs.getBoolean("final_year_allowed"),
+                DaoUtil.getInteger(rs, "max_years_since_passing"),
+                DaoUtil.getDouble(rs, "min_experience_years"),
+                rs.getString("text_summary"));
+    }
+
+    private OtherRule mapOtherRule(ResultSet rs) throws SQLException {
+        return new OtherRule(
+                rs.getInt("id"),
+                rs.getInt("rule_version_id"),
+                rs.getString("post_or_course"),
+                rs.getString("rule_type"),
+                rs.getString("rule_value"),
+                rs.getBoolean("is_blocking"),
+                rs.getString("text_summary"));
+    }
+
     private boolean isDraft(Connection con, int versionId) throws SQLException {
         try (PreparedStatement ps = con.prepareStatement("SELECT status FROM exam_rule_version WHERE id=?")) {
             ps.setInt(1, versionId);

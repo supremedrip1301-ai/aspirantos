@@ -71,4 +71,12 @@ public class DateUtil {
                 + p.getMonths() + (p.getMonths() == 1 ? " month " : " months ")
                 + p.getDays() + (p.getDays() == 1 ? " day" : " days");
     }
+
+    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July",
+                                            "August", "September", "October", "November", "December"};
+
+    /** 5 -> "May"; null or out of range -> "". */
+    public static String monthName(Integer month) {
+        return month == null || month < 1 || month > 12 ? "" : MONTHS[month - 1];
+    }
 }

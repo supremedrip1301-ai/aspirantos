@@ -90,6 +90,50 @@ public class SnapshotDAO {
     }
 
     /** Clears every cached result of a student (e.g. when the simulation date changes). */
+    /**
+     * Saves many snapshots with ONE connection and a JDBC batch (addBatch / executeBatch):
+     * the dashboard stores up to 267 results at once. Returns the number of snapshots sent.
+     */
+    public int saveSnapshots(List<EligibilitySnapshot> list) {
+        if (list.isEmpty()) {
+            return 0;
+        }
+        String sql = "INSERT INTO eligibility_snapshot "
+                + "(user_id, exam_id, rule_version_id, computed_for_date, status, attempts_used, attempts_remaining, "
+                + "next_cycle_year, first_eligible_year, last_eligible_year, headline, details_text) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                + "AS new ON DUPLICATE KEY UPDATE rule_version_id=new.rule_version_id, "
+                + "computed_for_date=new.computed_for_date, status=new.status, attempts_used=new.attempts_used, "
+                + "attempts_remaining=new.attempts_remaining, next_cycle_year=new.next_cycle_year, "
+                + "first_eligible_year=new.first_eligible_year, last_eligible_year=new.last_eligible_year, "
+                + "headline=new.headline, details_text=new.details_text, computed_at=CURRENT_TIMESTAMP";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            for (EligibilitySnapshot s : list) {
+                ps.setInt(1, s.getUserId());
+                ps.setInt(2, s.getExamId());
+                ps.setInt(3, s.getRuleVersionId());
+                DaoUtil.setDate(ps, 4, s.getComputedForDate());
+                ps.setString(5, s.getStatus());
+                DaoUtil.setInt(ps, 6, s.getAttemptsUsed());
+                DaoUtil.setInt(ps, 7, s.getAttemptsRemaining());
+                DaoUtil.setInt(ps, 8, s.getNextCycleYear());
+                DaoUtil.setInt(ps, 9, s.getFirstEligibleYear());
+                DaoUtil.setInt(ps, 10, s.getLastEligibleYear());
+                ps.setString(11, s.getHeadline());
+                DaoUtil.setString(ps, 12, s.getDetailsText());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            return list.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public int deleteSnapshotsOfUser(int userId) {
         String sql = "DELETE FROM eligibility_snapshot WHERE user_id=?";
         try (

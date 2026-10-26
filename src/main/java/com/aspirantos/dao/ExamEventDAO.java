@@ -40,6 +40,26 @@ public class ExamEventDAO {
         return list;
     }
 
+    /** All events of one type for every exam (the eligibility service reads all STAGE_1 dates at once). */
+    public List<ExamEvent> getEventsByType(String eventType) {
+        List<ExamEvent> list = new ArrayList<>();
+        String sql = SELECT + "WHERE ev.event_type=? ORDER BY ev.exam_id, ev.event_date";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, eventType);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapEvent(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     /** Events of the exams a student tracks between two dates (month calendar, dashboard). */
     public List<ExamEvent> getEventsForUser(int userId, LocalDate from, LocalDate to) {
         List<ExamEvent> list = new ArrayList<>();

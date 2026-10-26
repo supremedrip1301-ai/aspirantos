@@ -20,11 +20,17 @@ import com.aspirantos.engine.CandidateData;
 import com.aspirantos.engine.EligibilityEngine;
 import com.aspirantos.engine.EligibilityResult;
 import com.aspirantos.engine.ExamRuleSet;
+import com.aspirantos.model.AgeRule;
 import com.aspirantos.model.AttemptLog;
+import com.aspirantos.model.AttemptRule;
 import com.aspirantos.model.Education;
 import com.aspirantos.model.EligibilitySnapshot;
 import com.aspirantos.model.Exam;
+import com.aspirantos.model.ExamEvent;
+import com.aspirantos.model.OtherRule;
 import com.aspirantos.model.Profile;
+import com.aspirantos.model.QualificationRule;
+import com.aspirantos.model.RelaxationRule;
 import com.aspirantos.model.Tracking;
 import com.aspirantos.model.WorkExperience;
 
@@ -116,54 +122,134 @@ public class EligibilityService {
             return list;
         }
         LocalDate today = getToday();
-        int cycles = getCyclesToPlan();
 
         Map<Integer, EligibilitySnapshot> cached = new HashMap<>();
         for (EligibilitySnapshot s : snapshotDAO.getSnapshotsByUser(userId)) {
             cached.put(s.getExamId(), s);
         }
-        List<Education> educations = null;
-        List<WorkExperience> work = null;
-        Map<Integer, Integer> attemptsBefore = null;
-        Map<Integer, List<AttemptLog>> logsByExam = null;
-
+        // 1. reuse fresh snapshots, collect the exams that must be computed
+        List<Exam> missing = new ArrayList<>();
         for (Exam exam : exams) {
             EligibilitySnapshot s = cached.get(exam.getId());
             if (s != null && today.equals(s.getComputedForDate()) && exam.getActiveRuleVersionId() != null
                     && exam.getActiveRuleVersionId() == s.getRuleVersionId()) {
                 list.add(s);
-                continue;
+            } else if (exam.getActiveRuleVersionId() != null) {
+                missing.add(exam);
             }
-            ExamRuleSet rules = loadRuleSet(exam);
+        }
+        if (missing.isEmpty()) {
+            return list;
+        }
+
+        // 2. compute the missing ones (this also stores them as snapshots)
+        for (EligibilityResult r : getResults(userId, missing)) {
+            list.add(toSnapshot(userId, r));
+        }
+        return list;
+    }
+
+    /**
+     * Full results (with check lines) of several exams, always computed fresh and stored as
+     * snapshots in one batch. Used by the dashboard for the tracked exams and by getSnapshots().
+     */
+    public List<EligibilityResult> getResults(int userId, List<Exam> exams) {
+        List<EligibilityResult> results = new ArrayList<>();
+        Profile profile = profileDAO.getProfile(userId);
+        if (profile == null || profile.getDob() == null || exams.isEmpty()) {
+            return results;
+        }
+        LocalDate today = getToday();
+        int cycles = getCyclesToPlan();
+
+        // the student's data, read once
+        List<Education> educations = educationDAO.getEducationByUser(userId);
+        List<WorkExperience> work = workDAO.getWorkByUser(userId);
+        Map<Integer, Integer> attemptsBefore = new HashMap<>();
+        for (Tracking t : trackingDAO.getTrackingByUser(userId)) {
+            attemptsBefore.put(t.getExamId(), t.getAttemptsUsedBeforeApp());
+        }
+        Map<Integer, List<AttemptLog>> logsByExam = new HashMap<>();
+        for (AttemptLog log : attemptDAO.getAttemptsByUser(userId)) {
+            List<AttemptLog> ofExam = logsByExam.get(log.getExamId());
+            if (ofExam == null) {
+                ofExam = new ArrayList<>();
+                logsByExam.put(log.getExamId(), ofExam);
+            }
+            ofExam.add(log);
+        }
+
+        // rules: for many exams read every active rule row at once, for a few exams one by one
+        Map<Integer, ExamRuleSet> ruleSets = exams.size() > BULK_LIMIT ? loadAllRuleSets(exams) : null;
+
+        List<EligibilitySnapshot> fresh = new ArrayList<>();
+        for (Exam exam : exams) {
+            ExamRuleSet rules = ruleSets != null ? ruleSets.get(exam.getId()) : loadRuleSet(exam);
             if (rules == null) {
                 continue;
-            }
-            if (educations == null) {   // read the student's data only when something must be computed
-                educations = educationDAO.getEducationByUser(userId);
-                work = workDAO.getWorkByUser(userId);
-                attemptsBefore = new HashMap<>();
-                for (Tracking t : trackingDAO.getTrackingByUser(userId)) {
-                    attemptsBefore.put(t.getExamId(), t.getAttemptsUsedBeforeApp());
-                }
-                logsByExam = new HashMap<>();
-                for (AttemptLog log : attemptDAO.getAttemptsByUser(userId)) {
-                    List<AttemptLog> ofExam = logsByExam.get(log.getExamId());
-                    if (ofExam == null) {
-                        ofExam = new ArrayList<>();
-                        logsByExam.put(log.getExamId(), ofExam);
-                    }
-                    ofExam.add(log);
-                }
             }
             int before = attemptsBefore.getOrDefault(exam.getId(), 0);
             List<AttemptLog> logs = logsByExam.getOrDefault(exam.getId(), new ArrayList<>());
             CandidateData candidate = new CandidateData(profile, educations, work, before, logs);
-            EligibilityResult result = engine.evaluate(candidate, rules, today, cycles);
-            EligibilitySnapshot fresh = toSnapshot(userId, result);
-            snapshotDAO.saveSnapshot(fresh);
-            list.add(fresh);
+            EligibilityResult r = engine.evaluate(candidate, rules, today, cycles);
+            results.add(r);
+            fresh.add(toSnapshot(userId, r));
         }
-        return list;
+        snapshotDAO.saveSnapshots(fresh);
+        return results;
+    }
+
+    /** Above this many exams the rule rows are read in bulk (one query per rule table). */
+    private static final int BULK_LIMIT = 8;
+
+    /** Rule sets of many exams with 6 queries in total (all ACTIVE rule rows + all STAGE_1 events). */
+    public Map<Integer, ExamRuleSet> loadAllRuleSets(List<Exam> exams) {
+        Map<Integer, ExamRuleSet> byVersion = new HashMap<>();
+        Map<Integer, ExamRuleSet> byExam = new HashMap<>();
+        for (Exam exam : exams) {
+            if (exam.getActiveRuleVersionId() != null) {
+                ExamRuleSet rs = new ExamRuleSet(exam, exam.getActiveRuleVersionId());
+                byVersion.put(exam.getActiveRuleVersionId(), rs);
+                byExam.put(exam.getId(), rs);
+            }
+        }
+        for (AgeRule r : ruleDAO.getActiveAgeRules()) {
+            ExamRuleSet rs = byVersion.get(r.getRuleVersionId());
+            if (rs != null) {
+                rs.getAgeRules().add(r);
+            }
+        }
+        for (RelaxationRule r : ruleDAO.getActiveRelaxationRules()) {
+            ExamRuleSet rs = byVersion.get(r.getRuleVersionId());
+            if (rs != null) {
+                rs.getRelaxationRules().add(r);
+            }
+        }
+        for (AttemptRule r : ruleDAO.getActiveAttemptRules()) {
+            ExamRuleSet rs = byVersion.get(r.getRuleVersionId());
+            if (rs != null) {
+                rs.getAttemptRules().add(r);
+            }
+        }
+        for (QualificationRule r : ruleDAO.getActiveQualificationRules()) {
+            ExamRuleSet rs = byVersion.get(r.getRuleVersionId());
+            if (rs != null) {
+                rs.getQualificationRules().add(r);
+            }
+        }
+        for (OtherRule r : ruleDAO.getActiveOtherRules()) {
+            ExamRuleSet rs = byVersion.get(r.getRuleVersionId());
+            if (rs != null) {
+                rs.getOtherRules().add(r);
+            }
+        }
+        for (ExamEvent ev : eventDAO.getEventsByType("STAGE_1")) {   // the planner only needs first-stage dates
+            ExamRuleSet rs = byExam.get(ev.getExamId());
+            if (rs != null) {
+                rs.getEvents().add(ev);
+            }
+        }
+        return byExam;
     }
 
     /** Cached result of one exam (null when it cannot be computed). */

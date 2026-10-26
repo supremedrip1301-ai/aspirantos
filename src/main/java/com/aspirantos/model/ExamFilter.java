@@ -16,6 +16,7 @@ public class ExamFilter {
     private String sort;            // name / category / confidence / month
     private int page = 1;
     private int pageSize = 12;
+    private Integer eligibleForUserId;  // "only exams I am eligible for": snapshots of this student
 
     public ExamFilter() {
     }
@@ -112,5 +113,12 @@ public class ExamFilter {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+    public Integer getEligibleForUserId() {
+        return eligibleForUserId;
+    }
+
+    public void setEligibleForUserId(Integer eligibleForUserId) {
+        this.eligibleForUserId = eligibleForUserId;
     }
 }

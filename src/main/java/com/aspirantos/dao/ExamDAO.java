@@ -211,6 +211,12 @@ public class ExamDAO {
         addEquals(where, params, "e.scope", f.getScope());
         addEquals(where, params, "e.state_code", f.getStateCode());
         addEquals(where, params, "e.data_confidence", f.getConfidence());
+        if (f.getEligibleForUserId() != null) {
+            // the student's cached results (EligibilityService fills them before this query)
+            where.append(" AND EXISTS (SELECT 1 FROM eligibility_snapshot s WHERE s.exam_id = e.id"
+                    + " AND s.user_id = ? AND s.status IN ('ELIGIBLE','PROVISIONAL'))");
+            params.add(f.getEligibleForUserId());
+        }
         return where.toString();
     }
 
