@@ -6,7 +6,7 @@
    of both themes (docs/DECISIONS.md D78).
    ============================================================ */
 
-/* Fonts are bundled in assets/fonts (SIL Open Font License, licence files next to them), so the
+/* [EXTRA] @font-face: fonts are bundled in assets/fonts (SIL Open Font License, licence files next to them), so the
    app looks the same without internet. One variable font file per family covers every weight. */
 @font-face {
     font-family: "Fraunces";

@@ -1,4 +1,4 @@
-/* Instant UPSC check on the landing page: the form is sent with fetch() to instant-check.jsp,
+/* [EXTRA] fetch() + JSON. Instant UPSC check on the landing page: the form is sent with fetch() to instant-check.jsp,
    which answers with JSON; the answer is shown under the form (aria-live, so screen readers
    read it). Without JavaScript the form still opens the JSON answer. */
 (function () {

@@ -255,3 +255,42 @@ Checks made in the browser with a script (every student page, every admin page, 
 - **Contrast:** every text checked against its real background - nothing below WCAG AA (4.5 : 1, or 3 : 1 for large text) in either theme. Fixed on the way: white text on saffron buttons, amber text, white text on the light chips of the dark theme, the year chips of the exam page, the 404 number.
 - **Forms:** every input, select and text area has a label; one h1 per page; no button without a name.
 - **Print preview:** the exam page printed with all tabs (except History) under a heading with the student name and the date; the stamp keeps its colour.
+
+## 10. Final QA (Phase 11)
+
+### Demo rehearsal
+
+- **Script:** `tools/smoke-demo.sh` (needs `MYSQL_PWD`). It follows `docs/DEMO_SCRIPT.md` step by step.
+- **Result (26-Oct-2026): 20 passed, 0 failed.**
+
+| Step | Checked |
+|---|---|
+| Register live | The sample student is registered through the Register page and fills the four wizard steps (General, 15-09-1996, Uttar Pradesh, B.A. 2018 62 %, UPSC 4 attempts) |
+| Simulation date | The admin sets 15-Jan-2027; the student sees the banner |
+| Dashboard | The ticket shows "2 attempts left", "valid until 2028", the ELIGIBLE stamp and the sentence "You have 2 UPSC attempts left, valid until 2028." |
+| Explanation | The UPSC page shows used 4 / left 2, the passed checks with 01-Aug-2027, and "Base upper age 32" |
+| Rule change | The admin clones the rules into draft v2, changes General attempts 6 → 7 (the diff shows it) and publishes; "1 student was notified" |
+| Recalculation | The student's dashboard says "3 attempts left"; the notification "UPSC CSE rules updated" is there |
+| Syllabus pages | DB Explorer opens `exam_rule_version`; the ER diagram is served |
+| Clean up | The student deletes itself; `sql/reset_after_demo.sql` leaves UPSC with only version 1 and the simulation date off |
+
+### All test suites
+
+| Suite | Result |
+|---|---|
+| EngineSelfTest | 61 / 61 |
+| smoke-auth | 35 / 35 |
+| smoke-exams | 30 / 30 |
+| smoke-features | 21 / 21 |
+| smoke-design | 18 / 18 |
+| smoke-admin | 35 / 35 |
+| smoke-admin2 | 35 / 35 |
+| smoke-demo | 20 / 20 |
+
+### Other checks
+
+- **Server log:** no SEVERE line and no exception after all the runs.
+- **Database:** `sql/98_integrity_checks.sql` shows every PROBLEM count as 0. `RUN_ALL.sql` was run again on the existing database: no errors in 14 s, and still 267 exams, 267 rule versions and 1 account.
+- **Update checker on the internet:** "Check for updates" on UPSC CSE downloaded https://upsc.gov.in/examinations/active-exams (HTTP 200) and listed the keyword lines. The check row was removed again by `reset_after_demo.sql`.
+- **Sample students of DEMO_SCRIPT:** the four extra profiles (OBC-NCL + PwBD, SC, Class-12 PCB, EWS ex-serviceman) were registered, read and deleted; their results are the ones printed in the script.
+- **Database after the tests:** 1 admin, 267 exams, all with version 1 active, no drafts, no update checks, no reports, empty simulation date.

@@ -313,7 +313,7 @@ ul.alert-strip { list-style: none; padding: 0; margin: var(--space-3) 0; display
 ul.alert-strip li { padding: var(--space-2) var(--space-3); border-radius: var(--radius-small); border-left: 4px solid var(--focus); background: var(--card); font-weight: 600; font-size: 15px; }
 ul.alert-strip li.alert-warn { border-left-color: var(--amber); }
 .ticket-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); }
-/* the attempt ticket: perforated edges are half circles cut out of both sides with a CSS mask */
+/* [EXTRA] the attempt ticket: perforated edges are half circles cut out of both sides with a CSS mask */
 .ticket { position: relative; display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden;
           -webkit-mask: radial-gradient(circle 9px at 0 62%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 62%, transparent 98%, #000) right / 51% 100% no-repeat;
           mask: radial-gradient(circle 9px at 0 62%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 62%, transparent 98%, #000) right / 51% 100% no-repeat; }

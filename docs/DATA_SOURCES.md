@@ -76,3 +76,14 @@ Official notices are served by the SSC portal API under `https://ssc.gov.in/api/
 - **28 of the 40 flagship exams are VERIFIED** (UPSC 6, SSC 5, banking 6, entrance 8, teaching 3).
 - **12 stay LIKELY**: RBI Grade B, NABARD Grade A, LIC AAO, RRB NTPC, RRB Group D, AFCAT, NEET PG, XAT, UPPSC PCS, BPSC CCE, RPSC RAS, MPSC Rajyaseva. They can be verified later from the admin "Check for updates" page (Phase 8), or by downloading the PDF by hand and updating the rules as a new version.
 - Corrections that affect many exams (decisions D35-D38): the upper age limit is "not attained" (the official birth-date ranges show it); J&K 1980-89 relaxation removed from UPSC and bank exams; SSC caps for govt employees / widows no longer have a separate OBC value; bank clerical exams use 35/38/40 widow caps and an ESM maximum of 50.
+
+## Status at project completion (26-Oct-2026)
+
+| Data confidence | Exams | Meaning on the website |
+|---|---|---|
+| VERIFIED | 28 | Rules read from the official notice (the 28 flagship exams above) |
+| LIKELY | 121 | Rules from the usual pattern of the exam or its body; not yet checked against the newest notice |
+| NEEDS_VERIFICATION | 118 | Rules entered from general knowledge; the badge asks the student to confirm |
+| **Total** | **267** | |
+
+The 12 flagship exams that are still LIKELY are listed in the summary above. Students can report wrong data with "Report outdated info" on every exam page; the admin sees the reports in the Reports inbox and fixes the rules as a new version.

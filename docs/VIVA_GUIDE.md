@@ -1,10 +1,281 @@
 # AspirantOS — VIVA GUIDE
 
-> Started in Phase 3. The full guide (architecture walk-through, likely viva questions and answers, demo flow) is written in Phase 11. Until then this file keeps the register of everything marked `[EXTRA]` in the code and the syllabus map (where each syllabus topic is used).
+How to use this guide:
 
-## [EXTRA] register — code that goes beyond what was taught in the lab
+1. Learn the **two-minute walk-through** first; most viva questions start from it.
+2. Then read the **40 likely questions**. Each answer is short enough to say aloud, and the file names show where to point on the screen.
+3. **Beyond the syllabus** lists everything that was not taught in the lab, with a one-line explanation.
+4. The **syllabus map** at the end gives the file and line of every syllabus topic, so you can open the code when the examiner asks "show me".
 
-Every item below is marked `[EXTRA] <reason>` in a comment where it is used.
+---
+
+## Two-minute walk-through (say this first)
+
+1. **The problem.** Aspirants lose track of age limits and attempt limits. These differ for every exam, category and year: UPSC General gets 6 attempts up to age 32, OBC-NCL gets 9 attempts up to 35, and so on.
+2. **What the app does.** The student fills one profile. AspirantOS checks 267 exams against versioned rules and says, for example, "You have 2 UPSC attempts left, valid until 2028". It also explains every check line by line.
+3. **Three tiers.**
+   - The browser shows HTML made by JSPs.
+   - Tomcat 11 runs the JSPs, the JavaBeans, the DAOs and the eligibility engine.
+   - MySQL 8.4 holds the data, together with views, stored procedures, functions and triggers.
+4. **JSP Model 1.** Every feature has a *view JSP* (shows the page) and an *action JSP* (handles the form). The action JSP reads `request.getParameter`, validates, calls a DAO, puts a flash message in the session and calls `response.sendRedirect` (Post/Redirect/Get). This is the same pattern as `employee-form.jsp` in Experiment 5. There are no Servlet classes, because Tomcat turns every JSP into a servlet anyway (CHANGE 005).
+5. **JDBC only.**
+   - One `DBConnection` class, written exactly like Experiment 4 (`Class.forName` + `DriverManager.getConnection`), with a Type 4 driver.
+   - `PreparedStatement` for every user value, and `CallableStatement` for the stored procedures.
+   - One transaction for the CSV rule-pack import, and a batch for saving results.
+6. **Rule versions.**
+   - The admin never edits live rules. They clone the active version into a draft, edit it and see a diff.
+   - On publish, the procedure `sp_activate_rule_version` archives the old version, activates the new one and notifies every student who tracks the exam.
+   - The students' results are recalculated on their next visit.
+
+---
+
+## 40 likely viva questions
+
+### A. Project and architecture
+
+**1. What is AspirantOS in one sentence?**
+A JSP + JDBC + MySQL web application that tells an exam aspirant, for 267 Indian exams, whether they are eligible, how many attempts they have left and until which year. Every rule is stored in versioned database tables.
+
+**2. Why did you choose JSP only and no Servlet classes?**
+- A JSP *is* a servlet: Tomcat translates `login-action.jsp` into a Java class that extends `HttpServlet` and compiles it.
+- So every servlet concept is still there: request, response, session, `RequestDispatcher` (through `jsp:forward`/`jsp:include`) and the life cycle.
+- We write less code, and the HTML stays readable. This was decided in CHANGE 005.
+
+**3. What is JSP Model 1 and how do you use it?**
+- In Model 1, JSP pages handle requests themselves, with JavaBeans and DAOs behind them, and there is no separate controller servlet.
+- We split each feature into a view page and an action page. For example, `register.jsp` shows the form and `register-action.jsp` saves it and redirects.
+
+**4. What happens when a student saves the profile?**
+1. Steps 1–2 of the wizard fill a session-scoped JavaBean (`ProfileBean`) with `<jsp:setProperty property="*"/>`.
+2. Step 4 posts to `profile-save.jsp`, which calls `ProfileDAO` (a `PreparedStatement` `INSERT ... ON DUPLICATE KEY UPDATE`).
+3. A MySQL trigger (`trg_profile_au`) deletes the student's cached results.
+4. The page sends a flash message ("Profile created (1 row affected).") and redirects to the dashboard.
+5. The dashboard asks `EligibilityService`, which runs the engine for all exams and saves the results with one JDBC batch.
+
+**5. Why are rules versioned instead of updated in place?**
+- Exam rules change every year, and a student must be able to see what changed.
+- The admin edits a DRAFT copy, sees a diff and publishes it. The old version becomes ARCHIVED.
+- Results are cached per rule version, so publishing automatically makes the old results stale.
+- A UNIQUE key on a generated column allows only one ACTIVE version per exam.
+
+**6. What is the "simulation date"?**
+- It is an app setting (`app_setting.simulation_date`). When it is set, the engine uses it as "today".
+- On demo day the admin sets 15-Jan-2027, so the results are always the same sentence ("2 attempts left, valid until 2028").
+- A yellow banner on every page shows that it is on. The MySQL function `fn_app_today()` reads the same setting.
+
+### B. JSP
+
+**7. Explain the JSP life cycle.**
+1. Translation: JSP to a `.java` servlet.
+2. Compilation to a `.class` file.
+3. Loading and instantiation.
+4. `jspInit()` once.
+5. `_jspService()` for every request.
+6. `jspDestroy()` when the app stops.
+
+`WEB-INF/about.jsp` overrides `jspInit()` in a declaration to read its init parameters once.
+
+**8. Which directives do you use?**
+- `page`: `import`, `contentType`, `pageEncoding`, `errorPage`, and `isErrorPage` in `error.jsp`.
+- `include`: `<%@ include file="/WEB-INF/jspf/header.jspf" %>` on every page.
+- `taglib`: not used, because there is no JSTL (D21). We can explain it in theory: it declares a tag library with a prefix and a URI.
+
+**9. What is the difference between the include directive and `<jsp:include>`?**
+- The directive copies the file's text into the page **before translation**, so it becomes one servlet and variables are shared (`header.jspf` defines `ctx`, which the page uses).
+- `<jsp:include>` runs the other page **at request time** and inserts its output. `home.jsp` includes `WEB-INF/includes/category-grid.jsp` and passes `<jsp:param>`.
+
+**10. What is the difference between `<jsp:forward>` and `response.sendRedirect()`?**
+- **Forward** happens on the server. It is the same request, the URL does not change, and request attributes survive. `index.jsp` forwards to `home.jsp`.
+- **Redirect** sends status 302 to the browser, which makes a new GET request, so the URL changes and request attributes are lost. Every action JSP redirects after a POST, so refresh never repeats the save.
+
+**11. What are the three scripting elements?**
+- **Declaration** `<%! %>`: fields and methods of the generated class. Examples: `sideLink()` in `header.jspf`, the helper methods in `horizon.jsp`.
+- **Scriptlet** `<% %>`: statements inside `_jspService`, such as the `for` loop over exams in `exams.jsp`.
+- **Expression** `<%= %>`: a value printed into the page.
+
+**12. Name the nine implicit objects and where you use them.**
+
+| Object | Where |
+|---|---|
+| `request` | Parameters, everywhere |
+| `response` | Redirects, headers (`.ics` download) |
+| `session` | The logged-in user, flash messages |
+| `application` | Context params, the visit counter, blocked user ids |
+| `out` | The `.ics` text |
+| `config` | about.jsp init params |
+| `pageContext` | Page-scope attribute on home.jsp |
+| `page` | Class name shown on About |
+| `exception` | error.jsp |
+
+**13. How does `<jsp:useBean>` work in the wizard?**
+`<jsp:useBean id="profile" class="com.aspirantos.model.ProfileBean" scope="session"/>` finds the bean in the session, or creates it. `<jsp:setProperty name="profile" property="*"/>` calls every setter whose name matches a request parameter. Step 4 prints values with `<jsp:getProperty>`.
+
+**14. Why is about.jsp inside WEB-INF and mapped in web.xml?**
+- Files inside WEB-INF cannot be opened directly, so the page is reachable only through `/about`.
+- The `<servlet>` entry uses `<jsp-file>` and has `<init-param>`s, which the page reads with `config.getInitParameter()`.
+- `config` belongs to one page, while `application.getInitParameter()` reads the `<context-param>`s shared by the whole app.
+
+**15. How are errors handled?**
+- `web.xml` maps 404, 500 and `java.lang.Throwable` to `error.jsp`, which has `isErrorPage="true"` and therefore the `exception` object.
+- Students see a friendly message. The admin also sees the stack trace. The error is written to the server log with `application.log()`.
+
+**16. Why no JSTL / EL loops?**
+The lab (Experiment 4, `student-list.jsp`) used scriptlet loops, so we kept the same style (D21). JSTL would need extra jars, and the examiner can map every line of a scriptlet to Java they already know.
+
+### C. Servlet concepts used through JSP
+
+**17. Where do you use GET and where POST?**
+- **GET** only reads: the Explorer filters are in the URL, so a search can be bookmarked or shared.
+- **POST** for every change (register, login, save, delete). The data is in the body, not in the URL or the history.
+- Action pages refuse other methods.
+
+**18. What is Post/Redirect/Get and the flash message?**
+1. After a POST, the action page stores a message in the session (`session.setAttribute("success", ...)`) and redirects.
+2. The next page shows it through `flash.jspf` and removes it at once.
+3. So it appears only once, and pressing refresh does not submit the form again.
+
+**19. How does login work?**
+1. `login-action.jsp` reads the user with `UserDAO.getUserByEmail` and checks the password hash.
+2. It calls `request.changeSessionId()` (protection against session fixation) and stores the `User` bean in the session.
+3. Sessions expire after 30 minutes (`session-timeout` in web.xml). `logout.jsp` calls `session.invalidate()`.
+
+**20. How do you protect pages without a Filter?**
+- Every protected page starts with `<%@ include file="/WEB-INF/jspf/auth-check.jspf" %>`: if there is no user in the session, it redirects to the login page and stops the page with `return`.
+- Admin pages include `admin-check.jspf`, which also checks the role.
+- A user blocked by the admin is logged out on their next click, through a set of ids in `application` scope.
+
+**21. Which cookies do you use?**
+- `theme` (light/dark, one year, `setMaxAge`), read by `header.jspf` on every page.
+- The "remember me" cookie (14 days, `HttpOnly`). It holds a random token whose SHA-256 is stored in the `remember_token` table.
+
+The session itself uses Tomcat's `JSESSIONID` cookie.
+
+### D. JDBC and the database
+
+**22. Which JDBC driver do you use, and why not ODBC or Hibernate?**
+- **The four driver types:**
+  - Type 1: JDBC-ODBC bridge.
+  - Type 2: native API.
+  - Type 3: network protocol.
+  - Type 4: pure Java "thin" driver.
+- We use **MySQL Connector/J, a Type 4 driver.** It needs no native code and no ODBC setup.
+- **Why not ODBC?** The JDBC-ODBC bridge was removed in Java 8, so it cannot run on JDK 21.
+- **Why not Hibernate?** It adds many jars and hides the SQL. Our project is database-heavy (views, procedures, triggers), so direct SQL with JDBC fits better and gives full control (CHANGE 003).
+
+**23. What are the steps of a JDBC program?**
+1. Load the driver: `Class.forName("com.mysql.cj.jdbc.Driver")`.
+2. Get a connection: `DriverManager.getConnection(url, user, password)`.
+3. Create a statement: `PreparedStatement ps = con.prepareStatement(sql)`.
+4. Set the parameters and execute.
+5. Read the `ResultSet` with `while (rs.next())`.
+6. Close everything.
+
+We close with try-with-resources in every DAO, so nothing leaks even on an exception.
+
+**24. When do you use Statement, PreparedStatement and CallableStatement?**
+- `Statement`: fixed SQL with no user input, such as `StateDAO` reading the list of states.
+- `PreparedStatement`: every query with user values, using `?` placeholders.
+- `CallableStatement`: stored procedures, for example `{call sp_user_dashboard_summary(?)}` and `{call sp_clone_rule_version(?, ?, ?)}`.
+
+**25. What is the difference between executeQuery, executeUpdate and execute?**
+- `executeQuery`: for SELECT; returns a `ResultSet`.
+- `executeUpdate`: for INSERT/UPDATE/DELETE; returns the number of rows affected, which we show in the flash message.
+- `execute`: for any SQL; returns `true` if the result is a `ResultSet`, read with `getResultSet()`. DB Explorer uses it.
+
+**26. How do you prevent SQL injection?**
+- Every user value goes through `PreparedStatement` placeholders, so it is sent as data and never becomes part of the SQL text.
+- DB Explorer lets the admin choose a table, but only from a fixed whitelist in `DbExplorerDAO`.
+
+**27. Show a scrollable and an updatable ResultSet.**
+In `DbExplorerDAO`:
+- **Scrollable:** `createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)` for paging with `first()`, `last()`, `previous()`, `absolute(n)` and `getRow()`.
+- **Updatable:** `CONCUR_UPDATABLE` to change an app setting with `updateString()` + `updateRow()`, without writing an UPDATE statement.
+
+**28. What is the difference between ResultSetMetaData and DatabaseMetaData?**
+- `ResultSetMetaData` describes one result: column count, names and types. DB Explorer uses it to draw any table.
+- `DatabaseMetaData` describes the database and the driver: product version, driver name and driver version. They are shown on the admin dashboard.
+
+**29. Where do you use a transaction?**
+- In `RulePackDAO.applyPack`: `con.setAutoCommit(false)`, then many inserts and updates, then `con.commit()`. Any exception calls `con.rollback()`.
+- So a CSV rule pack is applied completely or not at all.
+- The stored procedure `sp_activate_rule_version` also runs inside START TRANSACTION / COMMIT.
+
+**30. What is a batch update and where is it used?**
+`SnapshotDAO.saveSnapshots` adds one `INSERT` per exam with `ps.addBatch()` and sends them all with `executeBatch()`. That is 267 rows in one round trip instead of 267.
+
+**31. How do you read an OUT parameter?**
+`sp_clone_rule_version(IN exam, IN admin, OUT newVersionId)`:
+1. Call `cs.registerOutParameter(3, Types.INTEGER)`.
+2. Execute.
+3. Read `cs.getInt(3)`, the id of the new draft.
+
+**32. Which triggers do you have and why?**
+There are 19 triggers:
+- `attempt_log` BEFORE INSERT/UPDATE decides whether an entry *counts as an attempt* (only applying or being absent does not count, unless the exam's rule says so).
+- Triggers on profile, education, work experience, tracking and attempts delete the cached results of that student.
+- Triggers on the rule tables write every edit into `rule_change_log`.
+
+**33. Which views do you use?**
+- `v_exam_catalog`: exam + category + body + active version, for the Explorer.
+- `v_user_attempt_summary`.
+- `v_user_dashboard`.
+- `v_admin_category_stats`.
+- `v_rule_history`.
+- `v_upcoming_events`.
+
+A view keeps a long join in one place, so the DAO only needs a simple SELECT.
+
+**34. How is the database normalised?**
+- Exams, rule versions and each kind of rule (age, relaxation, attempt, qualification, other) are separate tables, linked by foreign keys with `ON DELETE CASCADE`.
+- Master data (states, categories, bodies) has its own tables.
+- The student's education and work experience are child tables of the user (one-to-many).
+- Repeating groups such as a list of attempts are rows, not columns.
+- The one deliberate copy is `eligibility_snapshot`, a cache that triggers keep correct.
+
+### E. Engine and features
+
+**35. How is age calculated? Explain "valid until 2028".**
+- `AgeCalculator` uses `java.time.Period.between(dob, cutoff)`.
+- UPSC counts age on 1 August of the exam year, and the rule is "must **not have attained** 32" (General).
+- For DOB 15-09-1996:
+  - 1-Aug-2027 gives 30 years, so eligible;
+  - 1-Aug-2028 gives 31, so eligible;
+  - 1-Aug-2029 gives 32, which is attained, so not eligible.
+- So the last year is 2028.
+- Relaxations are added to the upper limit: OBC-NCL +3, SC/ST +5, PwBD +10 and so on (`RelaxationResolver`).
+
+**36. How are attempts counted?**
+- **Attempts used** = attempts entered at sign-up for the time before the app + journal entries that count (the trigger sets `counts_as_attempt`).
+- The **limit** comes from the attempt rule that matches the student's category and PwBD status (UPSC General 6, OBC-NCL 9, SC/ST unlimited).
+- `AttemptCounter` returns the attempts left. The final result is the earlier of "attempts run out" and "age runs out".
+
+**37. How does the update checker work?**
+- `UpdateChecker` (`java.net.http.HttpClient`) downloads the exam's official page, keeps only the text and computes its SHA-256.
+- It compares the fingerprint with the last check and lists the lines that contain keywords such as "age limit" or "attempts".
+- It never changes rules by itself: the admin reads the highlights and, if needed, publishes a new rule version.
+- "Check all" runs in a background thread, and the page asks a JSON JSP for the progress every 2 seconds.
+
+### F. Security and limitations
+
+**38. How are passwords stored?**
+- They are never stored as plain text. `PasswordUtil` uses PBKDF2WithHmacSHA256 with 120 000 iterations and a random 16-byte salt per user.
+- Login recomputes the hash with the stored salt and compares the two.
+- Changing the password deletes the remember-me tokens.
+
+**39. How do you stop a user from injecting HTML or JavaScript (XSS)?**
+- Every value that came from a user is printed through `HtmlUtil.escape()`, which turns `<`, `>`, `&` and quotes into entities, so `<script>` is shown as text.
+- The remember-me cookie is `HttpOnly`, so JavaScript cannot read it.
+
+**40. What are the limitations, and what would you add next?**
+- **Data:** 28 flagship exams are verified against official notices; the others are marked "Likely" or "Needs verification", and a rule can still be wrong.
+- **Connections:** each DAO call opens its own connection through `DriverManager`, as in the lab. In production we would use a connection pool (a Tomcat JNDI `DataSource`).
+- **Next features:** CSRF tokens on forms, e-mail alerts, and a weekly automatic update check (a listener would be needed, which CHANGE 005 dropped).
+
+---
+
+## Beyond the syllabus — what it is and why we needed it
+
+Every item below is marked `[EXTRA] <reason>` in a comment where it is used. Things that were planned but removed (photo upload, image processing, ZIP download, Hibernate, ODBC) are not part of the project any more (CHANGE 002, CHANGE 003).
 
 | # | Where | What it is | Why it is needed | One-line viva answer |
 |---|-------|-----------|------------------|----------------------|
@@ -22,10 +293,12 @@ Every item below is marked `[EXTRA] <reason>` in a comment where it is used.
 | 12 | `assets/css/tokens.css`, `assets/fonts/` | `@font-face` with bundled variable woff2 fonts (SIL Open Font License) | The design fonts must work without internet in the lab | "The fonts are files inside the project; @font-face tells the browser where they are, so nothing is downloaded from Google." |
 | 13 | `assets/css/print.css` | A print stylesheet (`media="print"`, `@page`, `print-color-adjust`) | Print the eligibility report and the profile sheet | "When the user prints, the browser uses this extra stylesheet: menus and buttons disappear and every tab is printed." |
 | 14 | `assets/js/app.js` (toasts, account menu, print) | Small DOM scripts: timers to hide a toast, closing a `<details>` menu on outside click / Escape, `window.print()` | Messages after an action and the account menu | "Without JavaScript the page still works - the toast just stays and the menu closes on a second click." |
+| 15 | `assets/js/instant-check.js`, `instant-check.jsp` | `fetch()` + a JSP that answers JSON | The landing page answers "how many UPSC attempts do I have?" without an account and without reloading the page | "The form is sent in the background; the JSP runs the real engine and prints JSON instead of HTML; JavaScript shows the answer." |
+
 
 ## Syllabus map — where each topic is used
 
-Line numbers were generated from the source on 26-Oct-2026 (P9.8, refreshed after P10); they move a little when the files change.
+Line numbers were generated from the source on 26-Oct-2026 (P11.2); they move a little when the files change.
 
 | Topic | Where | What to say in the viva |
 |---|---|---|
@@ -67,4 +340,4 @@ Line numbers were generated from the source on 26-Oct-2026 (P9.8, refreshed afte
 | Batch updates | `dao/SnapshotDAO.java:127` | Many INSERTs sent together with executeBatch(). |
 | Error pages | `error.jsp:10` | web.xml maps 404 / 500 / Throwable here; every page also names it with errorPage="...". |
 
-Not used, by decision: Servlet classes, filters and listeners (CHANGE 005 - every request is a JSP, which Tomcat turns into a servlet); Hibernate (CHANGE 003); JSTL (D21 - scriptlet loops as in Experiment 4; the taglib directive is explained in theory only). ODBC is covered in theory (`docs/ODBC_DEMO.md`, Phase 11).
+Not used, by decision: Servlet classes, filters and listeners (CHANGE 005 - every request is a JSP, which Tomcat turns into a servlet); Hibernate (CHANGE 003); JSTL (D21 - scriptlet loops as in Experiment 4; the taglib directive is explained in theory only). ODBC is covered in theory only (question 22).
