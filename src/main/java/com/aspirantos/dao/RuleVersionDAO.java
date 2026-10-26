@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,5 +183,34 @@ public class RuleVersionDAO {
                 DaoUtil.getLocalDateTime(rs, "activated_at"),
                 rs.getInt("change_count")
         );
+    }
+
+    /**
+     * A new exam has no rule version to copy, so the admin starts with an empty DRAFT
+     * version 1. Returns the new version id, or 0 when the exam already has versions.
+     */
+    public int createFirstVersion(int examId, int adminId) {
+        String sql = "INSERT INTO exam_rule_version (exam_id, version_no, status, change_summary, created_by) "
+                + "SELECT ?, 1, 'DRAFT', NULL, ? FROM DUAL "
+                + "WHERE NOT EXISTS (SELECT 1 FROM exam_rule_version WHERE exam_id = ?)";
+        try (
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setInt(1, examId);
+            ps.setInt(2, adminId);
+            ps.setInt(3, examId);
+            if (ps.executeUpdate() == 0) {
+                return 0;
+            }
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

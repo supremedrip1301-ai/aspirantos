@@ -70,7 +70,7 @@ r=$(code -d "action=deleteAccount&password=newpass99&confirm=yes" $B/aspirant/se
 h=$(page $B/login.jsp); ok "$(has "$h" "have been deleted")" "account deleted" ""
 rm -f $J
 r=$(code -d "email=admin@aspirantos.in&password=Admin@123" $B/login-action.jsp); ok "$(has "$r" admin/dashboard.jsp)" "admin login goes to admin dashboard" "$r"
-h=$(page $B/admin/dashboard.jsp); ok "$([[ "$h" == *"Exams in the catalogue"* && "$h" == *">267<"* ]] && echo 1)" "admin dashboard shows counts" ""
+h=$(page $B/admin/dashboard.jsp); ok "$([[ "$h" == *"Active exams"* && "$h" == *">267<"* ]] && echo 1)" "admin dashboard shows counts" ""
 r=$(code $B/aspirant/profile-step1.jsp); ok "$(has "$r" admin/dashboard.jsp)" "admin is kept out of the student wizard" "$r"
 r=$(code $B/logout.jsp)
 rm -f $J

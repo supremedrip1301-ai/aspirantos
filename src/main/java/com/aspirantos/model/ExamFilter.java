@@ -16,7 +16,8 @@ public class ExamFilter {
     private String sort;            // name / category / confidence / month
     private int page = 1;
     private int pageSize = 12;
-    private Integer eligibleForUserId;  // "only exams I am eligible for": snapshots of this student
+    private Integer eligibleForUserId;
+    private boolean includeInactive;    // admin list: deactivated exams too  // "only exams I am eligible for": snapshots of this student
 
     public ExamFilter() {
     }
@@ -120,5 +121,13 @@ public class ExamFilter {
 
     public void setEligibleForUserId(Integer eligibleForUserId) {
         this.eligibleForUserId = eligibleForUserId;
+    }
+
+    public boolean isIncludeInactive() {
+        return includeInactive;
+    }
+
+    public void setIncludeInactive(boolean includeInactive) {
+        this.includeInactive = includeInactive;
     }
 }

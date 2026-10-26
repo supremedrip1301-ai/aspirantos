@@ -173,3 +173,24 @@ Other checks:
 - **Bulk loading:** for all 267 exams, loading the rules in bulk and one exam at a time gave identical headlines and check lines (0 differences). The first full computation now takes 1.3 s instead of 5.4 s.
 - **Mobile layout:** at 375 px width, every student page has no horizontal scroll. A table that is wider than the screen scrolls inside its own box.
 - **Browser check:** dashboard tickets, stamps and counters; tab switching.
+
+## 6. Admin area: dashboard, users, settings, exam CRUD, rule versions (Phase 8.1-8.3)
+
+- **Script:** `tools/smoke-admin.sh`, run with the root password in `MYSQL_PWD` so that it can remove its own test exam at the end.
+- **Test data:** the script never touches the seeded exams. It creates its own exam `SMOKE_<time>` and a temporary student, and removes both at the end.
+- **Result (26-Oct-2026): 35 passed, 0 failed.** The other two smoke tests were run again afterwards: smoke-exams 30/30 and smoke-auth 35/35. EngineSelfTest: 61/61.
+
+| Area | Checks |
+|---|---|
+| Dashboard | System information card (DatabaseMetaData, Connector/J); counters |
+| Users | search; read-only profile; block ends the student's open session at once; blocked student cannot log in; unblock |
+| Settings | presentation date set; banner shown and the student dashboard uses 15-Jan-2027; out-of-range date refused; cleared again; audit log entry |
+| Exam CRUD | invalid code refused (values kept); exam created; "Verified" without date and source refused; edit keeps the code |
+| Rule versions | empty v1 draft; age rule with max < min refused; 3 rules added; publish without a summary refused; v1 published; student sees "You have 3 ... attempts left, valid until 2026." |
+| Update flow | clone to draft v2; age limit 30 -> 35; diff shows the old row struck through and the new row highlighted; edit logged; publish notifies the 1 tracking student; the student's result is recalculated (valid until 2031); v1 archived |
+| Safety | unchanged draft cannot be published; draft discarded; ACTIVE version cannot be edited; deactivated exam hidden from students |
+
+Other checks:
+
+- **Layout:** every admin page (including the draft editor with all forms open) fits at 375 px and 1280 px.
+- **Database after the tests:** 1 admin, 267 exams, 267 rule versions, no draft, empty simulation date. All `98_integrity_checks.sql` problem counts are 0.

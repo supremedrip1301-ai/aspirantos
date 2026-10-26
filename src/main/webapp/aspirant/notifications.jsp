@@ -34,7 +34,9 @@
             <strong><%= HtmlUtil.escape(n.getTitle()) %></strong>
             <span class="small muted"><%= DateUtil.format(n.getCreatedAt()) %></span>
             <p><%= HtmlUtil.escape(n.getMessage()) %></p>
-            <% if (n.getLinkUrl() != null && n.getLinkUrl().startsWith("/")) { %><a class="small" href="<%= ctx %><%= HtmlUtil.escape(n.getLinkUrl()) %>">Open</a><% } %>
+            <%-- links written by the database are paths inside the app, e.g. aspirant/exam-detail.jsp?id=1 --%>
+            <% if (n.getLinkUrl() != null && !n.getLinkUrl().contains(":") && !n.getLinkUrl().startsWith("//")) { %>
+            <a class="small" href="<%= ctx %>/<%= HtmlUtil.escape(n.getLinkUrl().startsWith("/") ? n.getLinkUrl().substring(1) : n.getLinkUrl()) %>">Open</a><% } %>
         </div>
         <% if (!n.isRead()) { %>
         <form action="notification-action.jsp" method="post">

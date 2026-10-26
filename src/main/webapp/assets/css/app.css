@@ -294,3 +294,35 @@ ul.note-list p { margin: var(--space-1) 0; }
 }
 
 fieldset { min-width: 0; }
+
+/* ---------- Phase 8: admin area ---------- */
+.small-heading { font-family: var(--font-ui); font-size: 14px; text-transform: uppercase; letter-spacing: .05em; color: var(--slate); margin: var(--space-3) 0 var(--space-1); }
+ul.bar-list { list-style: none; padding: 0; margin: 0; }
+ul.bar-list li { display: grid; grid-template-columns: 140px 1fr 40px; gap: var(--space-2); align-items: center; padding: 3px 0; font-size: 14px; }
+.bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar { height: 8px; border-radius: 4px; background: var(--hairline); overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--saffron); }
+.inline-filter { max-width: 640px; }
+.inline-row { display: flex; gap: var(--space-2); }
+form.inline { display: inline; }
+tr.inactive-row td { opacity: .55; }
+tr.row-active td { background: rgba(31, 122, 79, 0.06); }
+.draft-card { border: 2px dashed var(--amber); }
+.card details { margin-top: var(--space-3); }
+.card details > summary { cursor: pointer; font-weight: 700; color: var(--saffron-dark); }
+.card details[open] > summary { margin-bottom: var(--space-2); }
+ul.rule-list .actions { margin-left: var(--space-2); font-size: 14px; }
+ul.rule-list .actions a { margin-right: var(--space-2); }
+ul.diff-list { list-style: none; padding: 0; margin: 0 0 var(--space-3); }
+ul.diff-list li { padding: var(--space-1) var(--space-2); border-radius: 4px; margin: 2px 0; font-size: 14px; }
+ul.diff-list li.removed { background: rgba(185, 58, 43, 0.08); }
+ul.diff-list li.added { background: rgba(31, 122, 79, 0.10); }
+.wide-form { max-width: 980px; }
+.settings-grid .span-2 { grid-column: 1 / -1; }
+@media (max-width: 520px) {
+    ul.bar-list li { grid-template-columns: 100px 1fr 32px; }
+    .inline-row { flex-direction: column; }
+}
+
+/* long values without spaces (URLs, code lists) wrap instead of widening the page */
+ul.rule-list li, ul.diff-list li, dd, .ticket-headline { overflow-wrap: anywhere; }

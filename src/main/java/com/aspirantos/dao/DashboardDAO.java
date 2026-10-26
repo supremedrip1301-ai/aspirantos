@@ -2,9 +2,12 @@ package com.aspirantos.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.aspirantos.model.DashboardSummary;
 import com.aspirantos.util.DBConnection;
@@ -66,5 +69,27 @@ public class DashboardDAO {
             e.printStackTrace();
         }
         return rows;
+    }
+
+    /**
+     * "System information" card of the admin dashboard, read from DatabaseMetaData:
+     * which JDBC driver (Type 4, MySQL Connector/J) and which database the app uses.
+     */
+    public Map<String, String> getSystemInfo() {
+        Map<String, String> info = new LinkedHashMap<>();
+        try (Connection con = DBConnection.getConnection()) {
+            DatabaseMetaData md = con.getMetaData();
+            info.put("Database", md.getDatabaseProductName() + " " + md.getDatabaseProductVersion());
+            info.put("JDBC driver", md.getDriverName() + " " + md.getDriverVersion());
+            info.put("JDBC version", md.getJDBCMajorVersion() + "." + md.getJDBCMinorVersion());
+            info.put("Connection URL", md.getURL());
+            info.put("Database user", md.getUserName());
+            info.put("Stored procedures supported", md.supportsStoredProcedures() ? "Yes" : "No");
+            info.put("Batch updates supported", md.supportsBatchUpdates() ? "Yes" : "No");
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.put("Database", "not reachable: " + e.getMessage());
+        }
+        return info;
     }
 }

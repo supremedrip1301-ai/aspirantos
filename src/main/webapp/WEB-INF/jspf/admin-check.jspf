@@ -10,6 +10,14 @@
         response.sendRedirect(request.getContextPath() + "/login.jsp");
         return;
     }
+    // an account blocked by the admin while logged in: end the session now
+    java.util.Set<?> blockedIds = (java.util.Set<?>) application.getAttribute("blockedUserIds");
+    if (blockedIds != null && blockedIds.contains(currentUser.getId())) {
+        session.invalidate();
+        request.getSession(true).setAttribute("error", "This account is blocked. Please contact the administrator.");
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
     if (!"ADMIN".equals(currentUser.getRole())) {
         session.setAttribute("error", "That page is only for the administrator.");
         response.sendRedirect(request.getContextPath() + "/aspirant/dashboard.jsp");

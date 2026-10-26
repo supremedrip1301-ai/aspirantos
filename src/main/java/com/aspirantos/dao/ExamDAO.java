@@ -196,7 +196,7 @@ public class ExamDAO {
     // ---------- helpers ----------
 
     private String buildWhere(ExamFilter f, List<Object> params) {
-        StringBuilder where = new StringBuilder("WHERE e.is_active");
+        StringBuilder where = new StringBuilder(f.isIncludeInactive() ? "WHERE 1=1" : "WHERE e.is_active");
         if (notBlank(f.getQuery())) {
             where.append(" AND (e.name LIKE ? OR e.short_name LIKE ? OR e.code LIKE ? OR b.short_name LIKE ?)");
             String like = "%" + f.getQuery().trim() + "%";
