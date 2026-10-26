@@ -1,0 +1,134 @@
+# AspirantOS — TEST REPORT
+
+## 1. Engine self-test (P4.3)
+
+- **Class:** `com.aspirantos.engine.EngineSelfTest` (plain `main` method, no JUnit)
+- **How to run in Eclipse:** right-click `EngineSelfTest.java` → Run As → Java Application.
+- **How to run from the command line:** `tools\build.cmd`, then `java -cp build\cli\classes com.aspirantos.engine.EngineSelfTest`
+- **Data:** in-memory sample profiles and rule sets copied from the seed files. These are test data inside Java only, not database accounts (CHANGE 001).
+- **"Today":** fixed to 15-Jan-2027, the presentation simulation date.
+- **Run on:** 26-Oct-2026, OpenJDK 21.0.12 (Temurin), Windows 11.
+- **Result:** **61 passed, 0 failed.** The exact demo headline "You have 2 UPSC attempts left, valid until 2028." is test 01.
+
+The list below is the exact console output. Headlines in the engine use a long dash (U+2014); the test names use only plain ASCII.
+
+```
+AspirantOS EngineSelfTest - today = 2027-01-15
+------------------------------------------------------------
+PASS  01  Sample profile (GEN, born 15-Sep-1996, B.A. 2018, 4 attempts): exact UPSC headline
+PASS  02  Sample profile: status ELIGIBLE, used 4, remaining 2, cycle 2027
+PASS  03  Sample profile: date-of-birth window for 2027
+PASS  04  Sample profile: relaxation breakdown (General)
+PASS  05  Sample profile: 609 days until the age limit (turns 32 on 15-Sep-2028)
+PASS  06  NOT_ATTAINED 32: born 02-Aug-1995 (day after) is 31 on the cut-off -> eligible for 2027 only
+PASS  07  NOT_ATTAINED 32: born 01-Aug-1995 (birthday = cut-off) attains 32 -> NOT_ELIGIBLE
+PASS  08  NOT_ATTAINED 32: born 31-Jul-1995 (day before) -> NOT_ELIGIBLE
+PASS  09  NOT_MORE_THAN 32: born 01-Aug-1995 is exactly 32 on the cut-off -> ELIGIBLE
+PASS  10  NOT_MORE_THAN 32: born 02-Aug-1994 (day after) is still 32 -> ELIGIBLE
+PASS  11  NOT_MORE_THAN 32: born 01-Aug-1994 turns 33 on the cut-off -> NOT_ELIGIBLE
+PASS  12  Minimum age 21: born 01-Aug-2006 completes 21 on the cut-off -> ELIGIBLE
+PASS  13  Minimum age 21: born 02-Aug-2006 is 20 -> NOT_YET from 2028
+PASS  14  OBC + PwBD stacking: 32 + 3 + 10 = 45
+PASS  15  OBC + PwBD aged 44 on the cut-off is eligible with 9 attempts
+PASS  16  General PwBD (40%) gets 9 attempts and +10 years
+PASS  17  PwBD below 40% is not a benchmark disability: no relaxation, 6 attempts, NOT_ELIGIBLE at 37
+PASS  18  SC: unlimited attempts, ending by age (37) after 2028
+PASS  19  SC: attemptsRemaining is null (shown as Unlimited)
+PASS  20  EWS gets no age relaxation: 32 on the cut-off -> NOT_ELIGIBLE, reason shown
+PASS  21  Attempts exhausted: General with 6 of 6 used
+PASS  22  Attempt journal: 3 before the app + 1 counted log (applied-only not counted) = 4 used, 2 left
+PASS  23  Ex-serviceman: age 37 minus 8 years of service = 29, below 30 + 3 -> ELIGIBLE
+PASS  24  Ex-serviceman: only 2 years of service -> age counts as 35 -> NOT_ELIGIBLE
+PASS  25  Government employee: upper age raised to 40 (REPLACE_WITH_MAX with cap) -> ELIGIBLE at 38
+PASS  26  SSC CGL post groups: age 28 -> best group is 18-30, a Post group line explains it
+PASS  27  State exam: OBC from Bihar in UPPSC is treated as General (40) -> NOT_ELIGIBLE at 42
+PASS  28  State exam: the same OBC candidate with UP domicile gets +5 (45) -> ELIGIBLE
+PASS  29  Final-year B.Sc student: PROVISIONAL, must pass by 30-Jun-2027
+PASS  30  Class 12 student and UPSC: NOT_YET, eligible after graduation
+PASS  31  IBPS Clerk: final year not allowed, but the result (31-May-2027) comes before the October exam -> PROVISIONAL
+PASS  32  Nationality not in the list -> NOT_ELIGIBLE
+PASS  33  JEE Main: Class 12 in 2025 -> 3-year window 2025-2027
+PASS  34  JEE Main: Class 12 in 2023 -> window 2023-2025 is over -> NOT_ELIGIBLE
+PASS  35  JEE Advanced: 2 attempts in 2 consecutive years, 1 used
+PASS  36  JEE Advanced DOB window: born 30-Sep-2002 (before 01-Oct-2002) -> NOT_ELIGIBLE
+PASS  37  JEE Advanced DOB window: born 01-Oct-2002 -> ELIGIBLE with 2 attempts
+PASS  38  JEE Advanced: SC window moves 5 years earlier (01-Oct-1997) -> ELIGIBLE
+PASS  39  NEET: born 31-Dec-2010 is 17 on 31-Dec-2027 -> PROVISIONAL (Class 12 appearing)
+PASS  40  NEET: born 01-Jan-2011 is 16 on 31-Dec-2027 -> NOT_YET from 2028
+PASS  41  NEET subjects: PCM without Biology/Biotechnology -> NOT_ELIGIBLE
+PASS  42  NEET subjects: Biotechnology instead of Biology is accepted -> ELIGIBLE
+PASS  43  CAT: no age limit, 55% graduate born 1970
+PASS  44  CAT: General with 48% (needs 50%) -> NOT_ELIGIBLE
+PASS  45  CAT: SC with 46% passes the relaxed 45% -> ELIGIBLE
+PASS  46  CGPA 5.5/10 = 52.25% (x 9.5) -> CAT ELIGIBLE
+PASS  47  CGPA 5.2/10 = 49.4% -> CAT NOT_ELIGIBLE
+PASS  48  GRE: last test on 30-Dec-2026 + 21-day gap -> next test from 20-Jan-2027
+PASS  49  GRE: 5 tests in the last 12 months -> next test from 01-Feb-2027 (rolling 12 months)
+PASS  50  GRE: no tests yet -> can test now
+PASS  51  GMAT: 8 lifetime attempts used -> EXHAUSTED (lifetime and rolling rules together)
+PASS  52  NDA: born 15-Mar-2009 is inside the 2027 window, Class 12 appearing -> PROVISIONAL
+PASS  53  NDA: the age is reported first for a 26-year-old graduate (no Class 12 row needed to see that)
+PASS  54  NDA: a married candidate is blocked
+PASS  55  UGC NET: age 37 -> JRF closed, Assistant Professor group (no age limit) -> ELIGIBLE
+PASS  56  UGC NET JRF: SC + PwBD + woman get only the largest 'up to 5 years' (30 -> 35, not 45)
+PASS  57  Leap day: born 29-Feb-2004 is 20 on 28-Feb-2025 and 21 on 01-Mar-2025
+PASS  58  Leap day: born 29-Feb-1996 is 31 on 01-Aug-2027 and 32 on 01-Aug-2028
+PASS  59  Planner: UPSC prelims (May) already over on 01-Jun-2027 -> next cycle 2028; JEE Main July sitting still open on 01-Mar-2027
+PASS  60  Snapshot text: a check line survives toStorageText / fromStorageText
+PASS  61  Profile without date of birth -> profileIncomplete, asks to complete the profile
+------------------------------------------------------------
+RESULT: 61 passed, 0 failed, 61 total
+```
+
+### What the tests cover (PART 6 checklist)
+
+| Required case | Tests |
+|---|---|
+| Sample profile (GEN, born 15-Sep-1996, B.A. 2018, 4 attempts) → exact headline | 01–05 |
+| NOT_ATTAINED vs NOT_MORE_THAN on the day before, the day of and the day after the cut-off birthday | 06–11 |
+| Minimum-age boundary | 12–13 |
+| OBC + PwBD stacking | 14–15 |
+| PwBD attempts; disability below 40 % gets no benefit | 16–17 |
+| SC: unlimited attempts that end because of age | 18–19 |
+| EWS gets no age relaxation | 20 |
+| Attempts exhausted; attempt journal counting | 21–22 |
+| Ex-serviceman: military service deducted from age | 23–24 |
+| Government employee: age raised to a cap (REPLACE_WITH_MAX) | 25 |
+| Post groups (SSC CGL) | 26 |
+| State exam: reserved candidate from another state treated as GEN | 27–28 |
+| Final-year students: PROVISIONAL (with and without final-year entry) | 29, 31 |
+| Class 12 student and UPSC → NOT_YET | 30 |
+| Nationality block | 32 |
+| JEE Main 3-year window | 33–34 |
+| JEE Advanced: 2 attempts and DOB window (with SC relaxation) | 35–38 |
+| NEET: minimum age 17 by 31 December; subject check | 39–42 |
+| CAT: no age limit; percentage relaxation for SC; CGPA conversion | 43–47 |
+| GRE rolling 12-month and gap rule; GMAT lifetime limit | 48–51 |
+| NDA birth-date window; age reported first; marital-status block | 52–54 |
+| UGC NET post groups; only the largest "up to 5 years" relaxation counts | 55–56 |
+| Leap-day birthday (29 February) | 57–58 |
+| Cycle planner, snapshot text format, incomplete profile | 59–61 |
+
+## 2. Engine sweep over the real catalogue
+
+A scratch program loaded every exam's active rule version from MySQL through `EligibilityService.loadRuleSet()`. It then ran the engine for 7 in-memory profiles: B.Tech GEN 26; OBC PwBD 35 from UP; SC widow 30 with M.Sc; Class 12 student; ex-serviceman 42; final-year B.Com EWS; no education.
+
+That is 267 exams × 7 profiles = 1869 evaluations.
+
+- **Exceptions:** 0.
+- **Empty headlines:** 0.
+- **Headlines longer than 160 characters:** 0 (the snapshot column limit is 255).
+
+## 3. EligibilityService end-to-end (P4.2)
+
+A temporary aspirant account was created through the DAOs and deleted at the end; the database is back to 1 admin and 0 snapshots. "Today" was the real date, 26-Oct-2026, so the next UPSC cycle is 2027.
+
+| Check | Result |
+|---|---|
+| No profile yet → no snapshots | PASS |
+| `checkExam()` for UPSC CSE → "You have 2 UPSC attempts left, valid until 2028." | PASS |
+| Snapshot stored with the active rule version, the check lines and attempts_remaining = 2 | PASS |
+| `getSnapshots()` for all 267 exams | PASS (first pass about 5.4 s) |
+| Second call is served from the snapshot cache | PASS (15 ms) |
+| New attempt logged → trigger deletes the stale snapshot | PASS |
+| Recomputed snapshot → "You have 1 UPSC attempt left, valid until 2028." | PASS |
