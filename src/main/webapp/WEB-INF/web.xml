@@ -4,11 +4,13 @@
     JSP only project (CHANGE 005): no servlet classes are declared here.
     Notes use javax.servlet (Tomcat 9); Tomcat 11 requires jakarta.servlet -
     same API, new package name. That is why the schema below is Jakarta EE.
+    Version 6.0 (Servlet 6.0) on purpose: Tomcat 11 accepts it, and Eclipse's Java EE
+    tools can read web.xml only up to 6.0 (with 6.1 Eclipse shows "Loading descriptor" errors).
 -->
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
-         version="6.1">
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
 
     <display-name>AspirantOS</display-name>
 
