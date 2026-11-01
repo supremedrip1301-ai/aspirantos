@@ -4,7 +4,9 @@ AspirantOS answers the question every Indian exam aspirant keeps asking: **"Am I
 
 > **You have 2 UPSC attempts left, valid until 2028.**
 
-It is an MCA college project for *Advanced Internet Programming (26CAH-614)*. It is built with **JSP + JDBC + MySQL** in the same style as the lab experiments (StudentCRUD, Experiments 4 and 5).
+It is an MCA mini project for *Advanced Internet Programming (26CAH-614)* at Chandigarh University, by **Anshul Kaushik** (UID 26MCI10329, MCA - AI & ML, Section 26MAM5-B), submitted to Mr. Shivam Ojha (Assistant Professor). It is built with **JSP + JDBC + MySQL** in the same style as the lab experiments (StudentCRUD, Experiments 4 and 5).
+
+![Student dashboard with attempt tickets](docs/screenshots/02-dashboard.png)
 
 ---
 
@@ -108,7 +110,11 @@ The **About** page (`/about`) shows the same architecture as a diagram, the requ
 
 The full step-by-step guide, with screenshots of what to click, is in **[docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md)** (in Hinglish). In short:
 
-1. **Install** JDK 21, MySQL 8.4 (service `MySQL84`), Tomcat 11 (zip) and Eclipse IDE for Enterprise Java.
+1. **Get the code and install the tools:**
+   ```
+   git clone https://github.com/supremedrip1301-ai/aspirantos.git
+   ```
+   Then install JDK 21, MySQL 8.4 (service `MySQL84`), Tomcat 11 (zip) and Eclipse IDE for Enterprise Java.
 2. **Create the database.** Run the scripts **as root**, because functions and triggers need it:
    ```
    cd D:\AIP\AspirantOS\sql
@@ -208,13 +214,28 @@ Every smoke test registers its own temporary student and deletes it again, so no
 
 ## Screenshots
 
-*(Add screenshots here before submitting, for example in `docs/screenshots/`.)*
+Taken from the running application (Tomcat 11, simulation date 15-Jan-2027, sample student profile).
 
-| Screen | File |
-|---|---|
-| Landing page with the instant UPSC check | `docs/screenshots/01-landing.png` |
-| Student dashboard with attempt tickets | `docs/screenshots/02-dashboard.png` |
-| Exam page: "My eligibility" with the check lines | `docs/screenshots/03-exam-detail.png` |
-| Eligibility Horizon | `docs/screenshots/04-horizon.png` |
-| Admin: rule version diff before publishing | `docs/screenshots/05-rule-diff.png` |
-| Dark theme on a phone | `docs/screenshots/06-dark-phone.png` |
+**Landing page - instant UPSC check without an account**
+
+![Landing page](docs/screenshots/01-landing.png)
+
+**Exam page - "My eligibility" with every check explained**
+
+![Exam page](docs/screenshots/03-exam-detail.png)
+
+**Eligibility Horizon - the years each exam stays open**
+
+![Eligibility Horizon](docs/screenshots/04-horizon.png)
+
+**Admin - rule versions and the diff before publishing**
+
+![Rule versions](docs/screenshots/05-rule-diff.png)
+
+**Admin dashboard**
+
+![Admin dashboard](docs/screenshots/07-admin-dashboard.png)
+
+**Dark theme on a phone**
+
+<img src="docs/screenshots/06-dark-phone.png" alt="Dark theme on a phone" width="320">
