@@ -9,10 +9,10 @@ import com.aspirantos.model.AttemptLog;
 import com.aspirantos.model.AttemptRule;
 
 /**
- * Counts attempts and picks the attempt limit (MASTER_PROMPT PART 6, step 5).
+ * Counts attempts and picks the attempt limit.
  *
  * Row choice: category + PwBD row, then category row, then PwBD row, then the general row.
- * LIFETIME_TOTAL and PER_ROLLING_12_MONTHS rows apply together with the normal row (D32).
+ * LIFETIME_TOTAL and PER_ROLLING_12_MONTHS rows apply together with the normal row.
  * Attempts used = attempts_used_before_app + journal rows with counts_as_attempt = TRUE
  * (the trigger trg_attempt_log_bi decides counts_as_attempt from the counting rule).
  */

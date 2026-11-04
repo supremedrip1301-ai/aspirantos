@@ -3,7 +3,7 @@
 # notifications and "report outdated info". Needs the WAR deployed on
 # http://localhost:8080/AspirantOS. A temporary student (smoke.<time>@test.local) is
 # registered, fills the sample profile (General, 15-Sep-1996, B.A. 2018, 4 UPSC attempts)
-# and deletes itself at the end (CHANGE 001).
+# and deletes itself at the end.
 B=http://localhost:8080/AspirantOS
 D=$(mktemp -d); J=$D/jar.txt
 EMAIL="smoke.$(date +%s)@test.local"

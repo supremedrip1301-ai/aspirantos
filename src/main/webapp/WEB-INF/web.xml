@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     AspirantOS - deployment descriptor (web.xml)
-    JSP only project (CHANGE 005): no servlet classes are declared here.
+    JSP only project: no servlet classes are declared here.
     Notes use javax.servlet (Tomcat 9); Tomcat 11 requires jakarta.servlet -
     same API, new package name. That is why the schema below is Jakarta EE.
     Version 6.0 (Servlet 6.0) on purpose: Tomcat 11 accepts it, and Eclipse's Java EE

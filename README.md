@@ -72,7 +72,7 @@ It is an MCA mini project for *Advanced Internet Programming (26CAH-614)* at Cha
 |---|---|---|
 | `mysql-connector-j-26.7.0.jar` | 26.7.0 | The MySQL JDBC driver (Type 4) |
 
-That is the only jar. The Servlet and JSP API comes from Tomcat itself. JSTL is not used: loops are scriptlets, as in Experiment 4 (decision D21).
+That is the only jar. The Servlet and JSP API comes from Tomcat itself. JSTL is not used: loops are scriptlets, as in Experiment 4.
 
 > **javax or jakarta?** The theory notes use `javax.servlet` (Tomcat 9). Tomcat 10 and later need `jakarta.servlet`, so this project uses `jakarta.*`, as the lab worksheets do.
 
@@ -206,7 +206,6 @@ Every smoke test registers its own temporary student and deletes it again, so no
 | [docs/RULE_PACK_FORMAT.md](docs/RULE_PACK_FORMAT.md) | The CSV format of the rule pack |
 | [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) | Official sources of the 28 verified flagship exams |
 | [docs/TEST_REPORT.md](docs/TEST_REPORT.md) | What was tested and the results |
-| [docs/DECISIONS.md](docs/DECISIONS.md) | Every design decision with its reason |
 
 **About the exam data.** The rules of 28 flagship exams were checked against official notifications (marked *Verified*). The rest are marked *Likely* or *Needs verification*. Exam rules change every year, so always confirm with the latest official notification before applying.
 

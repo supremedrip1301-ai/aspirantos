@@ -15,7 +15,7 @@ import com.aspirantos.model.QualificationRule;
 import com.aspirantos.model.RelaxationRule;
 
 /**
- * Self-test of the eligibility engine (MASTER_PROMPT PART 6). A plain main method - no JUnit -
+ * Self-test of the eligibility engine. A plain main method - no JUnit -
  * so it runs like any lab program: in Eclipse right-click -> Run As -> Java Application.
  *
  * Everything is in memory: the rule sets copy the seeded rules of the real exams and the

@@ -12,7 +12,7 @@ import javax.crypto.spec.PBEKeySpec;
  * [EXTRA] Password hashing - not taught in the lab, needed so that no plain password is ever
  * stored. Uses PBKDF2WithHmacSHA256 with 120 000 iterations, a 256-bit key and a 16-byte
  * random salt (both stored as Base64 in app_user). The seeded admin hash in
- * sql/40_seed_admin.sql was made with exactly these settings (decision D39).
+ * sql/40_seed_admin.sql was made with exactly these settings.
  * Also creates random tokens and SHA-256 hashes for the "Remember me" cookie.
  */
 public class PasswordUtil {

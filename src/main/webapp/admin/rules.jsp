@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%@ page import="java.util.*, com.aspirantos.model.*, com.aspirantos.dao.*, com.aspirantos.engine.ExamRuleSet, com.aspirantos.util.HtmlUtil, com.aspirantos.util.DateUtil, com.aspirantos.util.RuleText, com.aspirantos.util.RuleDiff, com.aspirantos.util.ValidationUtil" %>
 <%--
-    Rule versions of one exam (admin page, MASTER_PROMPT PART 8):
+    Rule versions of one exam (admin page):
       - every version (DRAFT / ACTIVE / ARCHIVED) with who changed what,
       - "Update rules" copies the ACTIVE version into a DRAFT (sp_clone_rule_version, CallableStatement),
       - the DRAFT is edited row by row (rule-action.jsp; ACTIVE / ARCHIVED rows can never change),

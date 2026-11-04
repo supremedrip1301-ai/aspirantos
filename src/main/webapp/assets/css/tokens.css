@@ -1,9 +1,9 @@
 /* ============================================================
-   AspirantOS design tokens (MASTER_PROMPT PART 10).
+   AspirantOS design tokens.
    [EXTRA] CSS custom properties - one place for every colour, size and font so that the
    light and dark themes only swap values. Used by app.css and every page.
    Text colours were checked against WCAG AA (4.5 : 1) on the page and card backgrounds
-   of both themes (docs/DECISIONS.md D78).
+   of both themes.
    ============================================================ */
 
 /* [EXTRA] @font-face: fonts are bundled in assets/fonts (SIL Open Font License, licence files next to them), so the

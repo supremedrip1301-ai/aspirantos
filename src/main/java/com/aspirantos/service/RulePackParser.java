@@ -17,7 +17,7 @@ import com.aspirantos.model.RelaxationRule;
 import com.aspirantos.util.ValidationUtil;
 
 /**
- * Rule pack CSV (MASTER_PROMPT PART 8, part 3; format in docs/RULE_PACK_FORMAT.md).
+ * Rule pack CSV (format in docs/RULE_PACK_FORMAT.md).
  * One line = one rule row of one exam; the columns that do not belong to the row's
  * rule_table stay empty. The rows of an exam together form its complete new rule version.
  * Plain Java, no CSV library: fields may be quoted with " and a "" inside quotes is one ".

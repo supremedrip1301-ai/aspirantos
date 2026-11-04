@@ -17,7 +17,7 @@ How to use this guide:
    - The browser shows HTML made by JSPs.
    - Tomcat 11 runs the JSPs, the JavaBeans, the DAOs and the eligibility engine.
    - MySQL 8.4 holds the data, together with views, stored procedures, functions and triggers.
-4. **JSP Model 1.** Every feature has a *view JSP* (shows the page) and an *action JSP* (handles the form). The action JSP reads `request.getParameter`, validates, calls a DAO, puts a flash message in the session and calls `response.sendRedirect` (Post/Redirect/Get). This is the same pattern as `employee-form.jsp` in Experiment 5. There are no Servlet classes, because Tomcat turns every JSP into a servlet anyway (CHANGE 005).
+4. **JSP Model 1.** Every feature has a *view JSP* (shows the page) and an *action JSP* (handles the form). The action JSP reads `request.getParameter`, validates, calls a DAO, puts a flash message in the session and calls `response.sendRedirect` (Post/Redirect/Get). This is the same pattern as `employee-form.jsp` in Experiment 5. There are no Servlet classes, because Tomcat turns every JSP into a servlet anyway.
 5. **JDBC only.**
    - One `DBConnection` class, written exactly like Experiment 4 (`Class.forName` + `DriverManager.getConnection`), with a Type 4 driver.
    - `PreparedStatement` for every user value, and `CallableStatement` for the stored procedures.
@@ -39,7 +39,7 @@ A JSP + JDBC + MySQL web application that tells an exam aspirant, for 267 Indian
 **2. Why did you choose JSP only and no Servlet classes?**
 - A JSP *is* a servlet: Tomcat translates `login-action.jsp` into a Java class that extends `HttpServlet` and compiles it.
 - So every servlet concept is still there: request, response, session, `RequestDispatcher` (through `jsp:forward`/`jsp:include`) and the life cycle.
-- We write less code, and the HTML stays readable. This was decided in CHANGE 005.
+- We write less code, and the HTML stays readable.
 
 **3. What is JSP Model 1 and how do you use it?**
 - In Model 1, JSP pages handle requests themselves, with JavaBeans and DAOs behind them, and there is no separate controller servlet.
@@ -78,7 +78,7 @@ A JSP + JDBC + MySQL web application that tells an exam aspirant, for 267 Indian
 **8. Which directives do you use?**
 - `page`: `import`, `contentType`, `pageEncoding`, `errorPage`, and `isErrorPage` in `error.jsp`.
 - `include`: `<%@ include file="/WEB-INF/jspf/header.jspf" %>` on every page.
-- `taglib`: not used, because there is no JSTL (D21). We can explain it in theory: it declares a tag library with a prefix and a URI.
+- `taglib`: not used, because there is no JSTL. We can explain it in theory: it declares a tag library with a prefix and a URI.
 
 **9. What is the difference between the include directive and `<jsp:include>`?**
 - The directive copies the file's text into the page **before translation**, so it becomes one servlet and variables are shared (`header.jspf` defines `ctx`, which the page uses).
@@ -120,7 +120,7 @@ A JSP + JDBC + MySQL web application that tells an exam aspirant, for 267 Indian
 - Students see a friendly message. The admin also sees the stack trace. The error is written to the server log with `application.log()`.
 
 **16. Why no JSTL / EL loops?**
-The lab (Experiment 4, `student-list.jsp`) used scriptlet loops, so we kept the same style (D21). JSTL would need extra jars, and the examiner can map every line of a scriptlet to Java they already know.
+The lab (Experiment 4, `student-list.jsp`) used scriptlet loops, so we kept the same style. JSTL would need extra jars, and the examiner can map every line of a scriptlet to Java they already know.
 
 ### C. Servlet concepts used through JSP
 
@@ -160,7 +160,7 @@ The session itself uses Tomcat's `JSESSIONID` cookie.
   - Type 4: pure Java "thin" driver.
 - We use **MySQL Connector/J, a Type 4 driver.** It needs no native code and no ODBC setup.
 - **Why not ODBC?** The JDBC-ODBC bridge was removed in Java 8, so it cannot run on JDK 21.
-- **Why not Hibernate?** It adds many jars and hides the SQL. Our project is database-heavy (views, procedures, triggers), so direct SQL with JDBC fits better and gives full control (CHANGE 003).
+- **Why not Hibernate?** It adds many jars and hides the SQL. Our project is database-heavy (views, procedures, triggers), so direct SQL with JDBC fits better and gives full control.
 
 **23. What are the steps of a JDBC program?**
 1. Load the driver: `Class.forName("com.mysql.cj.jdbc.Driver")`.
@@ -269,18 +269,18 @@ A view keeps a long join in one place, so the DAO only needs a simple SELECT.
 **40. What are the limitations, and what would you add next?**
 - **Data:** 28 flagship exams are verified against official notices; the others are marked "Likely" or "Needs verification", and a rule can still be wrong.
 - **Connections:** each DAO call opens its own connection through `DriverManager`, as in the lab. In production we would use a connection pool (a Tomcat JNDI `DataSource`).
-- **Next features:** CSRF tokens on forms, e-mail alerts, and a weekly automatic update check (a listener would be needed, which CHANGE 005 dropped).
+- **Next features:** CSRF tokens on forms, e-mail alerts, and a weekly automatic update check (a listener would be needed, and this project has only JSP pages).
 
 ---
 
 ## Beyond the syllabus — what it is and why we needed it
 
-Every item below is marked `[EXTRA] <reason>` in a comment where it is used. Things that were planned but removed (photo upload, image processing, ZIP download, Hibernate, ODBC) are not part of the project any more (CHANGE 002, CHANGE 003).
+Every item below is marked `[EXTRA] <reason>` in a comment where it is used. Things that were planned but removed (photo upload, image processing, ZIP download, Hibernate, ODBC) are not part of the project any more.
 
 | # | Where | What it is | Why it is needed | One-line viva answer |
 |---|-------|-----------|------------------|----------------------|
 | 1 | `sql/01_schema.sql` (`rule_version.active_exam_id`) | VIRTUAL generated column + UNIQUE key | Guarantees at most one ACTIVE rule version per exam inside the database itself | "The column holds the exam id only while the version is ACTIVE, otherwise NULL; UNIQUE ignores NULLs, so two ACTIVE versions of one exam are impossible." |
-| 2 | `util/PasswordUtil.java` | PBKDF2WithHmacSHA256 hashing with a random salt (D39) | No plain-text password is ever stored | "Same password + same salt gives the same hash, so login compares hashes; the salt makes equal passwords look different." |
+| 2 | `util/PasswordUtil.java` | PBKDF2WithHmacSHA256 hashing with a random salt | No plain-text password is ever stored | "Same password + same salt gives the same hash, so login compares hashes; the salt makes equal passwords look different." |
 | 3 | `dao/RememberTokenDAO.java` | "Remember me" tokens (table `remember_token`) | The cookie holds a random token, the database stores only its SHA-256, so a stolen database cannot log anyone in | "The cookie is a random key; we keep only its hash, like a password." |
 | 4 | `webapp/assets/css/tokens.css` | CSS custom properties (variables) | One place for colours, fonts and spacing; the dark theme only swaps values | "`var(--saffron)` is a variable; `[data-theme=dark]` redefines it." |
 | 5 | `service/EligibilityService.java` | Service layer between JSPs and DAOs + snapshot cache in `eligibility_snapshot` | Keeps the engine free of JDBC (testable from a main method) and avoids recomputing 267 exams on every page | "The JSP asks the service; the service reads the DAOs, runs the engine and stores the answer; next time it reads the stored answer unless the date or the rule version changed." |
@@ -340,4 +340,4 @@ Line numbers were generated from the source on 26-Oct-2026 (P11.2); they move a 
 | Batch updates | `dao/SnapshotDAO.java:127` | Many INSERTs sent together with executeBatch(). |
 | Error pages | `error.jsp:10` | web.xml maps 404 / 500 / Throwable here; every page also names it with errorPage="...". |
 
-Not used, by decision: Servlet classes, filters and listeners (CHANGE 005 - every request is a JSP, which Tomcat turns into a servlet); Hibernate (CHANGE 003); JSTL (D21 - scriptlet loops as in Experiment 4; the taglib directive is explained in theory only). ODBC is covered in theory only (question 22).
+Not used, by decision: Servlet classes, filters and listeners (every request is a JSP, which Tomcat turns into a servlet); Hibernate; JSTL (scriptlet loops as in Experiment 4; the taglib directive is explained in theory only). ODBC is covered in theory only (question 22).

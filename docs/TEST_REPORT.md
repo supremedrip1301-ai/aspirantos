@@ -5,7 +5,7 @@
 - **Class:** `com.aspirantos.engine.EngineSelfTest` (plain `main` method, no JUnit)
 - **How to run in Eclipse:** right-click `EngineSelfTest.java` → Run As → Java Application.
 - **How to run from the command line:** `tools\build.cmd`, then `java -cp build\cli\classes com.aspirantos.engine.EngineSelfTest`
-- **Data:** in-memory sample profiles and rule sets copied from the seed files. These are test data inside Java only, not database accounts (CHANGE 001).
+- **Data:** in-memory sample profiles and rule sets copied from the seed files. These are test data inside Java only, not database accounts.
 - **"Today":** fixed to 15-Jan-2027, the presentation simulation date.
 - **Run on:** 26-Oct-2026, OpenJDK 21.0.12 (Temurin), Windows 11.
 - **Result:** **61 passed, 0 failed.** The exact demo headline "You have 2 UPSC attempts left, valid until 2028." is test 01.
@@ -136,7 +136,7 @@ A temporary aspirant account was created through the DAOs and deleted at the end
 ## 4. Auth, profile wizard and settings (Phase 5)
 
 - **Script:** `tools/smoke-auth.sh` (bash + curl), run against the WAR deployed on Tomcat 11.0.27.
-- **Account:** a temporary student `smoke.<time>@test.local` is registered by the script and deleted by the script at the end. No student account remains in the database (CHANGE 001).
+- **Account:** a temporary student `smoke.<time>@test.local` is registered by the script and deleted by the script at the end. No student account remains in the database.
 - **Result (26-Oct-2026): 35 passed, 0 failed.**
 
 | Area | Checks |

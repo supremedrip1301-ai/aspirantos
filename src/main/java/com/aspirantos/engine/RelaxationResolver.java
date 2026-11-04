@@ -8,11 +8,11 @@ import com.aspirantos.model.Profile;
 import com.aspirantos.model.RelaxationRule;
 
 /**
- * Decides which age relaxations apply to the student (MASTER_PROMPT PART 6, step 3).
+ * Decides which age relaxations apply to the student.
  *
  * Order: category, PwBD (benchmark 40 %+), ex-serviceman, J&K 1980-89, government
  * employee, women, widow/divorced women, transgender, state domicile.
- * For each type a category-specific row wins over the general (NULL) row (D29).
+ * For each type a category-specific row wins over the general (NULL) row.
  * A row marked requires_state_domicile is given only to that state's domicile;
  * other candidates are treated as General and the reason is recorded.
  */
@@ -29,7 +29,7 @@ public class RelaxationResolver {
         String category = candidate.getCategory();
         boolean domicileOk = isDomicileOk(p, exam);
 
-        // REPLACE_WITH_MAX rows without a cap: only the largest one is used (D31)
+        // REPLACE_WITH_MAX rows without a cap: only the largest one is used
         List<String> replaceLabels = new ArrayList<>();
         List<Integer> replaceYears = new ArrayList<>();
 

@@ -9,7 +9,7 @@ import com.aspirantos.model.UpdateCheck;
 
 /**
  * [EXTRA] "Check all exams" runs in one background Thread started from update-check-action.jsp
- * (CHANGE 005: no listener, no scheduler). The admin page polls update-check-progress.jsp,
+ * (no listener, no scheduler). The admin page polls update-check-progress.jsp,
  * which reads the static progress fields below. Only one job can run at a time.
  */
 public class UpdateCheckJob implements Runnable {

@@ -12,7 +12,7 @@ import java.util.List;
 import com.aspirantos.util.DBConnection;
 
 /**
- * Read-only DB Explorer of the admin area (MASTER_PROMPT PART 9, P8.7).
+ * Read-only DB Explorer of the admin area.
  *
  * - The table name cannot be a "?" placeholder, so it must be one of the fixed names below
  *   (a whitelist) - user text never reaches the SQL.

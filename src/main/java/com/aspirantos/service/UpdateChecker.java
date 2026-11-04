@@ -16,7 +16,7 @@ import com.aspirantos.model.UpdateCheck;
 import com.aspirantos.util.PasswordUtil;
 
 /**
- * [EXTRA] "Check for updates" (MASTER_PROMPT PART 8, part 1) - not in the lab, needed for the
+ * [EXTRA] "Check for updates" - not in the lab, needed for the
  * per-exam Update button. java.net.http.HttpClient downloads the exam's watch page (or the
  * official website), the HTML is turned into plain text, a SHA-256 fingerprint is compared
  * with the last check and short snippets around words such as "age limit" are kept for the

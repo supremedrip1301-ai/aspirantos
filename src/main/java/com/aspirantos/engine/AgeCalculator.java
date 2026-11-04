@@ -6,7 +6,7 @@ import java.time.Period;
 import com.aspirantos.model.AgeRule;
 
 /**
- * Age arithmetic of the engine (MASTER_PROMPT PART 6, steps 2 and 4).
+ * Age arithmetic of the engine.
  *
  * Completed age uses java.time.Period, so a person born on 29-Feb completes a year
  * on 1-Mar in a non-leap year (Period.between(2004-02-29, 2025-02-28) = 20 years).

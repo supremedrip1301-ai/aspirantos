@@ -1,6 +1,6 @@
 -- ============================================================
 -- AspirantOS - 40_seed_admin.sql
--- The ONE pre-created account (CHANGE 001): the administrator.
+-- The ONE pre-created account: the administrator.
 --     email    : admin@aspirantos.in
 --     password : Admin@123   (change it from Settings after the first login)
 -- There are NO demo student accounts - students register themselves.

@@ -8,11 +8,11 @@ import com.aspirantos.model.Exam;
 import com.aspirantos.model.ExamEvent;
 
 /**
- * Plans the exam cycles the engine looks at (MASTER_PROMPT PART 6, steps 1 and 8).
+ * Plans the exam cycles the engine looks at.
  *
  * The next cycle is the first year whose last first-stage sitting has not happened yet
  * on "today". Dates come from exam_event (STAGE_1 rows); without events the 15th of
- * typical_exam_month is assumed (same convention as the tentative events, D40).
+ * typical_exam_month is assumed (same convention as the tentative events).
  * cycles_per_year: 2 = two sittings a year, 0.5 = once in two years.
  * Exams with no typical month (GRE, GMAT: tests all year round) are open every year.
  */

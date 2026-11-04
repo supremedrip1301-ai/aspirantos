@@ -16,7 +16,7 @@ import com.aspirantos.model.RelaxationRule;
  * that is used, all rule rows of that version and the calendar events.
  * EligibilityService fills it from the DAOs; EngineSelfTest fills it by hand.
  *
- * Post groups (D26, D29): rows with a post_or_course apply to that post group only,
+ * Post groups: rows with a post_or_course apply to that post group only,
  * rows with post_or_course = NULL apply to every group.
  */
 public class ExamRuleSet {

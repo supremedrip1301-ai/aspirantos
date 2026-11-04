@@ -14,15 +14,15 @@ import com.aspirantos.util.DateUtil;
 
 /**
  * Checks the education rows of the student against the qualification rules of one
- * post group (MASTER_PROMPT PART 6, step 6). Several rules for the same group are
- * alternatives - the best one is used (D26).
+ * post group. Several rules for the same group are
+ * alternatives - the best one is used.
  *
  * Levels: CLASS_10 < CLASS_12 < UG < PG < PHD. A higher level satisfies a lower
  * requirement; a DIPLOMA satisfies CLASS_10 and DIPLOMA requirements (and a degree
  * satisfies a DIPLOMA requirement); PROFESSIONAL (CA, CS, ...) satisfies only
  * PROFESSIONAL, CLASS_10 and CLASS_12 requirements.
  *
- * Subjects (D27): comma = all required, "|" = any one, "CLASS_12:" prefix = check the
+ * Subjects: comma = all required, "|" = any one, "CLASS_12:" prefix = check the
  * Class 12 row. CGPA -> percentage: CGPA / scale x 95 (the CBSE formula CGPA x 9.5 on a
  * 10-point scale); the official conversion of a university may differ.
  */

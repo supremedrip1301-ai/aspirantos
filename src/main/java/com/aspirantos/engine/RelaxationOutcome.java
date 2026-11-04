@@ -7,9 +7,9 @@ import java.util.List;
  * Result of RelaxationResolver: how many years are added to the upper age, which
  * relaxations were applied and which were skipped (with the reason).
  *
- * Arithmetic (D31): effective upper age = base + (sum of ADD rows)
+ * Arithmetic: effective upper age = base + (sum of ADD rows)
  *                                        + (largest REPLACE_WITH_MAX row without a cap);
- * a REPLACE_WITH_MAX row with a cap raises the upper age to that cap (D29).
+ * a REPLACE_WITH_MAX row with a cap raises the upper age to that cap.
  */
 public class RelaxationOutcome {
 

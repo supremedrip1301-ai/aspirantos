@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page import="com.aspirantos.model.User, com.aspirantos.service.UpdateCheckJob" %>
 <%--
-    JSON progress of "Check all exams" (a JSP can answer with JSON as well - CHANGE 005).
+    JSON progress of "Check all exams" (a JSP can answer with JSON as well).
     Polled every 2 seconds by assets/js/update-progress.js. Admins only.
 --%>
 <%

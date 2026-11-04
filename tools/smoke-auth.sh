@@ -1,7 +1,7 @@
 #!/bin/bash
 # Smoke test of register / login / logout / profile wizard / settings (Phase 5).
 # Needs the WAR deployed on http://localhost:8080/AspirantOS. A temporary student
-# (smoke.<time>@test.local) is registered and deletes itself at the end (CHANGE 001).
+# (smoke.<time>@test.local) is registered and deletes itself at the end.
 B=http://localhost:8080/AspirantOS
 D=$(mktemp -d); J=$D/jar.txt; J2=$D/jar2.txt
 EMAIL="smoke.$(date +%s)@test.local"

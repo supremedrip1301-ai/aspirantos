@@ -13,14 +13,14 @@ import com.aspirantos.model.Profile;
 import com.aspirantos.util.DateUtil;
 
 /**
- * The eligibility engine (MASTER_PROMPT PART 6). Plain Java: no servlet, JSP or JDBC
+ * The eligibility engine. Plain Java: no servlet, JSP or JDBC
  * code, so EngineSelfTest can run it from a main method.
  *
  * Input : CandidateData (profile, education, work, attempts), ExamRuleSet, today, cycles to plan.
  * Output: EligibilityResult with status, headline, attempts, horizon years and CheckLines.
  *
  * Exams with post groups (SSC CGL, CDS, UGC NET ...) are checked once per group and
- * the best group is reported (D29).
+ * the best group is reported.
  */
 public class EligibilityEngine {
 
@@ -778,7 +778,7 @@ public class EligibilityEngine {
         }
     }
 
-    /** Civil services exams are spoken of by the body name: "UPSC CSE" -> "UPSC" (D45). */
+    /** Civil services exams are spoken of by the body name: "UPSC CSE" -> "UPSC". */
     public static String headlineName(Exam exam) {
         String n = exam.getShortName() == null ? exam.getName() : exam.getShortName();
         if (n.endsWith(" CSE")) {

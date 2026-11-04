@@ -35,7 +35,7 @@ import com.aspirantos.model.Tracking;
 import com.aspirantos.model.WorkExperience;
 
 /**
- * Connects the engine to the database (MASTER_PROMPT PART 6, step 9).
+ * Connects the engine to the database.
  * [EXTRA] Service layer + result cache: the lab used JSP -> DAO directly; this class sits
  * between the JSPs and the DAOs so that the engine stays free of JDBC and results are cached.
  *

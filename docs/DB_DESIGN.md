@@ -24,7 +24,7 @@ ER diagram: [`diagrams/er-diagram.svg`](diagrams/er-diagram.svg) — 26 tables, 
 | `RUN_ALL.sql` | Runs everything in order with the mysql CLI (`SOURCE …`) |
 
 All scripts are **re-runnable**: `CREATE TABLE IF NOT EXISTS`, `CREATE OR REPLACE VIEW`, `DROP … IF EXISTS` before routines/triggers, and seeds use `INSERT … ON DUPLICATE KEY UPDATE` on natural codes (exam `code`, category `code`, state `code`).
-Run them as **root**: with binary logging switched on (the MySQL 8.4 default) only a SUPER user may create stored functions and triggers (decision D23). The procedures run with `SQL SECURITY DEFINER`, so the app user can still `CALL` them.
+Run them as **root**: with binary logging switched on (the MySQL 8.4 default) only a SUPER user may create stored functions and triggers. The procedures run with `SQL SECURITY DEFINER`, so the app user can still `CALL` them.
 
 ## Design principles
 
